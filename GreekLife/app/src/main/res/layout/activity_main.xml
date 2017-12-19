@@ -5,67 +5,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#141A6E"
-    tools:context="fraternityandroid.greeklife.MainActivity">
+    tools:context="fraternityandroid.greeklife.MainActivity"
+    tools:layout_editor_absoluteY="50dp">
 
     <ImageView
         android:id="@+id/Logo"
         android:layout_width="165dp"
         android:layout_height="153dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/Email"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/Logo3Generic" />
+        app:srcCompat="@drawable/logo3generic"
+        tools:layout_editor_absoluteX="98dp"
+        tools:layout_editor_absoluteY="102dp" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="102dp"
         android:layout_height="35dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:background="#141A6E"
         android:onClick="Login"
         android:text="Login"
         android:textColor="#FFDF00"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Password" />
+        tools:layout_editor_absoluteX="129dp"
+        tools:layout_editor_absoluteY="471dp" />
 
     <EditText
         android:id="@+id/Password"
         android:layout_width="218dp"
         android:layout_height="35dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
         android:ems="10"
         android:hint="Password"
-        android:textSize="12dp"
         android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="12sp"
+        tools:layout_editor_absoluteX="71dp"
         tools:layout_editor_absoluteY="400dp" />
 
     <EditText
         android:id="@+id/Email"
         android:layout_width="218dp"
         android:layout_height="35dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
         android:ems="10"
         android:hint="Email or username"
-        android:textSize="12dp"
         android:inputType="textEmailAddress"
         android:singleLine="false"
-        app:layout_constraintBottom_toTopOf="@+id/Password"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textSize="12sp"
+        tools:layout_editor_absoluteX="71dp"
+        tools:layout_editor_absoluteY="357dp" />
 </android.support.constraint.ConstraintLayout>
 

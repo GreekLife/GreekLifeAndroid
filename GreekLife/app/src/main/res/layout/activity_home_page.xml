@@ -13,7 +13,7 @@
         android:layout_width="82dp"
         android:layout_height="82dp"
         android:background="#141A6E"
-        app:srcCompat="@drawable/Calendar"
+        app:srcCompat="@drawable/calendar"
         android:scaleType="fitCenter"
         tools:layout_editor_absoluteX="188dp"
         tools:layout_editor_absoluteY="370dp" />
@@ -24,7 +24,7 @@
         android:layout_height="82dp"
         android:background="#141A6E"
         android:scaleType="fitCenter"
-        app:srcCompat="@drawable/Forum"
+        app:srcCompat="@drawable/forum"
         tools:layout_editor_absoluteX="102dp"
         tools:layout_editor_absoluteY="370dp" />
 
@@ -32,9 +32,9 @@
         android:id="@+id/InstantMessaging"
         android:layout_width="82dp"
         android:layout_height="82dp"
-        app:srcCompat="@drawable/IM"
-        android:scaleType="fitCenter"
         android:background="#141A6E"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/im"
         tools:layout_editor_absoluteX="10dp"
         tools:layout_editor_absoluteY="370dp" />
 
@@ -43,7 +43,7 @@
         android:layout_width="82dp"
         android:layout_height="82dp"
         android:background="#141A6E"
-        app:srcCompat="@drawable/Polls"
+        app:srcCompat="@drawable/polls"
         android:scaleType="fitCenter"
         tools:layout_editor_absoluteX="274dp"
         tools:layout_editor_absoluteY="370dp" />
@@ -53,7 +53,7 @@
         android:layout_width="82dp"
         android:layout_height="82dp"
         android:background="#141A6E"
-        app:srcCompat="@drawable/GoogleDrive"
+        app:srcCompat="@drawable/googledrive"
         android:scaleType="fitCenter"
         tools:layout_editor_absoluteX="188dp"
         tools:layout_editor_absoluteY="456dp" />
@@ -63,7 +63,7 @@
         android:layout_width="82dp"
         android:layout_height="82dp"
         android:background="#141A6E"
-        app:srcCompat="@drawable/Info"
+        app:srcCompat="@drawable/info"
         android:scaleType="fitCenter"
         tools:layout_editor_absoluteX="274dp"
         tools:layout_editor_absoluteY="456dp" />
@@ -73,7 +73,7 @@
         android:layout_width="82dp"
         android:layout_height="82dp"
         android:background="#141A6E"
-        app:srcCompat="@drawable/Members"
+        app:srcCompat="@drawable/members"
         android:scaleType="fitCenter"
         tools:layout_editor_absoluteX="10dp"
         tools:layout_editor_absoluteY="456dp" />
@@ -84,7 +84,7 @@
         android:layout_height="82dp"
         android:background="#141A6E"
         android:scaleType="fitCenter"
-        app:srcCompat="@drawable/Profile"
+        app:srcCompat="@drawable/profile"
         tools:layout_editor_absoluteX="102dp"
         tools:layout_editor_absoluteY="456dp" />
 
@@ -93,7 +93,7 @@
         android:layout_width="108dp"
         android:layout_height="167dp"
         android:scaleType="fitCenter"
-        app:srcCompat="@drawable/Crest"
+        app:srcCompat="@drawable/crest"
         tools:layout_editor_absoluteX="30dp"
         tools:layout_editor_absoluteY="38dp" />
 

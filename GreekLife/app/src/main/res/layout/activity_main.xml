@@ -8,46 +8,105 @@
     tools:context="fraternityandroid.greeklife.MainActivity"
     tools:layout_editor_absoluteY="50dp">
 
-    <ImageView
-        android:id="@+id/Logo"
-        android:layout_width="165dp"
-        android:layout_height="153dp"
-        app:srcCompat="@drawable/logo3generic"
-        tools:layout_editor_absoluteX="98dp"
-        tools:layout_editor_absoluteY="102dp" />
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="102dp"
-        android:layout_height="35dp"
-        android:background="#141A6E"
-        android:onClick="Login"
-        android:text="Login"
-        android:textColor="#FFDF00"
-        tools:layout_editor_absoluteX="129dp"
-        tools:layout_editor_absoluteY="471dp" />
+        <ImageView
+            android:id="@+id/Logo"
+            android:layout_width="170dp"
+            android:layout_height="170dp"
+            android:layout_weight="0.5"
+            app:srcCompat="@drawable/logo3generic"
+            tools:layout_editor_absoluteX="98dp"
+            tools:layout_editor_absoluteY="102dp" />
 
-    <EditText
-        android:id="@+id/Password"
-        android:layout_width="218dp"
-        android:layout_height="35dp"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:textSize="12sp"
-        tools:layout_editor_absoluteX="71dp"
-        tools:layout_editor_absoluteY="400dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/Email"
-        android:layout_width="218dp"
-        android:layout_height="35dp"
-        android:ems="10"
-        android:hint="Email or username"
-        android:inputType="textEmailAddress"
-        android:singleLine="false"
-        android:textSize="12sp"
-        tools:layout_editor_absoluteX="71dp"
-        tools:layout_editor_absoluteY="357dp" />
+            <EditText
+                android:id="@+id/Email"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:ems="10"
+                android:hint="Email or username"
+                android:textColorHint="#ffffff"
+                android:textColor="#ffffff"
+                android:background="#0d0d0d"
+                android:alpha="0.5"
+                android:inputType="textEmailAddress"
+                android:singleLine="false"
+                android:textSize="12sp"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="357dp" />
+
+            <EditText
+                android:id="@+id/Password"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:ems="10"
+                android:textColorHint="#ffffff"
+                android:hint="Password"
+                android:background="#0d0d0d"
+                android:textColor="#ffffff"
+                android:alpha="0.5"
+                android:inputType="textPassword"
+                android:textSize="12sp"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="400dp" />
+        </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
+        android:orientation="vertical">
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#141A6E"
+            android:onClick="Login"
+            android:text="Login"
+            android:textColor="#FFDF00"
+            android:padding="7dp"
+            tools:layout_editor_absoluteX="129dp"
+            tools:layout_editor_absoluteY="471dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/CreateAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#141A6E"
+                android:onClick="Login"
+                android:text="Create Account"
+                android:textColor="#FFDF00"
+                android:padding="7dp" />
+            <Button
+                android:id="@+id/ForgotPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#141A6E"
+                android:onClick="Login"
+                tools:text="Forgot Password"
+                android:textColor="#FFDF00"
+                android:padding="7dp"
+                android:layout_marginLeft="70dp" />
+        </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>
 

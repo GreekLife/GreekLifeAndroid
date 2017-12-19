@@ -1,11 +1,9 @@
 package fraternityandroid.greeklife;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -19,17 +17,14 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.Dictionary;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+
 
 public class MainActivity extends AppCompatActivity {
 
-    private FirebaseAuth mAuth;
     EditText mEmail;
     EditText mPassword;
 
@@ -43,49 +38,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void Login(View view) {
+        System.out.println("Clickedddd!!!");
         Boolean valid = ValidateEntry();
         if(valid) {
-                validateExists(new OnGetDataListener() {
-                    @Override
-                    public void onStart() {}
-                    @Override
-                    public void onSuccess(DataSnapshot data) {
-                        mAuth.signInWithEmailAndPassword(mEmail.getText().toString(), mPassword.getText().toString())
-                                .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<AuthResult> task) {
-                                        if (task.isSuccessful()) {
-                                            // Sign in success, update UI with the signed-in user's information
-                                            FirebaseUser user = mAuth.getCurrentUser();
-                                            Intent goToHomePage = new Intent(MainActivity.this, HomePage.class);
-                                            startActivity(goToHomePage);
-                                        } else {
-                                            Toast.makeText(MainActivity.this, "Authentication failed.",
-                                                    Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
+                validateExists();
+        }
+        else {
+            Toast.makeText(MainActivity.this, "Please enter a username and password.",
+                    Toast.LENGTH_SHORT).show();
 
-                                });
-                        }
-                    @Override
-                    public void onFailed(DatabaseError databaseError) {
-                        AlertDialog.Builder emptyField = new AlertDialog.Builder(MainActivity.this);
-                        emptyField.setMessage("Enter a username and a password");
-                        emptyField.setCancelable(true);
-                        AlertDialog emptyAlert = emptyField.create();
-                        emptyAlert.show();
-                    }
-                });
-            }
+        }
     }
 
     public Boolean ValidateEntry(){
+        System.out.println("Validating!!!");
         return !(mEmail.getText().toString().equals("") || mPassword.getText().toString().equals(""));
     }
 
 
-    public void validateExists(final OnGetDataListener listener) {
-        listener.onStart();
+    public void validateExists() {
+        System.out.println("VAldating!!!");
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("Users");
 
@@ -93,26 +65,53 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 for (DataSnapshot postSnapshot: snapshot.getChildren()) {
-                   // User user = postSnapshot.getValue(User.class);
-                    GenericTypeIndicator<List<User>> genericTypeIndicator = new GenericTypeIndicator<List<User>>(){};
-                    List<User> users =postSnapshot.getValue(genericTypeIndicator);
-                    System.out.println(users);
-                    /*
-                    if(mEmail.getText().toString().equals(users.Username) || mEmail.getText().toString().equals(users.Email) {
-                        listener.onSuccess(snapshot);
+                    Map<String, Object> post = (HashMap<String, Object>) postSnapshot.getValue();
+                    for (Map.Entry<String, Object> entry : post.entrySet()) {
+                        if (mEmail.getText().toString().equals(entry.getValue())) {
+                            System.out.println("found it!!!");
+                            //authenticate();
+                            Intent goToHomePage = new Intent(MainActivity.this, HomePage.class);
+                            startActivity(goToHomePage);
+                            return;
+                        }
                     }
-                     */
+                    System.out.println("Didnt find it!!!");
                 }
-                //listener.onFailed();
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
-                listener.onFailed(error);
+                System.out.println("Errorrrr it!!!");
+
                 //log error
             }
         });
     }
+
+    public void authenticate() {
+        final FirebaseAuth mAuth;
+        mAuth = FirebaseAuth.getInstance();
+        System.out.println("Authenticating"+mAuth);
+        mAuth.signInWithEmailAndPassword(mEmail.getText().toString(), mPassword.getText().toString())
+                .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            System.out.println("Authenticating Succeeded");
+                            //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                            FirebaseUser user = mAuth.getCurrentUser(); //find a way to retain thisf
+                            // SharedPreferences.Editor editor = prefs.edit();
+                            Intent goToHomePage = new Intent(MainActivity.this, HomePage.class);
+                            startActivity(goToHomePage);
+                        } else {
+                            System.out.println("Authenticating FAiled");
+                            Toast.makeText(MainActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                });
+   }
 
 
 }

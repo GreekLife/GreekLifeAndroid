@@ -16,8 +16,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".HomePage" android:parentActivityName=".MainActivity">
-        </activity>
+        <activity
+            android:name=".HomePage"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".InfoActivity"
+            android:parentActivityName=".HomePage" />
+        <activity android:name=".AccountDetailsActivity"
+                  android:parentActivityName=".MainActivity"/>
+        <activity android:name=".ProfileDetailsActivity" />
+        <activity android:name=".ForgotPasswordActivity"
+                  android:parentActivityName=".MainActivity"/>
+        <activity android:name=".MasterControlsActivity"
+                  android:parentActivityName=".HomePage"/>
+        <activity android:name=".MembersActivity"
+                  android:parentActivityName=".HomePage"/>
     </application>
 
 </manifest>

@@ -40,15 +40,15 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
+              "client_id": "673492833051-ujd4girqhupmbujf4acadjdjdjja49jg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
               "client_id": "673492833051-4au1us5f13emir6k5cvr9hhugt2qchg7.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "GL.Greek-Life"
               }
-            },
-            {
-              "client_id": "673492833051-ujd4girqhupmbujf4acadjdjdjja49jg.apps.googleusercontent.com",
-              "client_type": 3
             }
           ]
         },

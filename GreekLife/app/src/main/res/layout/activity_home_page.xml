@@ -8,114 +8,185 @@
     tools:context="fraternityandroid.greeklife.HomePage"
     tools:layout_editor_absoluteY="50dp">
 
-    <ImageButton
-        android:id="@+id/Calendar"
-        android:layout_width="82dp"
-        android:layout_height="82dp"
-        android:background="#141A6E"
-        app:srcCompat="@drawable/calendar"
-        android:scaleType="fitCenter"
-        tools:layout_editor_absoluteX="188dp"
-        tools:layout_editor_absoluteY="370dp" />
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageButton
-        android:id="@+id/Forum"
-        android:layout_width="82dp"
-        android:layout_height="82dp"
-        android:background="#141A6E"
-        android:scaleType="fitCenter"
-        app:srcCompat="@drawable/forum"
-        tools:layout_editor_absoluteX="102dp"
-        tools:layout_editor_absoluteY="370dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1">
 
-    <ImageButton
-        android:id="@+id/InstantMessaging"
-        android:layout_width="82dp"
-        android:layout_height="82dp"
-        android:background="#141A6E"
-        android:scaleType="fitCenter"
-        app:srcCompat="@drawable/im"
-        tools:layout_editor_absoluteX="10dp"
-        tools:layout_editor_absoluteY="370dp" />
+            <ImageView
+                android:id="@+id/Logo"
+                android:layout_width="108dp"
+                android:layout_height="167dp"
+                android:layout_weight="1"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/crest"
+                tools:layout_editor_absoluteX="30dp"
+                tools:layout_editor_absoluteY="38dp" />
 
-    <ImageButton
-        android:id="@+id/Polls"
-        android:layout_width="82dp"
-        android:layout_height="82dp"
-        android:background="#141A6E"
-        app:srcCompat="@drawable/polls"
-        android:scaleType="fitCenter"
-        tools:layout_editor_absoluteX="274dp"
-        tools:layout_editor_absoluteY="370dp" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-    <ImageButton
-        android:id="@+id/GoogleDrive"
-        android:layout_width="82dp"
-        android:layout_height="82dp"
-        android:background="#141A6E"
-        app:srcCompat="@drawable/googledrive"
-        android:scaleType="fitCenter"
-        tools:layout_editor_absoluteX="188dp"
-        tools:layout_editor_absoluteY="456dp" />
+                <TextView
+                    android:id="@+id/Name"
+                    android:layout_width="match_parent"
+                    android:layout_height="62dp"
+                    android:fontFamily="monospace"
+                    android:text="AEPi"
+                    android:textAlignment="center"
+                    android:textSize="50dp"
+                    tools:layout_editor_absoluteX="184dp"
+                    tools:layout_editor_absoluteY="47dp" />
 
-    <ImageButton
-        android:id="@+id/Info"
-        android:layout_width="82dp"
-        android:layout_height="82dp"
-        android:background="#141A6E"
-        app:srcCompat="@drawable/info"
-        android:scaleType="fitCenter"
-        tools:layout_editor_absoluteX="274dp"
-        tools:layout_editor_absoluteY="456dp" />
+                <TextView
+                    android:id="@+id/Chapter"
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp"
+                    android:fontFamily="monospace"
+                    android:text="Gamma Lambda"
+                    android:textAlignment="center"
+                    tools:layout_editor_absoluteX="187dp"
+                    tools:layout_editor_absoluteY="120dp" />
 
-    <ImageButton
-        android:id="@+id/Members"
-        android:layout_width="82dp"
-        android:layout_height="82dp"
-        android:background="#141A6E"
-        app:srcCompat="@drawable/members"
-        android:scaleType="fitCenter"
-        tools:layout_editor_absoluteX="10dp"
-        tools:layout_editor_absoluteY="456dp" />
+                <ImageButton
+                    android:id="@+id/Master"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#AAAAAA"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/master" />
 
-    <ImageButton
-        android:id="@+id/Profile"
-        android:layout_width="82dp"
-        android:layout_height="82dp"
-        android:background="#141A6E"
-        android:scaleType="fitCenter"
-        app:srcCompat="@drawable/profile"
-        tools:layout_editor_absoluteX="102dp"
-        tools:layout_editor_absoluteY="456dp" />
+            </LinearLayout>
+        </LinearLayout>
 
-    <ImageView
-        android:id="@+id/Logo"
-        android:layout_width="108dp"
-        android:layout_height="167dp"
-        android:scaleType="fitCenter"
-        app:srcCompat="@drawable/crest"
-        tools:layout_editor_absoluteX="30dp"
-        tools:layout_editor_absoluteY="38dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/Name"
-        android:layout_width="156dp"
-        android:layout_height="62dp"
-        android:fontFamily="monospace"
-        android:text="AEPi"
-        android:textAlignment="center"
-        android:textSize="50dp"
-        tools:layout_editor_absoluteX="184dp"
-        tools:layout_editor_absoluteY="47dp" />
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
 
-    <TextView
-        android:id="@+id/Chapter"
-        android:layout_width="149dp"
-        android:layout_height="24dp"
-        android:text="Gamma Lambda"
-        android:fontFamily="monospace"
-        android:textAlignment="center"
-        tools:layout_editor_absoluteX="187dp"
-        tools:layout_editor_absoluteY="120dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/InstantMessaging"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:layout_weight="1"
+                    android:background="#141A6E"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/im"
+                    tools:layout_editor_absoluteX="10dp"
+                    tools:layout_editor_absoluteY="370dp" />
+
+                <ImageButton
+                    android:id="@+id/Forum"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:layout_weight="1"
+                    android:background="#141A6E"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/forum"
+                    tools:layout_editor_absoluteX="102dp"
+                    tools:layout_editor_absoluteY="370dp" />
+
+                <ImageButton
+                    android:id="@+id/Calendar"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:layout_weight="1"
+                    android:background="#141A6E"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/calendar"
+                    tools:layout_editor_absoluteX="188dp"
+                    tools:layout_editor_absoluteY="370dp" />
+
+                <ImageButton
+                    android:id="@+id/Polls"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:layout_weight="1"
+                    android:background="#141A6E"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/polls"
+                    tools:layout_editor_absoluteX="274dp"
+                    tools:layout_editor_absoluteY="370dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/Members"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:layout_weight="1"
+                    android:background="#141A6E"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/members"
+                    tools:layout_editor_absoluteX="10dp"
+                    tools:layout_editor_absoluteY="456dp" />
+
+                <ImageButton
+                    android:id="@+id/Profile"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:layout_weight="1"
+                    android:background="#141A6E"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/profile"
+                    tools:layout_editor_absoluteX="102dp"
+                    tools:layout_editor_absoluteY="456dp" />
+
+                <ImageButton
+                    android:id="@+id/GoogleDrive"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:layout_weight="1"
+                    android:background="#141A6E"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/googledrive"
+                    tools:layout_editor_absoluteX="188dp"
+                    tools:layout_editor_absoluteY="456dp" />
+
+                <ImageButton
+                    android:id="@+id/Info"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:layout_weight="1"
+                    android:background="#141A6E"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/info"
+                    tools:layout_editor_absoluteX="274dp"
+                    tools:layout_editor_absoluteY="456dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

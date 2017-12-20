@@ -38,7 +38,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="number" />
+                android:textAlignment="center"
+                android:nextFocusDown="@+id/code2"
+                android:inputType="number" />
 
             <EditText
                 android:id="@+id/code2"
@@ -46,6 +48,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:textAlignment="center"
+                android:nextFocusDown="@+id/code3"
                 android:inputType="number" />
 
             <EditText
@@ -54,6 +58,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:textAlignment="center"
+                android:nextFocusDown="@+id/code4"
                 android:inputType="number" />
 
             <EditText
@@ -62,6 +68,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:textAlignment="center"
                 android:inputType="number" />
 
         </LinearLayout>
@@ -118,6 +125,7 @@
             android:padding="7dp"
             tools:layout_editor_absoluteX="129dp"
             tools:layout_editor_absoluteY="471dp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -134,11 +142,12 @@
                 android:text="Create Account"
                 android:textColor="#FFDF00" />
 
+            <!-- This button isnt showing on the layout and im not sure why-->
+
             <Button
                 android:id="@+id/ForgotPassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="70dp"
                 android:background="#141A6E"
                 android:onClick="ForgotPassword"
                 android:padding="7dp"

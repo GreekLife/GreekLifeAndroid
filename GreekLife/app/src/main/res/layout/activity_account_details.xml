@@ -71,7 +71,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#141A6E"
-            android:textColor="#FFDF00"
-            android:text="Next" />
+            android:onClick="submitDetails"
+            android:text="Next"
+            android:textColor="#FFDF00" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

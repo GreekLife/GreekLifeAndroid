@@ -111,15 +111,6 @@
                 android:hint="Degree" />
 
             <EditText
-                android:id="@+id/Email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:textSize="14sp"
-                android:inputType="textEmailAddress"
-                android:hint="Email" />
-
-            <EditText
                 android:id="@+id/Birthday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -127,6 +118,15 @@
                 android:textSize="14sp"
                 android:inputType="date"
                 android:hint="Birthday" />
+
+            <EditText
+                android:id="@+id/Email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                android:textSize="14sp" />
         </LinearLayout>
 
         <Button
@@ -134,8 +134,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#141A6E"
-            android:textColor="#FFDF00"
-            android:text="Create Account" />
+            android:onClick="SaveAccount"
+            android:text="Create Account"
+            android:textColor="#FFDF00" />
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

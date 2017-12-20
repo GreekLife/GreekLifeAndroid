@@ -1,9 +1,14 @@
 package fraternityandroid.greeklife;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.nfc.Tag;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -27,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
 
     EditText mEmail;
     EditText mPassword;
+    private FirebaseAuth mAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +64,11 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void validateExists() {
-        System.out.println("VAldating!!!");
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("Users");
+        System.out.println("Valdating!!!");
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference ref = database.child("Users");
 
-        myRef.addValueEventListener(new ValueEventListener() {
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 for (DataSnapshot postSnapshot: snapshot.getChildren()) {
@@ -89,7 +96,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void authenticate() {
-        final FirebaseAuth mAuth;
         mAuth = FirebaseAuth.getInstance();
         System.out.println("Authenticating"+mAuth);
         mAuth.signInWithEmailAndPassword(mEmail.getText().toString(), mPassword.getText().toString())
@@ -112,6 +118,63 @@ public class MainActivity extends AppCompatActivity {
 
                 });
    }
+
+
+   public void CreateAccount(View view) {
+       final EditText code1 = findViewById(R.id.code1);
+       final EditText code2 = findViewById(R.id.code2);
+       final EditText code3 = findViewById(R.id.code3);
+       final EditText code4 = findViewById(R.id.code4);
+       if(code1 == null || code2 == null || code3 == null || code4 == null) {
+           code1.requestFocus();
+           return;
+       }
+       else {
+           DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+           DatabaseReference ref = database.child("CreateAccount");
+
+           ref.addListenerForSingleValueEvent(new ValueEventListener() {
+               @Override
+               public void onDataChange(DataSnapshot snapshot) {
+                  Object code = snapshot.getValue(Object.class);
+
+                  String attempt = code1.getText().toString()+code2.getText().toString()+code3.getText().toString()+code4.getText().toString();
+//                  if(attempt.equals(code)) {
+//                      Intent create = new Intent(MainActivity.this, AccountDetailsActivity.class);
+//                      startActivity(create);
+//                  }
+//                  else {
+                   AlertDialog.Builder builder;
+                   if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                       builder = new AlertDialog.Builder(MainActivity.this, android.R.style.Theme_Material_Dialog_Alert);
+                   } else {
+                       builder = new AlertDialog.Builder(MainActivity.this);
+                   }
+                   builder.setTitle("Wrong code")
+                           .setMessage("Thats the wrong code. You can get the correct one from the groups master")
+                           .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                               public void onClick(DialogInterface dialog, int which) {
+                                   // continue with delete
+                               }
+                           })
+                           .setIcon(android.R.drawable.ic_dialog_alert)
+                           .show();
+//                  }
+               }
+
+               @Override
+               public void onCancelled(DatabaseError error) {
+                   System.out.println("Error getting code: " + error);
+               }
+           });
+       }
+
+   }
+
+    public void ForgotPassword(View view) {
+        Intent forgot = new Intent(MainActivity.this, ForgotPasswordActivity.class);
+        startActivity(forgot);
+    }
 
 
 }

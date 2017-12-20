@@ -22,15 +22,20 @@
         <activity
             android:name=".InfoActivity"
             android:parentActivityName=".HomePage" />
-        <activity android:name=".AccountDetailsActivity"
-                  android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".AccountDetailsActivity"
+            android:parentActivityName=".MainActivity" />
         <activity android:name=".ProfileDetailsActivity" />
-        <activity android:name=".ForgotPasswordActivity"
-                  android:parentActivityName=".MainActivity"/>
-        <activity android:name=".MasterControlsActivity"
-                  android:parentActivityName=".HomePage"/>
-        <activity android:name=".MembersActivity"
-                  android:parentActivityName=".HomePage"/>
+        <activity
+            android:name=".ForgotPasswordActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".MasterControlsActivity"
+            android:parentActivityName=".HomePage" />
+        <activity
+            android:name=".MembersActivity"
+            android:parentActivityName=".HomePage" />
+        <activity android:name=".MasterPostToHomeActivity"></activity>
     </application>
 
 </manifest>

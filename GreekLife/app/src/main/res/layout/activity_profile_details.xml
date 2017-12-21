@@ -21,12 +21,15 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/Picture"
                 android:layout_width="300dp"
                 android:layout_height="150dp"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/cast_ic_notification_stop_live_stream" />
+                android:background="#AAAAAA"
+                android:onClick="pickImage"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/profile" />
 
             <LinearLayout
                 android:layout_width="match_parent"

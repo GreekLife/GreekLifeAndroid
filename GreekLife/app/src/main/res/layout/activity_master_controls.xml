@@ -45,6 +45,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#141A6E"
+                    android:textColor="#d20000"
                     android:layout_marginBottom="10dp"
                     android:text="1985" />
 
@@ -71,19 +72,21 @@
                     android:id="@+id/PostHome"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#141A6E"
-                    android:textColor="#FFDF00"
                     android:layout_marginBottom="10dp"
-                    android:text="Post to home page" />
+                    android:background="#141A6E"
+                    android:onClick="PostToHome"
+                    android:text="Post to home page"
+                    android:textColor="#FFDF00" />
 
                 <Button
                     android:id="@+id/Notification"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#141A6E"
-                    android:textColor="#FFDF00"
                     android:layout_marginBottom="10dp"
-                    android:text="Send a Custom Notification" />
+                    android:background="#141A6E"
+                    android:onClick="CustomNotif"
+                    android:text="Send a Custom Notification"
+                    android:textColor="#FFDF00" />
 
                 <Button
                     android:id="@+id/Validate"

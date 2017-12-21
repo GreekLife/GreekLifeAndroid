@@ -59,13 +59,21 @@
                     tools:layout_editor_absoluteX="187dp"
                     tools:layout_editor_absoluteY="120dp" />
 
+                <Button
+                    android:id="@+id/signout"
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:onClick="Signout"
+                    android:text="Sign out"
+                    android:textSize="10sp" />
+
                 <ImageButton
                     android:id="@+id/Master"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_weight="1"
                     android:background="#AAAAAA"
-                    android:onClick="MasterControllsIntent"
+                    android:onClick="MasterControlsIntent"
                     android:scaleType="fitCenter"
                     app:srcCompat="@drawable/master" />
 

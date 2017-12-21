@@ -13,10 +13,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.UUID;
+
 
 public class AccountDetailsActivity extends AppCompatActivity {
 
@@ -57,8 +58,6 @@ public class AccountDetailsActivity extends AppCompatActivity {
                             DatabaseReference myRef = database.getReference("Users/"+id);
                             User emptyUser = new User("",id,"","","",mEmail.getText().toString(),"","","","","","", false);
                             myRef.setValue(emptyUser);
-
-                            FirebaseUser user = mAuth.getCurrentUser();
                             Intent completeAuth = new Intent(AccountDetailsActivity.this, ProfileDetailsActivity.class);
                             completeAuth.putExtra("Id", id);
                             completeAuth.putExtra("Email", mEmail.getText().toString());

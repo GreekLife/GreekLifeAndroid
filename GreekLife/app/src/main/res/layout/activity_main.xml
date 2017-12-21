@@ -115,7 +115,7 @@
         android:layout_weight="0.2"
         android:orientation="vertical">
         <Button
-            android:id="@+id/button"
+            android:id="@+id/Login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#141A6E"

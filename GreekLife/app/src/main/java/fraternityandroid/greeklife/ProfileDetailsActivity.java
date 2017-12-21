@@ -1,38 +1,70 @@
 package fraternityandroid.greeklife;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
+import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
+import java.io.InputStream;
+import java.util.Calendar;
 import java.util.UUID;
 
 public class ProfileDetailsActivity extends AppCompatActivity {
 
     EditText first, last, brother, position, school, grad, birthday, degree, email;
-    private static final String TAG = "ProfileDetailsActivity";
-
-    // ImageView image;
-
+    ImageButton image;
     /*
     WHATS LEFT:
     The position tab needs a picker to select possible options. So does the birthday and grad date.
     Image view needs to select a picture from gallery and store it
      */
+    public static final int PICK_IMAGE = 1;
+    private static final String TAG = "ProfileDetailsActivity";
+    private StorageReference mStorageRef;
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if (requestCode == PICK_IMAGE) {
+            if(data != null)
+            {
+                Bundle extras = data.getExtras();
+                Bitmap imageBitmap = (Bitmap) extras.get("data");
+
+                image.setImageBitmap(imageBitmap);
+
+            };
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_details);
+        mStorageRef = FirebaseStorage.getInstance().getReference();
 
         first = findViewById(R.id.FirstName);
         last = findViewById(R.id.LastName);
@@ -45,7 +77,20 @@ public class ProfileDetailsActivity extends AppCompatActivity {
         email = findViewById(R.id.Email);
         email.setVisibility(View.GONE);
 
-//        image.findViewById(R.id.Picture);
+        image = findViewById(R.id.Picture);
+        image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pickImage();
+            }
+        });
+    }
+
+    public void pickImage() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
     }
 
     public void SaveAccount(View view) {
@@ -59,18 +104,39 @@ public class ProfileDetailsActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
             return;
         }
+
         AccountDetailsActivity details = new AccountDetailsActivity();
         Bundle bundle = getIntent().getExtras();
-        String id = bundle.getString("Id");
-        String mail = bundle.getString("Email");
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("Users/"+id);
-        User emptyUser = new User(brother.getText().toString(),id,birthday.getText().toString(),brother.getText().toString(),degree.getText().toString(),mail,first.getText().toString(),last.getText().toString(),grad.getText().toString(),"",school.getText().toString(),position.getText().toString(), false);
-        myRef.setValue(emptyUser);
-        Log.d(TAG, "Profile created");
+        final String id = bundle.getString("Id");
+        final String mail = bundle.getString("Email");
 
-        Intent login = new Intent(ProfileDetailsActivity.this, MainActivity.class);
-        startActivity(login);
+        Uri file = Uri.fromFile(new File("")); //some path
+        StorageReference riversRef = mStorageRef.child("Images/"+id+".jpg");
+
+        riversRef.putFile(file)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        Uri downloadUrl = taskSnapshot.getDownloadUrl();
+
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        DatabaseReference myRef = database.getReference("Users/"+id);
+                        User emptyUser = new User(brother.getText().toString(),id,birthday.getText().toString(),brother.getText().toString(),degree.getText().toString(),mail,first.getText().toString(),last.getText().toString(),grad.getText().toString(),downloadUrl.toString(),school.getText().toString(),position.getText().toString(), false);
+                        myRef.setValue(emptyUser);
+                        Log.d(TAG, "Profile created");
+
+                        Intent login = new Intent(ProfileDetailsActivity.this, MainActivity.class);
+                        startActivity(login);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        Toast.makeText(ProfileDetailsActivity.this, "Error handling your image. Your account could not be created.",
+                                Toast.LENGTH_SHORT).show();
+                        Log.d(TAG, "Image error: Profile not created.");
+                    }
+                });
 
     }
 }

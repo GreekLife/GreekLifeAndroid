@@ -3,8 +3,10 @@ package fraternityandroid.greeklife;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.nfc.Tag;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +15,7 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     EditText mEmail, mPassword;
     EditText code1, code2, code3, code4;
+    Button login;
     private FirebaseAuth mAuth;
     private static final String TAG = "MainActivity";
 
@@ -57,7 +61,17 @@ public class MainActivity extends AppCompatActivity {
         code2 = findViewById(R.id.code2);
         code3 = findViewById(R.id.code3);
         code4 = findViewById(R.id.code4);
+        login = findViewById(R.id.Login);
 
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String username = prefs.getString("Username", null);
+        String password = prefs.getString("Password", null);
+
+        if(username != null && password != null) {
+            mEmail.setText(username);
+            mPassword.setText(password);
+            login.performClick();
+        }
 
     }
 
@@ -82,17 +96,38 @@ public class MainActivity extends AppCompatActivity {
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
         DatabaseReference ref = database.child("Users");
 
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+        ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 for (DataSnapshot userSnapshot: snapshot.getChildren()) {
                     String email = (String) userSnapshot.child("Email").getValue();
                     String username = (String) userSnapshot.child("Username").getValue();
-                    if (mEmail.getText().toString().equals(email) || mEmail.getText().toString().equals(username)) {
+                    String birthday = (String) userSnapshot.child("Birthday").getValue();
+                    String brother = (String) userSnapshot.child("BrotherName").getValue();
+                    String degree = (String) userSnapshot.child("Degree").getValue();
+                    String first = (String) userSnapshot.child("First Name").getValue();
+                    String last = (String) userSnapshot.child("Last Name").getValue();
+                    String grad = (String) userSnapshot.child("GraduationDate").getValue();
+                    String imageURL = (String) userSnapshot.child("Image").getValue();
+                    String position = (String) userSnapshot.child("Position").getValue();
+                    String school = (String) userSnapshot.child("School").getValue();
+                    String userId = (String) userSnapshot.child("UserID").getValue();
+                    Boolean validated = (Boolean) userSnapshot.child("Validated").getValue();
+                    Globals globals = Globals.getInstance();
+                    if (mEmail.getText().toString().equals(email)) {
                             Log.d(TAG, "User found!");
+                            User user = new User(username, userId, birthday, brother, degree, email, first, last, grad, imageURL, school, position, validated);
+                            globals.setLoggedIn(user);
                             authenticate();
                             return;
                         }
+                    else if(mEmail.getText().toString().equals(username)) {
+                        mEmail.setText(email);
+                        User user = new User(username, userId, birthday, brother, degree, email, first, last, grad, imageURL, school, position, validated);
+                        globals.setLoggedIn(user);
+                        authenticate();
+                        return;
+                    }
                 }
                 Log.d(TAG, "User not found");
                 Toast.makeText(MainActivity.this, "No such user exists.",
@@ -119,14 +154,20 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             System.out.println("Authenticating Succeeded");
                             Log.d(TAG, "Authenticating Succeeded");
-                            //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                            FirebaseUser user = mAuth.getCurrentUser(); //find a way to retain this
-                            // SharedPreferences.Editor editor = prefs.edit();
+                            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            SharedPreferences.Editor editor = prefs.edit();
+                            editor.putString("Username", mEmail.getText().toString());
+                            editor.putString("Password", mPassword.getText().toString());
+                            editor.commit();
+
+
                             Intent goToHomePage = new Intent(MainActivity.this, HomePage.class);
                             startActivity(goToHomePage);
                         } else {
+                            Globals globals = Globals.getInstance();
+                            globals.setLoggedIn(null);
                             Log.d(TAG, "Authenticating Failed");
-
                             Toast.makeText(MainActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }

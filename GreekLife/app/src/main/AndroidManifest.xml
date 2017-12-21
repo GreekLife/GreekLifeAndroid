@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="fraternityandroid.greeklife">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -35,7 +38,8 @@
         <activity
             android:name=".MembersActivity"
             android:parentActivityName=".HomePage" />
-        <activity android:name=".MasterPostToHomeActivity"></activity>
+        <activity android:name=".MasterPostToHomeActivity" />
+        <activity android:name=".ConstitutionViewer"></activity>
     </application>
 
 </manifest>

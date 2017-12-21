@@ -28,11 +28,10 @@
                 android:layout_weight="1"
                 android:background="#141A6E"
                 android:padding="10dp"
-                android:text="TextView"
                 android:textAlignment="center"
                 android:textColor="#FFDF00"
                 android:textSize="20sp"
-                tools:text="AEPi Chapter Details" />
+                android:text="AEPi Chapter Details" />
 
         </LinearLayout>
 
@@ -44,8 +43,9 @@
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="100dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 app:srcCompat="@drawable/logo4" />
 
         </LinearLayout>
@@ -53,6 +53,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -67,16 +68,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="TextView"
-                    tools:text="Chapter Name" />
+                    android:text="Chapter Name" />
 
                 <TextView
                     android:id="@+id/ChapterName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="TextView"
-                    tools:text="Gamma Lambda" />
+                    android:text="Gamma Lambda" />
             </LinearLayout>
 
             <LinearLayout
@@ -90,16 +89,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="TextView"
-                    tools:text="Founding Date" />
+                    android:text="Founding Date" />
 
                 <TextView
                     android:id="@+id/FoundingDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="TextView"
-                    tools:text="October 15th 2017" />
+                    android:text="October 15th 2017" />
             </LinearLayout>
 
             <LinearLayout
@@ -113,16 +110,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="TextView"
-                    tools:text="Active Master" />
+                    android:text="Active Master" />
 
                 <TextView
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="TextView"
-                    tools:text="Bradley Hier" />
+                    android:text="Bradley Hier" />
             </LinearLayout>
 
         </LinearLayout>
@@ -137,8 +132,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#141A6E"
-                android:textColor="#FFDF00"
-                android:text="Constitution" />
+                android:onClick="displayConstitution"
+                android:text="Constitution"
+                android:textColor="#FFDF00" />
 
             <Button
                 android:id="@+id/FoundingFathers"
@@ -147,7 +143,7 @@
                 android:background="#141A6E"
                 android:textColor="#FFDF00"
                 android:layout_marginTop="10dp"
-                android:text="FoundingFathers" />
+                android:text="Founding Fathers" />
 
         </LinearLayout>
 

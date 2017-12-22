@@ -67,16 +67,32 @@ public class MasterControlsActivity extends AppCompatActivity {
     }
 
     public void PostToHome(View view) {
-        Globals globals = Globals.getInstance();
-        globals.setMasterPost(true);
-        Intent info = new Intent(MasterControlsActivity.this, MasterPostToHomeActivity.class);
-        startActivity(info);
+        Intent post = new Intent(MasterControlsActivity.this, MasterPostToHomeActivity.class);
+        post.putExtra("Posting", true);
+        startActivity(post);
     }
 
     public void CustomNotif(View view) {
-        Globals globals = Globals.getInstance();
-        globals.setMasterPost(false);
-        Intent info = new Intent(MasterControlsActivity.this, MasterPostToHomeActivity.class);
-        startActivity(info);
+        Intent notif = new Intent(MasterControlsActivity.this, MasterPostToHomeActivity.class);
+        notif.putExtra("Posting", false);
+        startActivity(notif);
+    }
+
+    public void KickUser(View view) {
+        Intent kick = new Intent(MasterControlsActivity.this, ManageUserActivity.class);
+        kick.putExtra("List", "KICK");
+        startActivity(kick);
+    }
+
+    public void Ban(View view) {
+        Intent Ban = new Intent(MasterControlsActivity.this, ManageUserActivity.class);
+        Ban.putExtra("List", "BAN");
+        startActivity(Ban);
+    }
+
+    public void Verify(View view) {
+        Intent Verify = new Intent(MasterControlsActivity.this, ManageUserActivity.class);
+        Verify.putExtra("List", "VERIFY");
+        startActivity(Verify);
     }
 }

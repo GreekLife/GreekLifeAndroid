@@ -1,5 +1,7 @@
 package fraternityandroid.greeklife;
 
+import java.util.List;
+
 /**
  * Created by jonahelbaz on 2017-12-20.
  */
@@ -9,8 +11,8 @@ public class Globals {
     private static Globals instance;
 
     private User LoggedIn;
+    private List<User> Users;
 
-    private Boolean masterPost;
 
     private Globals() {}
 
@@ -19,8 +21,8 @@ public class Globals {
     }
     public User getLoggedIn() {return LoggedIn; }
 
-    public void setMasterPost(Boolean val){ this.masterPost = val; }
-    public Boolean getMasterPost(){ return masterPost; }
+    public void setUsers(List<User> users){ this.Users = users;}
+    public List<User> getUsers(){ return Users;}
 
 
 

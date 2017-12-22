@@ -72,10 +72,15 @@ public class MainActivity extends AppCompatActivity {
             mPassword.setText(password);
             login.performClick();
         }
+        else {
+            findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+        }
+
 
     }
 
     public void Login(View view) {
+        findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
         Boolean valid = ValidateEntry();
         if(valid) {
                 validateExists();
@@ -132,11 +137,14 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "User not found");
                 Toast.makeText(MainActivity.this, "No such user exists.",
                         Toast.LENGTH_SHORT).show();
+                findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
                 Log.d(TAG, "Error finding user");
+                findViewById(R.id.loadingPanel).setVisibility(View.GONE);
 
 
                 //log error
@@ -160,13 +168,14 @@ public class MainActivity extends AppCompatActivity {
                             editor.putString("Username", mEmail.getText().toString());
                             editor.putString("Password", mPassword.getText().toString());
                             editor.commit();
-
+                            findViewById(R.id.loadingPanel).setVisibility(View.GONE);
 
                             Intent goToHomePage = new Intent(MainActivity.this, HomePage.class);
                             startActivity(goToHomePage);
                         } else {
                             Globals globals = Globals.getInstance();
                             globals.setLoggedIn(null);
+                            findViewById(R.id.loadingPanel).setVisibility(View.GONE);
                             Log.d(TAG, "Authenticating Failed");
                             Toast.makeText(MainActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();

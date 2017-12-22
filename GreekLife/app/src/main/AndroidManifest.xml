@@ -4,7 +4,6 @@
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -20,8 +19,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".HomePage"
-            android:parentActivityName=".MainActivity" />
+            android:name=".HomePage" />
         <activity
             android:name=".InfoActivity"
             android:parentActivityName=".HomePage" />
@@ -39,7 +37,8 @@
             android:name=".MembersActivity"
             android:parentActivityName=".HomePage" />
         <activity android:name=".MasterPostToHomeActivity" />
-        <activity android:name=".ConstitutionViewer"></activity>
+        <activity android:name=".ConstitutionViewer" />
+        <activity android:name=".ManageUserActivity"></activity>
     </application>
 
 </manifest>

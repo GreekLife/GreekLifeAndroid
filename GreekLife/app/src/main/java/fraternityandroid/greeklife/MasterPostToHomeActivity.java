@@ -37,8 +37,8 @@ public class MasterPostToHomeActivity extends AppCompatActivity {
         text = findViewById(R.id.Message);
         value = findViewById(R.id.post);
 
-        Globals globals = Globals.getInstance();
-        Boolean type = globals.getMasterPost();
+        Bundle bundle = getIntent().getExtras();
+        final Boolean type = bundle.getBoolean("Posting");
         if(!type) {
             text.setText("Create a custom notification to be sent out to everyone.");
             value.setText("Send");
@@ -47,8 +47,8 @@ public class MasterPostToHomeActivity extends AppCompatActivity {
     }
 
     public void postToHome(View view) {
-        Globals globals = Globals.getInstance();
-        Boolean type = globals.getMasterPost();
+        Bundle bundle = getIntent().getExtras();
+        final Boolean type = bundle.getBoolean("Posting");
 
         if(type) {
             String id = UUID.randomUUID().toString();

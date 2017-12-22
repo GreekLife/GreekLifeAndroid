@@ -61,6 +61,7 @@ public class AccountDetailsActivity extends AppCompatActivity {
                             Intent completeAuth = new Intent(AccountDetailsActivity.this, ProfileDetailsActivity.class);
                             completeAuth.putExtra("Id", id);
                             completeAuth.putExtra("Email", mEmail.getText().toString());
+                            completeAuth.putExtra("Type", "CREATE");
                             startActivity(completeAuth);
                         } else {
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());

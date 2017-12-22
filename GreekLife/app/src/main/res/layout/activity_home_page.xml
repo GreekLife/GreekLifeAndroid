@@ -19,83 +19,89 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_weight="1">
-
-            <ImageView
-                android:id="@+id/Logo"
-                android:layout_width="108dp"
-                android:layout_height="167dp"
-                android:layout_weight="1"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/crest"
-                tools:layout_editor_absoluteX="30dp"
-                tools:layout_editor_absoluteY="38dp" />
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/Name"
-                    android:layout_width="match_parent"
-                    android:layout_height="62dp"
-                    android:fontFamily="monospace"
-                    android:text="AEPi"
-                    android:textAlignment="center"
-                    android:textSize="50dp"
-                    tools:layout_editor_absoluteX="184dp"
-                    tools:layout_editor_absoluteY="47dp" />
-
-                <TextView
-                    android:id="@+id/Chapter"
-                    android:layout_width="match_parent"
-                    android:layout_height="24dp"
-                    android:fontFamily="monospace"
-                    android:text="Gamma Lambda"
-                    android:textAlignment="center"
-                    tools:layout_editor_absoluteX="187dp"
-                    tools:layout_editor_absoluteY="120dp" />
-
-                <Button
-                    android:id="@+id/signout"
-                    android:layout_width="match_parent"
-                    android:layout_height="32dp"
-                    android:onClick="Signout"
-                    android:text="Sign out"
-                    android:textSize="10sp" />
-
-                <ImageButton
-                    android:id="@+id/Master"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                <ImageView
+                    android:id="@+id/Logo"
+                    android:layout_width="108dp"
+                    android:layout_height="167dp"
                     android:layout_weight="1"
-                    android:background="#AAAAAA"
-                    android:onClick="MasterControlsIntent"
                     android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/master" />
+                    app:srcCompat="@drawable/crest"
+                    tools:layout_editor_absoluteX="30dp"
+                    tools:layout_editor_absoluteY="38dp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/Name"
+                        android:layout_width="match_parent"
+                        android:layout_height="62dp"
+                        android:fontFamily="monospace"
+                        android:text="AEPi"
+                        android:textAlignment="center"
+                        android:textSize="50dp"
+                        tools:layout_editor_absoluteX="184dp"
+                        tools:layout_editor_absoluteY="47dp" />
+
+                    <TextView
+                        android:id="@+id/Chapter"
+                        android:layout_width="match_parent"
+                        android:layout_height="24dp"
+                        android:fontFamily="monospace"
+                        android:text="Gamma Lambda"
+                        android:textAlignment="center"
+                        tools:layout_editor_absoluteX="187dp"
+                        tools:layout_editor_absoluteY="120dp" />
+
+                    <Button
+                        android:id="@+id/signout"
+                        android:layout_width="match_parent"
+                        android:layout_height="32dp"
+                        android:onClick="Signout"
+                        android:text="Sign out"
+                        android:textSize="10sp" />
+
+                    <ImageButton
+                        android:id="@+id/Master"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:background="#AAAAAA"
+                        android:onClick="MasterControlsIntent"
+                        android:scaleType="fitCenter"
+                        app:srcCompat="@drawable/master" />
+
+                </LinearLayout>
 
             </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
 
             <ListView
-                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/List"
+                android:textAlignment="center"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
 
         </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -206,6 +212,7 @@
                     tools:layout_editor_absoluteX="274dp"
                     tools:layout_editor_absoluteY="456dp" />
             </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>

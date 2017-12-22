@@ -27,6 +27,8 @@ public class MasterPostToHomeActivity extends AppCompatActivity {
 
     /*
     TODO: limit size of text box so the button doesnt get pushed off the page
+
+    TODO: Epoch is wrong????
      */
 
     @Override

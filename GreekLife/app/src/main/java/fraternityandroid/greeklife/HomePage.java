@@ -58,7 +58,8 @@ public class HomePage extends AppCompatActivity {
 
     List<User> users = new ArrayList<User>();
     ListView mListView;
-    List<String> mNews;
+    List<String> mNews = new ArrayList<String>();
+    List<String> mNewsIds = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,12 +76,7 @@ public class HomePage extends AppCompatActivity {
             masterIcon.setVisibility(View.GONE);
         }
 
-        List<String> list = new ArrayList<String>(Arrays.asList("111,222,333,444,555,666".split(",")));
-        mListView.setAdapter(new NewsCellAdapter(mNews, HomePage.this) );
-
-        //https://stackoverflow.com/questions/40862154/how-to-create-listview-items-button-in-each-row
-
-        //getNews();
+        getNews();
         GetUsers();
         IsBlocked();
 
@@ -99,15 +95,55 @@ public class HomePage extends AppCompatActivity {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
+                mNewsIds.clear();
+                mNews.clear();
                 for (DataSnapshot userSnapshot : snapshot.getChildren()) {
                     String post = (String) userSnapshot.child("Post").getValue();
+                    String id = (String) userSnapshot.child("PostId").getValue();
+                    mNewsIds.add(id);
                     mNews.add(post);
                 }
-                mListView = (ListView) findViewById(R.id.List);
+                mListView = findViewById(R.id.List);
 
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(HomePage.this,  android.R.layout.simple_list_item_1, android.R.id.text1, mNews);
 
                 mListView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+                Globals globals = Globals.getInstance();
+                String user = globals.getLoggedIn().Username;
+
+                if(user.equals("Master")) {
+                    mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                            AlertDialog.Builder builder;
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                builder = new AlertDialog.Builder(HomePage.this, android.R.style.Theme_Material_Dialog_Alert);
+                            } else {
+                                builder = new AlertDialog.Builder(HomePage.this);
+                            }
+                            builder.setTitle("Delete")
+                                    .setMessage("Would you like to delete this post?")
+                                    .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            String id = mNewsIds.get(position);
+                                            FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                            DatabaseReference myRef = database.getReference("News/"+id);
+                                            myRef.removeValue();
+                                        }
+                                    })
+                                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                }
+                                            })
+                                    .setIcon(android.R.drawable.ic_dialog_alert)
+                                    .show();
+                        }
+                    });
+                }
 
                 Log.d(TAG, "News retrieved");
             }
@@ -241,6 +277,7 @@ public class HomePage extends AppCompatActivity {
     }
     public void ProfileIntent(View view) {
         Intent profile = new Intent(HomePage.this, ProfileDetailsActivity.class);
+        profile.putExtra("Type", "UPDATE");
         startActivity(profile);
     }
     public void GoogleIntent(View view) {

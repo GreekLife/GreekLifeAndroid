@@ -18,8 +18,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,6 +36,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,8 +57,8 @@ public class HomePage extends AppCompatActivity {
     private static final String TAG = "HomePage";
 
     List<User> users = new ArrayList<User>();
-
-
+    ListView mListView;
+    List<String> mNews;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,8 +74,13 @@ public class HomePage extends AppCompatActivity {
         if(!user.equals("Master")) {
             masterIcon.setVisibility(View.GONE);
         }
-       // Globals globals = Globals.getInstance();
 
+        List<String> list = new ArrayList<String>(Arrays.asList("111,222,333,444,555,666".split(",")));
+        mListView.setAdapter(new NewsCellAdapter(mNews, HomePage.this) );
+
+        //https://stackoverflow.com/questions/40862154/how-to-create-listview-items-button-in-each-row
+
+        //getNews();
         GetUsers();
         IsBlocked();
 
@@ -81,6 +90,35 @@ public class HomePage extends AppCompatActivity {
     public void onBackPressed() {
         //do nothing
     }
+
+    public void getNews() {
+
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference ref = database.child("News");
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                for (DataSnapshot userSnapshot : snapshot.getChildren()) {
+                    String post = (String) userSnapshot.child("Post").getValue();
+                    mNews.add(post);
+                }
+                mListView = (ListView) findViewById(R.id.List);
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(HomePage.this,  android.R.layout.simple_list_item_1, android.R.id.text1, mNews);
+
+                mListView.setAdapter(adapter);
+
+                Log.d(TAG, "News retrieved");
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                Log.d(TAG, "Error retrieving news");
+            }
+        });
+    }
+
 
     public void IsBlocked() {
         Globals globals = Globals.getInstance();

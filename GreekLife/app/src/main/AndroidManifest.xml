@@ -11,34 +11,59 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".HomePage" />
+        <activity android:name=".HomePage"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".InfoActivity"
+            android:screenOrientation="portrait"
             android:parentActivityName=".HomePage" />
+
         <activity
             android:name=".AccountDetailsActivity"
+            android:screenOrientation="portrait"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".ProfileDetailsActivity" />
+
+        <activity android:name=".ProfileDetailsActivity"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".ForgotPasswordActivity"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".MasterControlsActivity"
-            android:parentActivityName=".HomePage" />
+            android:parentActivityName=".HomePage"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".MembersActivity"
-            android:parentActivityName=".HomePage" />
-        <activity android:name=".MasterPostToHomeActivity" />
-        <activity android:name=".ConstitutionViewer" />
-        <activity android:name=".ManageUserActivity" />
-        <activity android:name=".ViewProfileActivity"></activity>
+            android:parentActivityName=".HomePage"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".MasterPostToHomeActivity"
+            android:parentActivityName=".MasterControlsActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".ConstitutionViewer"
+            android:parentActivityName=".InfoActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".ManageUserActivity"
+            android:parentActivityName=".MasterControlsActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".ViewProfileActivity"
+            android:parentActivityName=".MembersActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

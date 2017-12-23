@@ -18,8 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".HomePage" />
+        <activity android:name=".HomePage" />
         <activity
             android:name=".InfoActivity"
             android:parentActivityName=".HomePage" />
@@ -38,7 +37,8 @@
             android:parentActivityName=".HomePage" />
         <activity android:name=".MasterPostToHomeActivity" />
         <activity android:name=".ConstitutionViewer" />
-        <activity android:name=".ManageUserActivity"></activity>
+        <activity android:name=".ManageUserActivity" />
+        <activity android:name=".ViewProfileActivity"></activity>
     </application>
 
 </manifest>

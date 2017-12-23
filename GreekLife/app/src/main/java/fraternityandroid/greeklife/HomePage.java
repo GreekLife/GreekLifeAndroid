@@ -46,11 +46,6 @@ public class HomePage extends AppCompatActivity {
 
     /*
     TODO: Super weird, everytime a user value updates, we get redirected back to the home page???
-
-    Ban:
-    TODO: Make ban run no matter what page youre on.
-    TODO: Ban phrase to large for dialog
-    TODO: Timer not functional
      */
 
     private FirebaseAuth mAuth;
@@ -78,8 +73,7 @@ public class HomePage extends AppCompatActivity {
 
         getNews();
         GetUsers();
-        IsBlocked();
-
+        TemporaryBan.IsBlocked(HomePage.this);
     }
 
     @Override
@@ -151,65 +145,6 @@ public class HomePage extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError error) {
                 Log.d(TAG, "Error retrieving news");
-            }
-        });
-    }
-
-
-    public void IsBlocked() {
-        Globals globals = Globals.getInstance();
-        String id = globals.getLoggedIn().UserID;
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-       final  DatabaseReference ref = database.child("Blocked/"+id);
-
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-
-                if (((Boolean)snapshot.child("Blocked").getValue())) {
-                    getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    long delay = (long) snapshot.child("Delay").getValue();
-                     AlertDialog.Builder builder;
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        builder = new AlertDialog.Builder(HomePage.this, android.R.style.Theme_Material_Dialog_Alert);
-                    } else {
-                        builder = new AlertDialog.Builder(HomePage.this);
-                    }
-                    final AlertDialog alert = builder.create();
-                    builder.setTitle("Get Wrecked")
-                            .setTitle("Your Master has temporarily disabled your access. It will return in " + delay + " minutes")
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
-
-                    long time = delay * 60;
-                    new CountDownTimer(5000, time) {
-
-                        @Override
-                        public void onTick(long millisUntilFinished) {
-                        }
-
-                        @Override
-                        public void onFinish() {
-                            alert.dismiss();
-                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                            Map<String, Object> ban = new HashMap<String, Object>();
-                            ban.put("Blocked", false);
-                            ban.put("Delay", 0);
-                            ref.setValue(ban);
-                        }
-                    }.start();
-                    Log.d(TAG, "Users retrieved");
-
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                Log.d(TAG, "Error retrieving users");
-
-
-                //log error
             }
         });
     }

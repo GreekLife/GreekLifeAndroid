@@ -1,12 +1,8 @@
 package fraternityandroid.greeklife;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -14,11 +10,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -28,17 +21,20 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
-import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.Calendar;
-import java.util.UUID;
+
 
 public class ProfileDetailsActivity extends AppCompatActivity {
 
     EditText first, last, brother, position, school, grad, birthday, degree, email;
     ImageButton image;
     Button button;
+    private StorageReference mStorage;
+    Uri uri;
+
     /*
     WHATS LEFT:
     The position tab needs a picker to select possible options. So does the birthday and grad date.
@@ -48,23 +44,28 @@ public class ProfileDetailsActivity extends AppCompatActivity {
     private static final String TAG = "ProfileDetailsActivity";
     private StorageReference mStorageRef;
 
+    //http://square.github.io/picasso/
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         if (requestCode == PICK_IMAGE) {
-            if(data != null)
-            {
-                Bundle extras = data.getExtras();
-                Bitmap imageBitmap = (Bitmap) extras.get("data");
-
-                image.setImageBitmap(imageBitmap);
-
-            };
+            try {
+                uri = data.getData();
+                final InputStream imageStream = getContentResolver().openInputStream(uri);
+                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                image.setImageBitmap(selectedImage);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                Toast.makeText(ProfileDetailsActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
+            }
         }
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //TemporaryBan.IsBlocked(ProfileDetailsActivity.this);
+
         setContentView(R.layout.activity_profile_details);
         mStorageRef = FirebaseStorage.getInstance().getReference();
         button = findViewById(R.id.SaveAccount);
@@ -79,7 +80,12 @@ public class ProfileDetailsActivity extends AppCompatActivity {
         email = findViewById(R.id.Email);
         email.setVisibility(View.GONE);
 
+        Globals globals = Globals.getInstance();
+        User user = globals.getLoggedIn();
+
         image = findViewById(R.id.Picture);
+        Picasso.with(ProfileDetailsActivity.this).load(user.Image).into(image);
+
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,8 +96,6 @@ public class ProfileDetailsActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         final String type = bundle.getString("Type");
         if(type.equals("UPDATE")) {
-            Globals globals = Globals.getInstance();
-            User user = globals.getLoggedIn();
 
             first.setText(user.First_Name);
             last.setText(user.Last_Name);
@@ -126,12 +130,12 @@ public class ProfileDetailsActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
             return;
         }
-        if(!user.Username.equals("Master")) {
-            if (first.getText().toString().equals("Master") || last.getText().toString().equals("Master") || brother.getText().toString().equals("") || position.getText().toString().equals("Master")) {
-                Toast.makeText(ProfileDetailsActivity.this, "Your name cannot be Master",
-                        Toast.LENGTH_SHORT).show();
-                return;
-            }
+        if (user == null || !user.Username.equals("Master")) {
+                if (first.getText().toString().equals("Master") || last.getText().toString().equals("Master") || brother.getText().toString().equals("") || position.getText().toString().equals("Master")) {
+                    Toast.makeText(ProfileDetailsActivity.this, "Your name cannot be Master",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
         }
 
         AccountDetailsActivity details = new AccountDetailsActivity();
@@ -148,19 +152,18 @@ public class ProfileDetailsActivity extends AppCompatActivity {
             wId = user.UserID;
             wTitle = wId;
             wMail = user.Email;
+            if(user.Username.equals("Master")) {
+                wTitle = "Master";
+            }
         }
 
-        if(user.Username.equals("Master")) {
-            wTitle = "Master";
-        }
         final String id = wId;
         final String title = wTitle;
         final String mail = wMail;
 
-            Uri file = Uri.fromFile(new File("")); //some path
-            StorageReference riversRef = mStorageRef.child("Images/" + id + ".jpg");
+            StorageReference filepath = mStorageRef.child("ProfilePictures/" + id + ".jpg");
 
-            riversRef.putFile(file)
+        filepath.putFile(uri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {

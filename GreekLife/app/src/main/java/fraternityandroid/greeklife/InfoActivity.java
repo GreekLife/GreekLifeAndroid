@@ -3,6 +3,7 @@ package fraternityandroid.greeklife;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Paint;
+import android.icu.text.IDNA;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,6 +30,8 @@ public class InfoActivity extends AppCompatActivity {
 
         Button foundingfathers = (Button) findViewById(R.id.FoundingFathers);
         foundingfathers.setPaintFlags(foundingfathers.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
+        TemporaryBan.IsBlocked(InfoActivity.this);
 
     }
     public void displayConstitution(View view) {

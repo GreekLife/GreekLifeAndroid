@@ -18,7 +18,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.UUID;
 
-
 public class AccountDetailsActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;

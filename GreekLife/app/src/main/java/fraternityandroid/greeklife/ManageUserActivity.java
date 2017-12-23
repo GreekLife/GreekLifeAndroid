@@ -2,6 +2,7 @@ package fraternityandroid.greeklife;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -39,6 +40,7 @@ public class ManageUserActivity extends AppCompatActivity {
         Globals globals = Globals.getInstance();
         mUsers = globals.getUsers();
         List<String> names = new ArrayList<String>();
+        final List<String> ids = new ArrayList<>();
         Bundle bundle = getIntent().getExtras();
         final String type = bundle.getString("List");
         if(type.equals("KICK") || type.equals("BAN")) {
@@ -50,6 +52,7 @@ public class ManageUserActivity extends AppCompatActivity {
             for (User user : mUsers) {
                 if(user.Validated == false) {
                     names.add(user.First_Name + " " + user.Last_Name);
+                    ids.add(user.UserID);
                 }
             }
         }
@@ -141,7 +144,9 @@ public class ManageUserActivity extends AppCompatActivity {
                 }
 
                 if(type.equals("VERIFY")) {
-                    //GO TO USERS PROFILE
+                    Intent member = new Intent(ManageUserActivity.this, ViewProfileActivity.class);
+                    member.putExtra("id", ids.get(position));
+                    startActivity(member);
 
                 }
 

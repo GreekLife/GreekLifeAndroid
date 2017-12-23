@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#AAAAAA"
     tools:context="fraternityandroid.greeklife.MembersActivity">
 
     <LinearLayout
@@ -21,15 +22,21 @@
             android:layout_height="wrap_content"
             android:background="#141A6E"
             android:padding="10dp"
-            android:text="TextView"
+            android:text="Members"
             android:textAlignment="center"
             android:textColor="#FFDF00"
-            android:textSize="20sp"
-            tools:text="Members" />
+            android:textSize="20sp" />
 
         <GridView
+            android:id="@+id/MemberGrid"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:columnWidth="120dp"
+            android:numColumns="auto_fit"
+            android:verticalSpacing="25dp"
+            android:horizontalSpacing="10dp"
+            android:stretchMode="spacingWidthUniform"/>
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

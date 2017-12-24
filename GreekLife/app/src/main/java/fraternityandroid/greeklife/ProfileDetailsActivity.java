@@ -1,5 +1,8 @@
 package fraternityandroid.greeklife;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,14 +11,21 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -25,6 +35,10 @@ import com.squareup.picasso.Picasso;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 
 public class ProfileDetailsActivity extends AppCompatActivity {
@@ -35,11 +49,14 @@ public class ProfileDetailsActivity extends AppCompatActivity {
     private StorageReference mStorage;
     Uri uri;
 
-    /*
-    WHATS LEFT:
-    The position tab needs a picker to select possible options. So does the birthday and grad date.
-    Image view needs to select a picture from gallery and store it
-     */
+    String firstEmail = "";
+
+    String text = "";
+
+    final Calendar myCalendar = Calendar.getInstance();
+
+    final String[] mPositions = {"Brother", "Alumni", "Pledge", "LT Master", "Scribe", "Exchequer", "Pledge Master", "Rush Chair"};
+
     public static final int PICK_IMAGE = 1;
     private static final String TAG = "ProfileDetailsActivity";
     private StorageReference mStorageRef;
@@ -61,6 +78,17 @@ public class ProfileDetailsActivity extends AppCompatActivity {
             }
         }
     }
+
+    private void updateLabel() {
+        DateFormat sdf = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.US);
+        if(text.equals("GRAD")) {
+            grad.setText(sdf.format(myCalendar.getTime()));
+        }
+        if(text.equals("BDAY")) {
+            birthday.setText(sdf.format(myCalendar.getTime()));
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +107,61 @@ public class ProfileDetailsActivity extends AppCompatActivity {
         degree = findViewById(R.id.Degree);
         email = findViewById(R.id.Email);
         email.setVisibility(View.GONE);
+
+
+       final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                // TODO Auto-generated method stub
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel();
+            }
+
+        };
+
+        grad.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                text = "GRAD";
+                new DatePickerDialog(ProfileDetailsActivity.this, date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
+        birthday.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                text = "BDAY";
+                new DatePickerDialog(ProfileDetailsActivity.this, date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
+        position.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(ProfileDetailsActivity.this);
+                builder.setTitle("Position")
+                .setItems(mPositions, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        position.setText(mPositions[which]);
+                    }
+                });
+
+                AlertDialog alert = builder.create();
+
+                alert.show();
+            }
+        });
 
         Globals globals = Globals.getInstance();
         User user = globals.getLoggedIn();
@@ -107,6 +190,7 @@ public class ProfileDetailsActivity extends AppCompatActivity {
             degree.setText(user.Degere);
             email.setText(user.Email);
             email.setVisibility(View.VISIBLE);
+            firstEmail = email.getText().toString();
 
             button.setText("Save");
 
@@ -142,6 +226,22 @@ public class ProfileDetailsActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         String type = bundle.getString("Type");
         String wId, wMail, wTitle;
+
+        if(type.equals("UPDATE")) {
+            if(!firstEmail.equals(email.getText().toString())) {
+                FirebaseUser update = FirebaseAuth.getInstance().getCurrentUser();
+
+                update.updateEmail(email.getText().toString())
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Log.d(TAG, "User email address updated.");
+                                }
+                            }
+                        });
+            }
+        }
 
         if (type.equals("CREATE")) {
             wId = bundle.getString("Id");

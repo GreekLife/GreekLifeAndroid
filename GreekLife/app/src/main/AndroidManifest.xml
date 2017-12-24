@@ -3,6 +3,8 @@
     package="fraternityandroid.greeklife">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
@@ -11,59 +13,104 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" android:screenOrientation="portrait">
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".HomePage"
-            android:screenOrientation="portrait"/>
-
+        <activity
+            android:name=".HomePage"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".InfoActivity"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".HomePage" />
-
+            android:parentActivityName=".HomePage"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".AccountDetailsActivity"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".MainActivity" />
-
-        <activity android:name=".ProfileDetailsActivity"
+            android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
-
+        <activity
+            android:name=".ProfileDetailsActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ForgotPasswordActivity"
             android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait"/>
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MasterControlsActivity"
             android:parentActivityName=".HomePage"
-            android:screenOrientation="portrait"/>
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MembersActivity"
             android:parentActivityName=".HomePage"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name=".MasterPostToHomeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MasterPostToHomeActivity"
             android:parentActivityName=".MasterControlsActivity"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name=".ConstitutionViewer"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ConstitutionViewer"
             android:parentActivityName=".InfoActivity"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name=".ManageUserActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ManageUserActivity"
             android:parentActivityName=".MasterControlsActivity"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name=".ViewProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ViewProfileActivity"
             android:parentActivityName=".MembersActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+        <activity android:name=".BETAActivity" />
+
+        <!-- <application> -->
+        <!-- GCM Receiver -->
+        <receiver
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
+                <category android:name="gcm.play.android.samples.com.gcmquickstart" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Pusher's GCM listeners and services -->
+        <receiver
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
+                <category android:name="gcm.play.android.samples.com.gcmquickstart" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.pusher.android.notifications.gcm.PusherGCMListenerService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="com.pusher.android.notifications.gcm.GCMInstanceIDListenerService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstanceID" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="com.pusher.android.notifications.gcm.GCMRegistrationIntentService"
+            android:exported="false" />
+
+        <activity android:name=".ForumActivity" />
+        <activity android:name=".CreateForumActivity"></activity>
     </application>
 
 </manifest>

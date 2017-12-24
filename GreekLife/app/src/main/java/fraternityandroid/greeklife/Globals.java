@@ -10,8 +10,15 @@ public class Globals {
 
     private static Globals instance;
 
+    enum PostOrder {
+        NEWEST, OLDEST, WEEK, MONTH
+    }
+
     private User LoggedIn;
     private List<User> Users;
+    private List<Forum> mPosts;
+    private Boolean mDeletePosts = false;
+    private PostOrder value = PostOrder.NEWEST;
 
 
     private Globals() {}
@@ -23,6 +30,15 @@ public class Globals {
 
     public void setUsers(List<User> users){ this.Users = users;}
     public List<User> getUsers(){ return Users;}
+
+    public void setPosts(List<Forum> posts){ mPosts = posts;}
+    public List<Forum> getPosts(){return mPosts;}
+
+    public void setDelete(Boolean deletePosts){ mDeletePosts = deletePosts;}
+    public Boolean getDelete(){return mDeletePosts;}
+
+    public void setPostOrder(PostOrder val){this.value = val;}
+    public PostOrder getPostOrder(){return value;}
 
 
 

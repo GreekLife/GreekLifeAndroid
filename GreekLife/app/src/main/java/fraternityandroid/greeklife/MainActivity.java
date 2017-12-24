@@ -20,6 +20,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -30,29 +32,75 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.pusher.android.PusherAndroid;
+import com.pusher.android.PusherAndroidOptions;
+import com.pusher.android.notifications.ManifestValidator;
+import com.pusher.android.notifications.PushNotificationRegistration;
+import com.pusher.android.notifications.tokens.PushNotificationRegistrationListener;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+    private static final String Tag = "yourtag";
     EditText mEmail, mPassword;
     EditText code1, code2, code3, code4;
     Button login;
     private FirebaseAuth mAuth;
     private static final String TAG = "MainActivity";
+    List<Forum> mForumPosts = new ArrayList<Forum>();
+
 
     /*
         WHATS LEFT:
         The number boxes should only hold one or two vals and ideally shift after entered.
         Forgot password is not showing
      */
+    PushNotificationRegistrationListener listener = new PushNotificationRegistrationListener() {
+        @Override
+        public void onSuccessfulRegistration() {
+            System.out.println("REGISTRATION SUCCESSFUL!!! YEEEEEHAWWWWW!");
+
+        }
+
+        @Override
+        public void onFailedRegistration(int statusCode, String response) {
+            System.out.println(
+                    "A real sad day. Registration failed with code " + statusCode +
+                            " " + response
+            );
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        getForumPosts();
+
+        if (playServicesAvailable()) {
+            PusherAndroid pusher = new PusherAndroid("AIzaSyDoOWPGkVYOx0dUZu8USGJGW00FAAyMwCk");
+            PushNotificationRegistration nativePusher = pusher.nativePusher();
+
+            // pulled from your google-services.json
+            String defaultSenderId = getString(R.string.gcm_defaultSenderId);
+            try {
+                nativePusher.registerGCM(this, defaultSenderId);
+            } catch (ManifestValidator.InvalidManifestException e) {
+                e.printStackTrace();
+            }
+
+            // Ready to subscribe to topics!
+            nativePusher.subscribe("kittens");
+        }
+
 
         mEmail = findViewById(R.id.Email);
         mPassword = findViewById(R.id.Password);
@@ -237,6 +285,69 @@ public class MainActivity extends AppCompatActivity {
         startActivity(forgot);
 
     }
+
+
+
+    private boolean playServicesAvailable() {
+        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
+        int resultCode = apiAvailability.isGooglePlayServicesAvailable(MainActivity.this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (apiAvailability.isUserResolvableError(resultCode)) {
+                apiAvailability.getErrorDialog(this, resultCode, PLAY_SERVICES_RESOLUTION_REQUEST)
+                        .show();
+            } else {
+                finish();
+            }
+            return false;
+        }
+        return true;
+    }
+
+    public void getForumPosts() {
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference ref = database.child("Forum");
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                Globals globals = Globals.getInstance();
+                List<Forum> posts = new ArrayList<>();
+                for (DataSnapshot userSnapshot : snapshot.getChildren()) {
+                    if(!((String) userSnapshot.getKey()).equals("ForumIds")) {
+                        String post = (String) userSnapshot.child("Post").getValue();
+                        double epoch = (double) userSnapshot.child("Epoch").getValue();
+                        String postId = (String) userSnapshot.child("PostId").getValue();
+                        String postTitle = (String) userSnapshot.child("PostTitle").getValue();
+                        String poster = (String) userSnapshot.child("Poster").getValue();
+                        String posterId = (String) userSnapshot.child("PosterId").getValue();
+                        Map<String, Object> comments = (Map<String, Object>) userSnapshot.child("Comments").getValue();
+                        long numberOfComments;
+                        if(comments == null) {
+                            numberOfComments = 0;
+                        }
+                        else {
+                            numberOfComments = comments.size();
+                        }
+                        Forum newPost = new Forum(numberOfComments, epoch, post, postId, postTitle, poster, posterId);
+                        posts.add(newPost);
+                    }
+
+                }
+                Collections.reverse(posts);
+                globals.setPosts(posts);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                Log.d(TAG, "Error loading posts");
+                findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+
+            }
+
+        });
+    }
+
+
 
 
 }

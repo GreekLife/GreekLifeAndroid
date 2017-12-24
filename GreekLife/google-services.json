@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "673492833051",
+    "firebase_url": "https://greek-life-ios.firebaseio.com",
+    "project_id": "greek-life-ios",
+    "storage_bucket": "greek-life-ios.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:673492833051:android:af3a512833d4c3a6",
+        "android_client_info": {
+          "package_name": "fraternityandroid.greeklife"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "673492833051-l35q3n85ub7p88cqjsvvns731v4rvkor.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fraternityandroid.greeklife",
+            "certificate_hash": "159abc31d85f6559167dee0e499dbb60f0d60e76"
+          }
+        },
+        {
+          "client_id": "673492833051-ujd4girqhupmbujf4acadjdjdjja49jg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCY9WxI__2rNlEwMaGPvXTIXsBS6Z469zw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "673492833051-4au1us5f13emir6k5cvr9hhugt2qchg7.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "GL.Greek-Life"
+              }
+            },
+            {
+              "client_id": "673492833051-ujd4girqhupmbujf4acadjdjdjja49jg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

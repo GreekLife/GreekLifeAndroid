@@ -189,13 +189,18 @@ public class HomePage extends AppCompatActivity {
         });
     }
 
+    public void BETA(View view) {
+         Intent beta = new Intent(HomePage.this, BETAActivity.class);
+         startActivity(beta);
+    }
+
     public void ImIntent(View view) {
        // Intent messaging = new Intent(HomePage.this, MessagingActivity.class);
         //startActivity(messaging);
     }
     public void ForumIntent(View view) {
-       // Intent forum = new Intent(HomePage.this, ForumActivity.class);
-        //startActivity(forum);
+        Intent forum = new Intent(HomePage.this, ForumActivity.class);
+        startActivity(forum);
 
     }
     public void CalendarIntent(View view) {

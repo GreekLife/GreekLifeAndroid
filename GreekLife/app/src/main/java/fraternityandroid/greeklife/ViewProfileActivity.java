@@ -89,6 +89,7 @@ public class ViewProfileActivity extends AppCompatActivity {
         myRef.setValue(true);
         brotherName.setEnabled(false);
         position.setEnabled(false);
+        verified.setText("true");
         verify.setVisibility(View.GONE);
     }
 }

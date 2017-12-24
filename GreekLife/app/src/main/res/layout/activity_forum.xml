@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#AAAAAA"
+    tools:context="fraternityandroid.greeklife.ForumActivity">
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/Header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="22dp"
+            android:textAlignment="center"
+            android:textColor="#FFDF00"
+            android:background="#141A6E"
+            android:padding="10dp"
+            android:text="Forum" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/Post"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginRight="1dp"
+                android:layout_weight="1"
+                android:background="#666666"
+                android:onClick="CreatePost"
+                android:text="Post"
+                android:textColor="#ff0000" />
+
+            <Button
+                android:id="@+id/Delete"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:background="#666666"
+                android:onClick="DeletePost"
+                android:text="Delete"
+                android:textColor="#ff0000" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/Newest"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginRight="1dp"
+                android:layout_weight="1"
+                android:background="#8080ff"
+                android:elevation="0dp"
+                android:onClick="newest"
+                android:text="Newest"
+                android:textColor="#ff0000"
+                android:textSize="10sp" />
+
+            <Button
+                android:id="@+id/Oldest"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginRight="1dp"
+                android:layout_weight="1"
+                android:background="#141A6E"
+                android:onClick="oldest"
+                android:text="Oldest"
+                android:textColor="#ff0000"
+                android:textSize="10sp" />
+
+            <Button
+                android:id="@+id/Week"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginRight="1dp"
+                android:layout_weight="1"
+                android:background="#141A6E"
+                android:onClick="week"
+                android:text="This Week"
+                android:textColor="#ff0000"
+                android:textSize="10sp" />
+
+            <Button
+                android:id="@+id/Month"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:background="#141A6E"
+                android:onClick="month"
+                android:text="This Month"
+                android:textColor="#ff0000"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/ForumList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

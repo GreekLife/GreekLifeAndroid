@@ -66,6 +66,12 @@
             android:screenOrientation="portrait" />
         <activity android:name=".BETAActivity" />
 
+        <activity android:name=".ForumActivity"
+            android:parentActivityName=".HomePage" />
+
+        <activity android:name=".CreateForumActivity"
+            android:parentActivityName=".ForumActivity" />
+
         <!-- <application> -->
         <!-- GCM Receiver -->
         <receiver
@@ -109,8 +115,6 @@
             android:name="com.pusher.android.notifications.gcm.GCMRegistrationIntentService"
             android:exported="false" />
 
-        <activity android:name=".ForumActivity" />
-        <activity android:name=".CreateForumActivity"></activity>
     </application>
 
 </manifest>

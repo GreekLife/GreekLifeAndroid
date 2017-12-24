@@ -69,6 +69,7 @@ public class ForumActivity extends AppCompatActivity {
         oldest.setBackgroundColor(Color.parseColor("#141A6E"));
         week.setBackgroundColor(Color.parseColor("#141A6E"));
         month.setBackgroundColor(Color.parseColor("#141A6E"));
+
         forumAdapter.notifyDataSetChanged();
     }
     public void oldest(View view) {
@@ -77,6 +78,7 @@ public class ForumActivity extends AppCompatActivity {
         oldest.setBackgroundColor(Color.parseColor("#8080ff"));
         week.setBackgroundColor(Color.parseColor("#141A6E"));
         month.setBackgroundColor(Color.parseColor("#141A6E"));
+
         forumAdapter.notifyDataSetChanged();
     }
     public void week(View view) {
@@ -85,6 +87,7 @@ public class ForumActivity extends AppCompatActivity {
         oldest.setBackgroundColor(Color.parseColor("#141A6E"));
         week.setBackgroundColor(Color.parseColor("#8080ff"));
         month.setBackgroundColor(Color.parseColor("#141A6E"));
+
         forumAdapter.notifyDataSetChanged();
     }
     public void month(View view) {
@@ -93,6 +96,7 @@ public class ForumActivity extends AppCompatActivity {
         oldest.setBackgroundColor(Color.parseColor("#141A6E"));
         week.setBackgroundColor(Color.parseColor("#141A6E"));
         month.setBackgroundColor(Color.parseColor("#8080ff"));
+
         forumAdapter.notifyDataSetChanged();
     }
 

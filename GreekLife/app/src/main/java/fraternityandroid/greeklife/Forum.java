@@ -4,7 +4,7 @@ package fraternityandroid.greeklife;
  * Created by jonahelbaz on 2017-12-23.
  */
 
-public class Forum {
+public class Forum implements Comparable<Forum>{
 
     private long numberOfComments;
     private double epoch;
@@ -39,4 +39,14 @@ public class Forum {
     public void setPostTitle(String postTitle){this.postTitle = postTitle;}
     public void setPoster(String poster){this.poster = poster;}
     public void setPosterId(String posterId){this.posterId = posterId;}
+
+    @Override
+    public int compareTo(Forum b){
+        if(this.epoch > b.epoch)
+            return 1;
+        if(this.epoch < b.epoch)
+            return -1;
+        else
+            return 0;
+    }
 }

@@ -7,6 +7,7 @@ import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -19,10 +20,13 @@ import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import static java.util.Collections.swap;
 
 /**
  * Created by jonahelbaz on 2017-12-23.
@@ -79,19 +83,49 @@ public class ForumAdapter extends BaseAdapter {
         Globals.PostOrder order = globals.getPostOrder();
         //Set the order of the posts
         if(order == Globals.PostOrder.NEWEST) {
-                //order polls
+            for (int i = 0; i < mPosts.size(); i++) {
+                for (int j = i; j > 0; j--) {
+                    if(((int)mPosts.get(j).getEpoch()) > ((int)mPosts.get(j - 1).getEpoch()))
+                        swap(mPosts, j, j-1);
+                    else
+                        break;
+                }
+            }
+            convertView.setVisibility(View.VISIBLE);
         }
         else if(order == Globals.PostOrder.OLDEST) {
-            //order polls
-
+                for (int i = 0; i < mPosts.size(); i++) {
+                    for (int j = i; j > 0; j--) {
+                        if (((int) mPosts.get(j).getEpoch()) < ((int) mPosts.get(j - 1).getEpoch()))
+                            swap(mPosts, j, j - 1);
+                        else
+                            break;
+                    }
+                }
+            convertView.setVisibility(View.VISIBLE);
         }
         else if(order == Globals.PostOrder.WEEK) {
-            //order polls
+            long currentEpoch =  System.currentTimeMillis()/1000L;
+            long secondsSince = currentEpoch - (int)mPosts.get(position).getEpoch();
+            int hours = (int) (secondsSince / 3600);
+            int days = hours/24;
+            if(days > 7) {
+                convertView.setVisibility(View.GONE);
+            }else {
+                convertView.setVisibility(View.VISIBLE);
+            }
 
         }
         else if(order == Globals.PostOrder.MONTH) {
-            //order polls
-
+                long currentEpoch =  System.currentTimeMillis() / 1000L;
+                long secondsSince = currentEpoch - (int)mPosts.get(position).getEpoch();
+                int hours = (int) (secondsSince / 3600);
+                int days = hours/24;
+                if(days > 31) {
+                    convertView.setVisibility(View.GONE);
+                } else {
+                    convertView.setVisibility(View.VISIBLE);
+                }
         }
 
         if(!globals.getDelete()) {
@@ -147,8 +181,19 @@ public class ForumAdapter extends BaseAdapter {
 
 
         DateFormat sdf = new SimpleDateFormat("MMM d, yyyy");
+        long currentEpoch =  System.currentTimeMillis() / 1000L;
+        long secondsSince = currentEpoch - (int)mPosts.get(position).getEpoch();
+        int hours = (int) (secondsSince / 3600);
+        int days = hours/24;
+        String display;
+        if(days < 1) {
+            display = Integer.toString(hours) + "h";
+        }
+        else {
+            display = Integer.toString(days) + "d";
+        }
 
-        date.setText(sdf.format(epoch)); //format epoch
+        date.setText(display); //format epoch
 
         String numOfCom = Long.toString(mPosts.get(position).getNumberOfComments());
         comments.setText(numOfCom + " Comments");

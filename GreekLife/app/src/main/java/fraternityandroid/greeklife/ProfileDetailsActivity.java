@@ -11,7 +11,10 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -38,7 +41,9 @@ import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 
 public class ProfileDetailsActivity extends AppCompatActivity {
@@ -62,22 +67,22 @@ public class ProfileDetailsActivity extends AppCompatActivity {
     private StorageReference mStorageRef;
 
     //http://square.github.io/picasso/
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        if (requestCode == PICK_IMAGE) {
-            try {
-                uri = data.getData();
-                final InputStream imageStream = getContentResolver().openInputStream(uri);
-                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                image.setImageBitmap(selectedImage);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                Toast.makeText(ProfileDetailsActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
+        @Override
+        public void onActivityResult ( int requestCode, int resultCode, Intent data) {
+            if(data != null) {
+                if (requestCode == PICK_IMAGE) {
+                    try {
+                        uri = data.getData();
+                        final InputStream imageStream = getContentResolver().openInputStream(uri);
+                        final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                        image.setImageBitmap(selectedImage);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                        Toast.makeText(ProfileDetailsActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
+                    }
+                }
             }
         }
-    }
 
     private void updateLabel() {
         DateFormat sdf = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.US);
@@ -107,6 +112,10 @@ public class ProfileDetailsActivity extends AppCompatActivity {
         degree = findViewById(R.id.Degree);
         email = findViewById(R.id.Email);
         email.setVisibility(View.GONE);
+
+        DisableCopyPaste(position);
+        DisableCopyPaste(birthday);
+        DisableCopyPaste(grad);
 
 
        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -167,7 +176,6 @@ public class ProfileDetailsActivity extends AppCompatActivity {
         User user = globals.getLoggedIn();
 
         image = findViewById(R.id.Picture);
-        Picasso.with(ProfileDetailsActivity.this).load(user.Image).into(image);
 
         image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -179,6 +187,7 @@ public class ProfileDetailsActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         final String type = bundle.getString("Type");
         if(type.equals("UPDATE")) {
+            Picasso.with(ProfileDetailsActivity.this).load(user.Image).into(image);
 
             first.setText(user.First_Name);
             last.setText(user.Last_Name);
@@ -187,10 +196,14 @@ public class ProfileDetailsActivity extends AppCompatActivity {
             school.setText(user.School);
             grad.setText(user.GraduationDate);
             birthday.setText(user.Birthday);
-            degree.setText(user.Degere);
+            degree.setText(user.Degree);
             email.setText(user.Email);
             email.setVisibility(View.VISIBLE);
             firstEmail = email.getText().toString();
+
+            if(globals.getLoggedIn().Position.equals("Master")) {
+                position.setEnabled(false);
+            }
 
             button.setText("Save");
 
@@ -207,28 +220,29 @@ public class ProfileDetailsActivity extends AppCompatActivity {
 
     public void SaveAccount(View view) {
         Globals globals = Globals.getInstance();
-        User user = globals.getLoggedIn();
+        final User user = globals.getLoggedIn();
 
         if (first.getText().toString().equals("") || last.getText().toString().equals("") || brother.getText().toString().equals("") || position.getText().toString().equals("") || school.getText().toString().equals("") || grad.getText().toString().equals("") || birthday.getText().toString().equals("") || degree.getText().toString().equals("")) {
             Toast.makeText(ProfileDetailsActivity.this, "No fields can be left empty",
                     Toast.LENGTH_SHORT).show();
             return;
-        }
-        if (user == null || !user.Username.equals("Master")) {
-                if (first.getText().toString().equals("Master") || last.getText().toString().equals("Master") || brother.getText().toString().equals("") || position.getText().toString().equals("Master")) {
-                    Toast.makeText(ProfileDetailsActivity.this, "Your name cannot be Master",
-                            Toast.LENGTH_SHORT).show();
-                    return;
-                }
+        } else if (user == null || !user.Username.equals("Master")) {
+            if (first.getText().toString().equals("Master") || last.getText().toString().equals("Master") || brother.getText().toString().equals("") || position.getText().toString().equals("Master")) {
+                Toast.makeText(ProfileDetailsActivity.this, "Your name cannot be Master",
+                        Toast.LENGTH_SHORT).show();
+                return;
+            }
+        } else if (user == null && uri == null) {
+            Toast.makeText(ProfileDetailsActivity.this, "You cannot leave your picture empty", Toast.LENGTH_SHORT).show();
         }
 
         AccountDetailsActivity details = new AccountDetailsActivity();
         Bundle bundle = getIntent().getExtras();
-        String type = bundle.getString("Type");
+        final String type = bundle.getString("Type");
         String wId, wMail, wTitle;
 
-        if(type.equals("UPDATE")) {
-            if(!firstEmail.equals(email.getText().toString())) {
+        if (type.equals("UPDATE")) {
+            if (!firstEmail.equals(email.getText().toString())) {
                 FirebaseUser update = FirebaseAuth.getInstance().getCurrentUser();
 
                 update.updateEmail(email.getText().toString())
@@ -248,11 +262,10 @@ public class ProfileDetailsActivity extends AppCompatActivity {
             wTitle = wId;
             wMail = bundle.getString("Email");
         } else {
-
             wId = user.UserID;
             wTitle = wId;
             wMail = user.Email;
-            if(user.Username.equals("Master")) {
+            if (user.Username.equals("Master")) {
                 wTitle = "Master";
             }
         }
@@ -260,10 +273,20 @@ public class ProfileDetailsActivity extends AppCompatActivity {
         final String id = wId;
         final String title = wTitle;
         final String mail = wMail;
-
+        if(type.equals("UPDATE")) {
+            if(uri == null) {
+                uri = Uri.parse(user.Image);
+            }
+        }
             StorageReference filepath = mStorageRef.child("ProfilePictures/" + id + ".jpg");
+    if(type.equals("CREATE")) {
+        if (uri == null) {
+            Toast.makeText(ProfileDetailsActivity.this, "You need a profile picture", Toast.LENGTH_SHORT).show();
+            return;
+        }
+    }
 
-        filepath.putFile(uri)
+            filepath.putFile(uri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -271,9 +294,46 @@ public class ProfileDetailsActivity extends AppCompatActivity {
 
                             FirebaseDatabase database = FirebaseDatabase.getInstance();
                             DatabaseReference myRef = database.getReference("Users/" + title);
-                            User emptyUser = new User(brother.getText().toString(), id, birthday.getText().toString(), brother.getText().toString(), degree.getText().toString(), mail, first.getText().toString(), last.getText().toString(), grad.getText().toString(), downloadUrl.toString(), school.getText().toString(), position.getText().toString(), false);
-                            myRef.setValue(emptyUser);
-                            Log.d(TAG, "Profile created");
+                            Map<String, Object> newUser = new HashMap<>(); //using a hashmap becuase im stupid and the name keys need a space.
+                            User User = new User(brother.getText().toString(), id, birthday.getText().toString(), brother.getText().toString(), degree.getText().toString(), mail, first.getText().toString(), last.getText().toString(), grad.getText().toString(), downloadUrl.toString(), school.getText().toString(), position.getText().toString(), false);
+
+                                if (type.equals("UPDATE") && user.Username.equals("Master")) {
+                                    newUser.put("Username", "Master");
+                                    newUser.put("Position", "Master");
+                                    newUser.put("Validated", true);
+                                } else {
+                                    newUser.put("Username", User.Username);
+                                    newUser.put("Position", User.Position);
+                                    newUser.put("Validated", User.Validated);
+
+                                }
+
+                            newUser.put("Birthday", User.Birthday);
+                            newUser.put("BrotherName", User.BrotherName);
+                            newUser.put("Degree", User.Degree);
+                            newUser.put("Email", User.Email);
+                            newUser.put("First Name", User.First_Name);
+                            newUser.put("Last Name", User.Last_Name);
+                            newUser.put("GraduationDate", User.GraduationDate);
+                            newUser.put("Image", User.Image);
+                            newUser.put("School", User.School);
+                            newUser.put("UserID", User.UserID);
+                            myRef.setValue(newUser);
+
+                            DatabaseReference BanRef = database.getReference("Blocked/" + id);
+                            Map<String, Object> ban = new HashMap<>();
+                            ban.put("Delay", 0);
+                            ban.put("Blocked", false);
+                            BanRef.setValue(ban);
+                            if(type.equals("UPDATE")) {
+                                Toast.makeText(ProfileDetailsActivity.this, "Profile updated", Toast.LENGTH_SHORT).show();
+                                Log.d(TAG, "Profile updated");
+                            }
+                            else {
+                                Toast.makeText(ProfileDetailsActivity.this, "Profile created", Toast.LENGTH_SHORT).show();
+
+                                Log.d(TAG, "Profile created");
+                            }
 
                             Intent login = new Intent(ProfileDetailsActivity.this, MainActivity.class);
                             startActivity(login);
@@ -282,11 +342,71 @@ public class ProfileDetailsActivity extends AppCompatActivity {
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception exception) {
-                            Toast.makeText(ProfileDetailsActivity.this, "Error handling your image. Your account could not be created.",
-                                    Toast.LENGTH_SHORT).show();
-                            Log.d(TAG, "Image error: Profile not created.");
+                            if(type.equals("UPDATE")) {
+                                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                DatabaseReference myRef = database.getReference("Users/" + title);
+                                Map<String, Object> newUser = new HashMap<>(); //using a hashmap becuase im stupid and the name keys need a space.
+                                User User = new User(brother.getText().toString(), id, birthday.getText().toString(), brother.getText().toString(), degree.getText().toString(), mail, first.getText().toString(), last.getText().toString(), grad.getText().toString(), user.Image, school.getText().toString(), position.getText().toString(), false);
+                                if(user.Username.equals("Master")) {
+                                    newUser.put("Username", "Master");
+                                    newUser.put("Position", "Master");
+                                    newUser.put("Validated", true);
+                                }
+                                else {
+                                    newUser.put("Username", User.Username);
+                                    newUser.put("Position", User.Position);
+                                    newUser.put("Validated", User.Validated);
+
+                                }
+                                newUser.put("Birthday", User.Birthday);
+                                newUser.put("BrotherName", User.BrotherName);
+                                newUser.put("Degree", User.Degree);
+                                newUser.put("Email", User.Email);
+                                newUser.put("First Name", User.First_Name);
+                                newUser.put("Last Name", User.Last_Name);
+                                newUser.put("GraduationDate", User.GraduationDate);
+                                newUser.put("Image", User.Image);
+                                newUser.put("School", User.School);
+                                newUser.put("UserID", User.UserID);
+                                myRef.setValue(newUser);
+
+                                DatabaseReference BanRef = database.getReference("Blocked/" + id);
+                                Map<String, Object> ban = new HashMap<>();
+                                ban.put("Delay", 0);
+                                ban.put("Blocked", false);
+                                BanRef.setValue(ban);
+
+                                Log.d(TAG, "Profile updated");
+
+                            }else {
+                                Toast.makeText(ProfileDetailsActivity.this, "Error handling your image. Your account could not be created.",
+                                        Toast.LENGTH_SHORT).show();
+                                Log.d(TAG, "Image error: Profile not created.");
+                            }
                         }
                     });
 
+        }
+
+        public void DisableCopyPaste(EditText text) {
+            text.setCustomSelectionActionModeCallback(new ActionMode.Callback() {
+
+                public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
+                    return false;
+                }
+
+                public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
+                    return false;
+                }
+
+                public boolean onActionItemClicked(ActionMode actionMode, MenuItem item) {
+                    return false;
+                }
+
+                public void onDestroyActionMode(ActionMode actionMode) {
+                }
+            });
+
+            text.setLongClickable(false);
         }
 }

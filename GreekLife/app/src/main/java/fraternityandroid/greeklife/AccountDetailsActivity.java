@@ -16,6 +16,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class AccountDetailsActivity extends AppCompatActivity {
@@ -40,7 +42,12 @@ public class AccountDetailsActivity extends AppCompatActivity {
     }
 
     public void submitDetails(View view) {
-        if(!(mPassword.getText().toString().equals(mRePassword.getText().toString())) || mEmail.getText().toString().equals("")){
+        if(mEmail.getText().toString().equals("") || mPassword.getText().toString().equals("") || mRePassword.getText().toString().equals("")) {
+            Toast.makeText(AccountDetailsActivity.this, "You must fill in all fields",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+        else if(!(mPassword.getText().toString().equals(mRePassword.getText().toString()))){
             Toast.makeText(AccountDetailsActivity.this, "Your passwords do not match",
                     Toast.LENGTH_SHORT).show();
             return;
@@ -55,8 +62,24 @@ public class AccountDetailsActivity extends AppCompatActivity {
                             String id = UUID.randomUUID().toString();
                             mId = id;
                             DatabaseReference myRef = database.getReference("Users/"+id);
+                            Map<String, Object> userEmpty = new HashMap<>(); //using a hashmap becuase im stupid and the name keys need a space.
                             User emptyUser = new User("",id,"","","",mEmail.getText().toString(),"","","","","","", false);
-                            myRef.setValue(emptyUser);
+                            userEmpty.put("Username", "");
+                            userEmpty.put("Birthday", "");
+                            userEmpty.put("BrotherName", "");
+                            userEmpty.put("Degree", "");
+                            userEmpty.put("Email", mEmail.getText().toString());
+                            userEmpty.put("First Name", "");
+                            userEmpty.put("Last Name", "");
+                            userEmpty.put("Image", "");
+                            userEmpty.put("School", "");
+                            userEmpty.put("Position", "");
+                            userEmpty.put("GraduationDate", "");
+                            userEmpty.put("Validated", false);
+                            userEmpty.put("UserID", id);
+
+
+                            myRef.setValue(userEmpty);
                             Intent completeAuth = new Intent(AccountDetailsActivity.this, ProfileDetailsActivity.class);
                             completeAuth.putExtra("Id", id);
                             completeAuth.putExtra("Email", mEmail.getText().toString());

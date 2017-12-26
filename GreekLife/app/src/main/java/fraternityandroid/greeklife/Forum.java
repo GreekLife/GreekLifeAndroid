@@ -1,5 +1,7 @@
 package fraternityandroid.greeklife;
 
+import java.util.List;
+
 /**
  * Created by jonahelbaz on 2017-12-23.
  */
@@ -13,8 +15,9 @@ public class Forum implements Comparable<Forum>{
     private String postTitle;
     private String poster;
     private String posterId;
+    private List<Comment> comments;
 
-    public Forum(long size, double epoch, String post, String postId, String postTitle, String poster, String posterId) {
+    public Forum(long size, double epoch, String post, String postId, String postTitle, String poster, String posterId, List<Comment> comments) {
         this.numberOfComments = size;
         this.epoch = epoch;
         this.post = post;
@@ -22,6 +25,7 @@ public class Forum implements Comparable<Forum>{
         this.postTitle = postTitle;
         this.poster = poster;
         this.posterId = posterId;
+        this.comments = comments;
     }
 
     public long getNumberOfComments(){return numberOfComments;}
@@ -31,6 +35,7 @@ public class Forum implements Comparable<Forum>{
     public String getPostTitle(){return postTitle;}
     public String getPoster(){return poster;}
     public String getPosterId(){return posterId;}
+    public List<Comment> getComments(){return comments;}
 
     public void setNumberOfComments(long numberOfComments){this.numberOfComments = numberOfComments;}
     public void setEpoch(double epoch){this.epoch = epoch;}
@@ -39,6 +44,7 @@ public class Forum implements Comparable<Forum>{
     public void setPostTitle(String postTitle){this.postTitle = postTitle;}
     public void setPoster(String poster){this.poster = poster;}
     public void setPosterId(String posterId){this.posterId = posterId;}
+    public void setComments(List<Comment> comments){ this.comments = comments;}
 
     @Override
     public int compareTo(Forum b){

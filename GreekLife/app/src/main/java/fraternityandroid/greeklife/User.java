@@ -10,7 +10,7 @@ public class User {
     String UserID;
     String Birthday;
     String BrotherName;
-    String Degere;
+    String Degree;
     String Email;
     String First_Name;
     String Last_Name;
@@ -25,7 +25,7 @@ public class User {
         this.UserID = "";
         this.Birthday = "";
         this.BrotherName = "";
-        this.Degere = "";
+        this.Degree = "";
         this.Email = "";
         this.First_Name = "";
         this.Last_Name = "";
@@ -41,7 +41,7 @@ public class User {
         this.UserID = userID;
         this.Birthday = Birthday;
         this.BrotherName = BrotherName;
-        this.Degere = Degree;
+        this.Degree = Degree;
         this.Email = Email;
         this.First_Name = First_Name;
         this.Last_Name = Last_Name;

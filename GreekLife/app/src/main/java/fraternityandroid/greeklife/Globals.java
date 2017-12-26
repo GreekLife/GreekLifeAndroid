@@ -1,5 +1,7 @@
 package fraternityandroid.greeklife;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 /**
@@ -33,6 +35,25 @@ public class Globals {
 
     public void setPosts(List<Forum> posts){ mPosts = posts;}
     public List<Forum> getPosts(){return mPosts;}
+    public Forum getPostById(String id) {
+        Forum postForIndex = null;
+        for(Forum post: mPosts) {
+            if(post.getPostId().equals(id)) {
+                postForIndex = post;
+            }
+        }
+        return postForIndex;
+    }
+
+    public String getImageUrl(String id){
+        String image = "";
+        for (User mem : Users) {
+            if (mem.UserID.equals(id)) {
+                image = mem.Image;
+            }
+        }
+        return image;
+    }
 
     public void setDelete(Boolean deletePosts){ mDeletePosts = deletePosts;}
     public Boolean getDelete(){return mDeletePosts;}

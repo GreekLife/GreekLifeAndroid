@@ -65,12 +65,19 @@
             android:parentActivityName=".MembersActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".BETAActivity" />
+        <activity
+            android:name=".ForumActivity"
+            android:parentActivityName=".HomePage"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".CreateForumActivity"
+            android:parentActivityName=".ForumActivity"
+            android:screenOrientation="portrait"/>
 
-        <activity android:name=".ForumActivity"
-            android:parentActivityName=".HomePage" />
+        <activity android:name=".ForumCommentActivity"
+            android:parentActivityName=".ForumActivity"
+            android:screenOrientation="portrait"/>
 
-        <activity android:name=".CreateForumActivity"
-            android:parentActivityName=".ForumActivity" />
 
         <!-- <application> -->
         <!-- GCM Receiver -->

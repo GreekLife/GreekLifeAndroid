@@ -68,7 +68,7 @@ public class ViewProfileActivity extends AppCompatActivity {
                 school.setText(member.School);
                 grad.setText(member.GraduationDate);
                 birthday.setText(member.Birthday);
-                degree.setText(member.Degere);
+                degree.setText(member.Degree);
                 email.setText(member.Email);
                 verify.setVisibility(View.GONE);
 

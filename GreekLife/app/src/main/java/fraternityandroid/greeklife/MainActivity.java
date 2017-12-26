@@ -10,6 +10,8 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -54,53 +56,11 @@ public class MainActivity extends AppCompatActivity {
     Button login;
     private FirebaseAuth mAuth;
     private static final String TAG = "MainActivity";
-    List<Forum> mForumPosts = new ArrayList<Forum>();
-
-
-    /*
-        WHATS LEFT:
-        The number boxes should only hold one or two vals and ideally shift after entered.
-        Forgot password is not showing
-     */
-    PushNotificationRegistrationListener listener = new PushNotificationRegistrationListener() {
-        @Override
-        public void onSuccessfulRegistration() {
-            System.out.println("REGISTRATION SUCCESSFUL!!! YEEEEEHAWWWWW!");
-
-        }
-
-        @Override
-        public void onFailedRegistration(int statusCode, String response) {
-            System.out.println(
-                    "A real sad day. Registration failed with code " + statusCode +
-                            " " + response
-            );
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        getForumPosts();
-
-        if (playServicesAvailable()) {
-            PusherAndroid pusher = new PusherAndroid("AIzaSyDoOWPGkVYOx0dUZu8USGJGW00FAAyMwCk");
-            PushNotificationRegistration nativePusher = pusher.nativePusher();
-
-            // pulled from your google-services.json
-            String defaultSenderId = getString(R.string.gcm_defaultSenderId);
-            try {
-                nativePusher.registerGCM(this, defaultSenderId);
-            } catch (ManifestValidator.InvalidManifestException e) {
-                e.printStackTrace();
-            }
-
-            // Ready to subscribe to topics!
-            nativePusher.subscribe("kittens");
-        }
-
 
         mEmail = findViewById(R.id.Email);
         mPassword = findViewById(R.id.Password);
@@ -124,6 +84,45 @@ public class MainActivity extends AppCompatActivity {
             findViewById(R.id.loadingPanel).setVisibility(View.GONE);
         }
 
+        code1.addTextChangedListener(new TextWatcher() {
+            public void onTextChanged(CharSequence s, int start,int before, int count)
+            {
+                if(code1.getText().toString().length()==1) { code2.requestFocus();}
+            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void afterTextChanged(Editable s) {
+                if(code1.getText().toString().length() > 1) {String cutStrng = code1.getText().toString().substring(0, 1); code1.setText(cutStrng);}
+            }
+        });
+        code2.addTextChangedListener(new TextWatcher() {
+            public void onTextChanged(CharSequence s, int start,int before, int count)
+            {
+                if(code2.getText().toString().length()==1) { code3.requestFocus();}
+            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void afterTextChanged(Editable s) {
+                if(code2.getText().toString().length() > 1) {String cutStrng = code2.getText().toString().substring(0, 1); code2.setText(cutStrng);}
+
+            }
+        });
+        code3.addTextChangedListener(new TextWatcher() {
+            public void onTextChanged(CharSequence s, int start,int before, int count)
+            {
+                if(code3.getText().toString().length()==1) { code4.requestFocus();}
+            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void afterTextChanged(Editable s) {
+                if(code3.getText().toString().length() > 1) {String cutStrng = code3.getText().toString().substring(0, 1); code3.setText(cutStrng);}
+            }
+        });
+        code4.addTextChangedListener(new TextWatcher() {
+            public void onTextChanged(CharSequence s, int start,int before, int count) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void afterTextChanged(Editable s) {
+                if(code4.getText().toString().length() > 1) {String cutStrng = code4.getText().toString().substring(0, 1); code4.setText(cutStrng);}
+            }
+        });
+
 
     }
 
@@ -134,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
                 validateExists();
         }
         else {
+            findViewById(R.id.loadingPanel).setVisibility(View.GONE);
             Toast.makeText(MainActivity.this, "Please enter a username and password.",
                     Toast.LENGTH_SHORT).show();
 
@@ -236,6 +236,7 @@ public class MainActivity extends AppCompatActivity {
    public void CreateAccount(View view) {
        if(code1.getText().toString().equals("") || code2.getText().toString().equals("") || code3.getText().toString().equals("") || code4.getText().toString().equals("")) {
            code1.requestFocus();
+           Toast.makeText(MainActivity.this, "You must enter the correct code", Toast.LENGTH_SHORT).show();
            return;
        }
        else {
@@ -285,69 +286,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(forgot);
 
     }
-
-
-
-    private boolean playServicesAvailable() {
-        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
-        int resultCode = apiAvailability.isGooglePlayServicesAvailable(MainActivity.this);
-        if (resultCode != ConnectionResult.SUCCESS) {
-            if (apiAvailability.isUserResolvableError(resultCode)) {
-                apiAvailability.getErrorDialog(this, resultCode, PLAY_SERVICES_RESOLUTION_REQUEST)
-                        .show();
-            } else {
-                finish();
-            }
-            return false;
-        }
-        return true;
-    }
-
-    public void getForumPosts() {
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference ref = database.child("Forum");
-
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                Globals globals = Globals.getInstance();
-                List<Forum> posts = new ArrayList<>();
-                for (DataSnapshot userSnapshot : snapshot.getChildren()) {
-                    if(!((String) userSnapshot.getKey()).equals("ForumIds")) {
-                        String post = (String) userSnapshot.child("Post").getValue();
-                        double epoch = (double) userSnapshot.child("Epoch").getValue();
-                        String postId = (String) userSnapshot.child("PostId").getValue();
-                        String postTitle = (String) userSnapshot.child("PostTitle").getValue();
-                        String poster = (String) userSnapshot.child("Poster").getValue();
-                        String posterId = (String) userSnapshot.child("PosterId").getValue();
-                        Map<String, Object> comments = (Map<String, Object>) userSnapshot.child("Comments").getValue();
-                        long numberOfComments;
-                        if(comments == null) {
-                            numberOfComments = 0;
-                        }
-                        else {
-                            numberOfComments = comments.size();
-                        }
-                        Forum newPost = new Forum(numberOfComments, epoch, post, postId, postTitle, poster, posterId);
-                        posts.add(newPost);
-                    }
-
-                }
-                Collections.reverse(posts);
-                globals.setPosts(posts);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                Log.d(TAG, "Error loading posts");
-                findViewById(R.id.loadingPanel).setVisibility(View.GONE);
-
-            }
-
-        });
-    }
-
-
 
 
 }

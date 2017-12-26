@@ -19,7 +19,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ForumActivity extends AppCompatActivity {
 
@@ -33,26 +36,13 @@ public class ForumActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forum);
+        findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
+        getForumPosts();
 
         newest = (Button)findViewById(R.id.Newest);
         oldest = (Button)findViewById(R.id.Oldest);
         week = (Button)findViewById(R.id.Week);
         month = (Button)findViewById(R.id.Month);
-
-        forumAdapter = new ForumAdapter(ForumActivity.this, globals.getPosts());
-
-        mList = (ListView) findViewById(R.id.ForumList);
-
-        mList.setAdapter(forumAdapter);
-
-        mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView parent, View view, int position, long id) {
-
-            }
-        });
-
-        forumAdapter.notifyDataSetChanged();
 
     }
 
@@ -114,6 +104,79 @@ public class ForumActivity extends AppCompatActivity {
             globals.setDelete(false);
         }
         forumAdapter.notifyDataSetChanged();
+    }
+
+    public void getForumPosts() {
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference ref = database.child("Forum");
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                Globals globals = Globals.getInstance();
+                List<Forum> posts = new ArrayList<>();
+                for (DataSnapshot userSnapshot : snapshot.getChildren()) {
+                    if(!((String) userSnapshot.getKey()).equals("ForumIds")) {
+                        String post = (String) userSnapshot.child("Post").getValue();
+                        double epoch = (double) userSnapshot.child("Epoch").getValue();
+                        String postId = (String) userSnapshot.child("PostId").getValue();
+                        String postTitle = (String) userSnapshot.child("PostTitle").getValue();
+                        String poster = (String) userSnapshot.child("Poster").getValue();
+                        String posterId = (String) userSnapshot.child("PosterId").getValue();
+                        Map<String, Object> comments = (HashMap<String, Object>) userSnapshot.child("Comments").getValue();
+
+                        List<Comment> comment = new ArrayList<>();
+
+                        if(comments != null) {
+                            for (String key : comments.keySet()) {
+                                Map<String, Object> val = (Map<String, Object>) comments.get(key);
+                                Comment countedComment = new Comment(((String) val.get("Poster")), ((double) val.get("Epoch")), ((String) val.get("Post")), ((String) val.get("CommentId")), ((String) val.get("PosterId")));
+                                comment.add(countedComment);
+                            }
+                        }
+                        Collections.reverse(comment);
+
+                        long numberOfComments;
+                        if(comments == null) {
+                            numberOfComments = 0;
+                        }
+                        else {
+                            numberOfComments = comments.size();
+                        }
+                        Forum newPost = new Forum(numberOfComments, epoch, post, postId, postTitle, poster, posterId, comment);
+                        posts.add(newPost);
+                    }
+
+                }
+                Collections.reverse(posts);
+                globals.setPosts(posts);
+                forumAdapter = new ForumAdapter(ForumActivity.this, globals.getPosts());
+
+                mList = (ListView) findViewById(R.id.ForumList);
+
+                mList.setAdapter(forumAdapter);
+
+                mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView parent, View view, int position, long id) {
+
+                    }
+                });
+
+                forumAdapter.notifyDataSetChanged();
+                findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                Log.d(TAG, "Error loading posts");
+                findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+                findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+
+            }
+
+        });
     }
 
 }

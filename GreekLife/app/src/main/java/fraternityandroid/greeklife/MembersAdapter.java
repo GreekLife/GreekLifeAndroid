@@ -59,7 +59,7 @@ public class MembersAdapter extends BaseAdapter {
 
         Picasso.with(mContext).load(mMembers.get(position).Image).into(profilePicture);
         name.setText(mMembers.get(position).First_Name + " " + mMembers.get(position).Last_Name);
-        degree.setText(mMembers.get(position).Degere);
+        degree.setText(mMembers.get(position).Degree);
 
 
         return convertView;

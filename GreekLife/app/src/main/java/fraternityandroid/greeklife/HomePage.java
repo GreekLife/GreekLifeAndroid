@@ -34,6 +34,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.FirebaseInstanceIdService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -55,17 +57,29 @@ public class HomePage extends AppCompatActivity {
     ListView mListView;
     List<String> mNews = new ArrayList<String>();
     List<String> mNewsIds = new ArrayList<String>();
+    Globals globals = Globals.getInstance();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("NotificationKey", refreshedToken);
+        editor.apply();
+
+        updateNotificationKey(refreshedToken);
+
+
+        Toast.makeText(this, refreshedToken, Toast.LENGTH_SHORT).show();
         ImageButton googleDrive = findViewById(R.id.GoogleDrive);
         googleDrive.setEnabled(false);
 
         ImageButton masterIcon = findViewById(R.id.Master);
-        Globals globals = Globals.getInstance();
         String user = globals.getLoggedIn().Username;
         if(!user.equals("Master")) {
             masterIcon.setVisibility(View.GONE);
@@ -242,6 +256,16 @@ public class HomePage extends AppCompatActivity {
     public void MasterControlsIntent(View view) {
         Intent master = new Intent(HomePage.this, MasterControlsActivity.class);
         startActivity(master);
+    }
+
+    public void updateNotificationKey(String token) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef2 = database.getReference("NotificationIds/Android"); //Does this successfully add the object?
+        Map<String, Object> keyObj = new HashMap<>();
+        keyObj.put("Id", token);
+        keyObj.put("UserId", globals.getLoggedIn().UserID);
+        keyObj.put("Username", globals.getLoggedIn().Username);
+        myRef2.child(globals.getLoggedIn().UserID).setValue(keyObj);
     }
 
 

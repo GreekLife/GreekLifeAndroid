@@ -1,6 +1,8 @@
 package fraternityandroid.greeklife;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +17,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -62,6 +65,13 @@ public class AccountDetailsActivity extends AppCompatActivity {
                             String id = UUID.randomUUID().toString();
                             mId = id;
                             DatabaseReference myRef = database.getReference("Users/"+id);
+
+                            String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+                            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                            SharedPreferences.Editor editor = prefs.edit();
+                            editor.putString("NotificationKey", refreshedToken);
+                            editor.apply();
+
                             Map<String, Object> userEmpty = new HashMap<>(); //using a hashmap becuase im stupid and the name keys need a space.
                             User emptyUser = new User("",id,"","","",mEmail.getText().toString(),"","","","","","", false);
                             userEmpty.put("Username", "");
@@ -75,6 +85,7 @@ public class AccountDetailsActivity extends AppCompatActivity {
                             userEmpty.put("School", "");
                             userEmpty.put("Position", "");
                             userEmpty.put("GraduationDate", "");
+                            userEmpty.put("NotificationId", refreshedToken);
                             userEmpty.put("Validated", false);
                             userEmpty.put("UserID", id);
 

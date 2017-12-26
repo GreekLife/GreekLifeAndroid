@@ -265,7 +265,10 @@ public class HomePage extends AppCompatActivity {
         keyObj.put("Id", token);
         keyObj.put("UserId", globals.getLoggedIn().UserID);
         keyObj.put("Username", globals.getLoggedIn().Username);
-        myRef2.child(globals.getLoggedIn().UserID).setValue(keyObj);
+        myRef2.child(token).setValue(keyObj);
+
+        DatabaseReference updateProf = database.getReference("Users/"+globals.getLoggedIn().UserID+"/NotificationId");
+        updateProf.setValue(token);
     }
 
 

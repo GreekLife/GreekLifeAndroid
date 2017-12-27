@@ -72,7 +72,7 @@ public class ViewProfileActivity extends AppCompatActivity {
                 email.setText(member.Email);
                 verify.setVisibility(View.GONE);
 
-                if(!member.Validated && globals.getLoggedIn().Username.equals("Master")) {
+                if(!member.Validated && globals.getLoggedIn().Position.equals("Master")) {
                     verify.setVisibility(View.VISIBLE);
                     position.setEnabled(true);
                     brotherName.setEnabled(true);

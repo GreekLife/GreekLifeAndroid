@@ -52,8 +52,6 @@ public class HomePage extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private static final String TAG = "HomePage";
-
-    List<User> users = new ArrayList<User>();
     ListView mListView;
     List<String> mNews = new ArrayList<String>();
     List<String> mNewsIds = new ArrayList<String>();
@@ -74,20 +72,17 @@ public class HomePage extends AppCompatActivity {
 
         updateNotificationKey(refreshedToken);
 
-
-        Toast.makeText(this, refreshedToken, Toast.LENGTH_SHORT).show();
         ImageButton googleDrive = findViewById(R.id.GoogleDrive);
         googleDrive.setEnabled(false);
 
         ImageButton masterIcon = findViewById(R.id.Master);
-        String user = globals.getLoggedIn().Username;
+        String user = globals.getLoggedIn().Position;
         if(!user.equals("Master")) {
             masterIcon.setVisibility(View.GONE);
         }
 
         getNews();
         GetUsers();
-        TemporaryBan.IsBlocked(HomePage.this);
     }
 
     @Override
@@ -118,7 +113,7 @@ public class HomePage extends AppCompatActivity {
                 mListView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
                 Globals globals = Globals.getInstance();
-                String user = globals.getLoggedIn().Username;
+                String user = globals.getLoggedIn().Position;
 
                 if(user.equals("Master")) {
                     mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -170,6 +165,7 @@ public class HomePage extends AppCompatActivity {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
+                List<User> users = new ArrayList<User>();
                 for (DataSnapshot userSnapshot : snapshot.getChildren()) {
                     String email = (String) userSnapshot.child("Email").getValue();
                     String username = (String) userSnapshot.child("Username").getValue();
@@ -186,10 +182,7 @@ public class HomePage extends AppCompatActivity {
                     Boolean validated = (Boolean) userSnapshot.child("Validated").getValue();
                     User user = new User(username, userId, birthday, brother, degree, email, first, last, grad, imageURL, school, position, validated);
                     users.add(user);
-                    Log.d(TAG, "Users retrieved");
-
                 }
-                Globals globals = Globals.getInstance();
                 globals.setUsers(users);
             }
 
@@ -267,7 +260,9 @@ public class HomePage extends AppCompatActivity {
         keyObj.put("Username", globals.getLoggedIn().Username);
         myRef2.child(token).setValue(keyObj);
 
-        DatabaseReference updateProf = database.getReference("Users/"+globals.getLoggedIn().UserID+"/NotificationId");
+        String id = globals.getLoggedIn().UserID;
+
+        DatabaseReference updateProf = database.getReference("Users/"+id+"/NotificationId");
         updateProf.setValue(token);
     }
 

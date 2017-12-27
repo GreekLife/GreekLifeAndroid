@@ -136,9 +136,9 @@ public class ForumAdapter extends BaseAdapter {
             }
             else {
                 String loggedInUserId = globals.getLoggedIn().UserID;
-                String loggedInUsername = globals.getLoggedIn().Username;
+                String loggedInPosition = globals.getLoggedIn().Position;
 
-                if (mPosts.get(position).getPosterId().equals(loggedInUserId) || loggedInUsername.equals("Master")) {
+                if (mPosts.get(position).getPosterId().equals(loggedInUserId) || loggedInPosition.equals("Master")) {
                     delete.setVisibility(View.VISIBLE);
                 }
             }

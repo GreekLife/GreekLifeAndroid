@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -62,7 +63,7 @@ public class AccountDetailsActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseDatabase database = FirebaseDatabase.getInstance();
-                            String id = UUID.randomUUID().toString();
+                            String id = mAuth.getCurrentUser().getUid();
                             mId = id;
                             DatabaseReference myRef = database.getReference("Users/"+id);
 

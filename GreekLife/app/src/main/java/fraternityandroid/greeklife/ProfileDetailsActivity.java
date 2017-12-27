@@ -29,8 +29,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -57,6 +59,8 @@ public class ProfileDetailsActivity extends AppCompatActivity {
     String firstEmail = "";
 
     String text = "";
+
+    String defaultEmail;
 
     final Calendar myCalendar = Calendar.getInstance();
 
@@ -99,6 +103,7 @@ public class ProfileDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //TemporaryBan.IsBlocked(ProfileDetailsActivity.this);
 
+
         setContentView(R.layout.activity_profile_details);
         mStorageRef = FirebaseStorage.getInstance().getReference();
         button = findViewById(R.id.SaveAccount);
@@ -112,6 +117,8 @@ public class ProfileDetailsActivity extends AppCompatActivity {
         degree = findViewById(R.id.Degree);
         email = findViewById(R.id.Email);
         email.setVisibility(View.GONE);
+
+        defaultEmail = email.getText().toString();
 
         DisableCopyPaste(position);
         DisableCopyPaste(birthday);
@@ -201,6 +208,10 @@ public class ProfileDetailsActivity extends AppCompatActivity {
             email.setVisibility(View.VISIBLE);
             firstEmail = email.getText().toString();
 
+            FirebaseUser loggedInUser = FirebaseAuth.getInstance().getCurrentUser();
+            email.setText(loggedInUser.getEmail());
+
+
             if(globals.getLoggedIn().Position.equals("Master")) {
                 position.setEnabled(false);
             }
@@ -219,14 +230,14 @@ public class ProfileDetailsActivity extends AppCompatActivity {
     }
 
     public void SaveAccount(View view) {
-        Globals globals = Globals.getInstance();
+        final Globals globals = Globals.getInstance();
         final User user = globals.getLoggedIn();
 
         if (first.getText().toString().equals("") || last.getText().toString().equals("") || brother.getText().toString().equals("") || position.getText().toString().equals("") || school.getText().toString().equals("") || grad.getText().toString().equals("") || birthday.getText().toString().equals("") || degree.getText().toString().equals("")) {
             Toast.makeText(ProfileDetailsActivity.this, "No fields can be left empty",
                     Toast.LENGTH_SHORT).show();
             return;
-        } else if (user == null || !user.Username.equals("Master")) {
+        } else if (user == null || !user.Position.equals("Master")) {
             if (first.getText().toString().equals("Master") || last.getText().toString().equals("Master") || brother.getText().toString().equals("") || position.getText().toString().equals("Master")) {
                 Toast.makeText(ProfileDetailsActivity.this, "Your name cannot be Master",
                         Toast.LENGTH_SHORT).show();
@@ -265,9 +276,6 @@ public class ProfileDetailsActivity extends AppCompatActivity {
             wId = user.UserID;
             wTitle = wId;
             wMail = user.Email;
-            if (user.Username.equals("Master")) {
-                wTitle = "Master";
-            }
         }
 
         final String id = wId;
@@ -297,7 +305,7 @@ public class ProfileDetailsActivity extends AppCompatActivity {
                             Map<String, Object> newUser = new HashMap<>(); //using a hashmap becuase im stupid and the name keys need a space.
                             User User = new User(brother.getText().toString(), id, birthday.getText().toString(), brother.getText().toString(), degree.getText().toString(), mail, first.getText().toString(), last.getText().toString(), grad.getText().toString(), downloadUrl.toString(), school.getText().toString(), position.getText().toString(), false);
 
-                                if (type.equals("UPDATE") && user.Username.equals("Master")) {
+                                if (type.equals("UPDATE") && user.Position.equals("Master")) {
                                     newUser.put("Username", "Master");
                                     newUser.put("Position", "Master");
                                     newUser.put("Validated", true);
@@ -307,7 +315,8 @@ public class ProfileDetailsActivity extends AppCompatActivity {
                                     newUser.put("Validated", User.Validated);
 
                                 }
-
+                            String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+                            newUser.put("NotificationId",refreshedToken);
                             newUser.put("Birthday", User.Birthday);
                             newUser.put("BrotherName", User.BrotherName);
                             newUser.put("Degree", User.Degree);
@@ -328,6 +337,21 @@ public class ProfileDetailsActivity extends AppCompatActivity {
                             if(type.equals("UPDATE")) {
                                 Toast.makeText(ProfileDetailsActivity.this, "Profile updated", Toast.LENGTH_SHORT).show();
                                 Log.d(TAG, "Profile updated");
+                                globals.setLoggedIn(User);
+
+                                if(!email.equals(User.Email)) {
+                                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                                    user.updateEmail(User.Email)
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()) {
+                                                        Log.d(TAG, "User email address updated.");
+                                                    }
+                                                }
+                                            });
+                                }
                             }
                             else {
                                 Toast.makeText(ProfileDetailsActivity.this, "Profile created", Toast.LENGTH_SHORT).show();
@@ -343,11 +367,11 @@ public class ProfileDetailsActivity extends AppCompatActivity {
                         @Override
                         public void onFailure(@NonNull Exception exception) {
                             if(type.equals("UPDATE")) {
-                                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                final FirebaseDatabase database = FirebaseDatabase.getInstance();
                                 DatabaseReference myRef = database.getReference("Users/" + title);
                                 Map<String, Object> newUser = new HashMap<>(); //using a hashmap becuase im stupid and the name keys need a space.
-                                User User = new User(brother.getText().toString(), id, birthday.getText().toString(), brother.getText().toString(), degree.getText().toString(), mail, first.getText().toString(), last.getText().toString(), grad.getText().toString(), user.Image, school.getText().toString(), position.getText().toString(), false);
-                                if(user.Username.equals("Master")) {
+                                User User = new User(brother.getText().toString(), id, birthday.getText().toString(), brother.getText().toString(), degree.getText().toString(), email.getText().toString(), first.getText().toString(), last.getText().toString(), grad.getText().toString(), user.Image, school.getText().toString(), position.getText().toString(), false);
+                                if(user.Position.equals("Master")) {
                                     newUser.put("Username", "Master");
                                     newUser.put("Position", "Master");
                                     newUser.put("Validated", true);
@@ -368,7 +392,29 @@ public class ProfileDetailsActivity extends AppCompatActivity {
                                 newUser.put("Image", User.Image);
                                 newUser.put("School", User.School);
                                 newUser.put("UserID", User.UserID);
+                                String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+                                newUser.put("NotificationId",refreshedToken);
+                                if(!email.equals(User.Email)) {
+                                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                                    user.updateEmail(User.Email)
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()) {
+                                                        Log.d(TAG, "User email address updated.");
+                                                    }
+                                                    else {
+                                                        Toast.makeText(ProfileDetailsActivity.this, "Could not offcially change email address", Toast.LENGTH_SHORT).show();
+                                                        DatabaseReference newRef = database.getReference("Users/" + title+"/Email");
+                                                        newRef.setValue(email);
+
+                                                    }
+                                                }
+                                            });
+                                }
                                 myRef.setValue(newUser);
+
 
                                 DatabaseReference BanRef = database.getReference("Blocked/" + id);
                                 Map<String, Object> ban = new HashMap<>();
@@ -376,6 +422,8 @@ public class ProfileDetailsActivity extends AppCompatActivity {
                                 ban.put("Blocked", false);
                                 BanRef.setValue(ban);
 
+                                globals.setLoggedIn(User);
+                                Toast.makeText(ProfileDetailsActivity.this, "Profile updated", Toast.LENGTH_SHORT).show();
                                 Log.d(TAG, "Profile updated");
 
                             }else {

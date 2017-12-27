@@ -10,15 +10,13 @@ import android.widget.GridView;
 public class MembersActivity extends AppCompatActivity {
 
     //https://www.raywenderlich.com/127544/android-gridview-getting-started
+    final Globals globals = Globals.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_members);
-
-        TemporaryBan.IsBlocked(MembersActivity.this);
-
-        final Globals globals = Globals.getInstance();
+        globals.IsBlocked(MembersActivity.this);
 
         GridView gridView = (GridView)findViewById(R.id.MemberGrid);
         MembersAdapter memberAdapter = new MembersAdapter(this, globals.getUsers());

@@ -16,22 +16,16 @@ import java.io.File;
 
 public class InfoActivity extends AppCompatActivity {
 
-    /*
-        Whats left:
-        Need to write the pdf from assets to the sd card so it can be read from there.
-     */
-
-    Button mConstitution;
+    Globals globals = Globals.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
+        globals.IsBlocked(InfoActivity.this);
 
-        Button foundingfathers = (Button) findViewById(R.id.FoundingFathers);
-        foundingfathers.setPaintFlags(foundingfathers.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-
-        TemporaryBan.IsBlocked(InfoActivity.this);
+        Button classes = (Button) findViewById(R.id.FoundingFathers);
+        classes.setPaintFlags(classes.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
     }
     public void displayConstitution(View view) {

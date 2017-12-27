@@ -109,6 +109,14 @@ public class ForumAdapter extends BaseAdapter {
                 }
                 convertView.setVisibility(View.VISIBLE);
             } else if (order == Globals.PostOrder.WEEK) {
+                for (int i = 0; i < mPosts.size(); i++) {
+                    for (int j = i; j > 0; j--) {
+                        if (((int) mPosts.get(j).getEpoch()) > ((int) mPosts.get(j - 1).getEpoch()))
+                            swap(mPosts, j, j - 1);
+                        else
+                            break;
+                    }
+                }
                 long currentEpoch = System.currentTimeMillis() / 1000L;
                 long secondsSince = currentEpoch - (int) mPosts.get(position).getEpoch();
                 int hours = (int) (secondsSince / 3600);
@@ -120,6 +128,14 @@ public class ForumAdapter extends BaseAdapter {
                 }
 
             } else if (order == Globals.PostOrder.MONTH) {
+                for (int i = 0; i < mPosts.size(); i++) {
+                    for (int j = i; j > 0; j--) {
+                        if (((int) mPosts.get(j).getEpoch()) > ((int) mPosts.get(j - 1).getEpoch()))
+                            swap(mPosts, j, j - 1);
+                        else
+                            break;
+                    }
+                }
                 long currentEpoch = System.currentTimeMillis() / 1000L;
                 long secondsSince = currentEpoch - (int) mPosts.get(position).getEpoch();
                 int hours = (int) (secondsSince / 3600);

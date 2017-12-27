@@ -26,6 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:scaleType="fitCenter"
+                android:background="#000"
                 android:layout_weight="1"
                 android:adjustViewBounds="true"
                 app:srcCompat="@android:drawable/ic_dialog_alert" />

@@ -194,6 +194,8 @@ public class ProfileDetailsActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         final String type = bundle.getString("Type");
         if(type.equals("UPDATE")) {
+            globals.IsBlocked(ProfileDetailsActivity.this);
+
             Picasso.with(ProfileDetailsActivity.this).load(user.Image).into(image);
 
             first.setText(user.First_Name);

@@ -42,6 +42,9 @@ public class ForumCommentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forum_comment);
 
+        globals.IsBlocked(ForumCommentActivity.this);
+
+
         post = (TextView) findViewById(R.id.ClickedPost);
         title = (TextView) findViewById(R.id.ClickedPostTitle);
         name = (TextView) findViewById(R.id.ClickedPoster);

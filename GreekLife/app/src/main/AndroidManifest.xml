@@ -5,16 +5,16 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.VIBRATE" />
-
     <uses-permission android:name=".permission.RECEIVE" />
     <uses-permission android:name="fraternityandroid.greeklife.permission.C2D_MESSAGE" />
-    <permission android:name="fraternityandroid.greeklife.permission.C2D_MESSAGE"
-    android:protectionLevel="signature" />
+
+    <permission
+        android:name="fraternityandroid.greeklife.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
 
     <application
         android:allowBackup="true"
@@ -78,29 +78,29 @@
         <activity
             android:name=".ForumActivity"
             android:parentActivityName=".HomePage"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".CreateForumActivity"
             android:parentActivityName=".ForumActivity"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name=".ForumCommentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ForumCommentActivity"
             android:parentActivityName=".ForumActivity"
-            android:screenOrientation="portrait"/>
-        <service
-            android:name=".MyFirebaseMessagingService">
+            android:screenOrientation="portrait" />
+
+        <service android:name=".MyFirebaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
 
-        <service
-            android:name=".MyFirebaseInstanceIDService">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
-            </intent-filter>
-        </service>
-
+        <activity android:name=".PollActivity" />
+        <activity android:name=".CreatePollActivity"></activity>
     </application>
 
 </manifest>

@@ -23,6 +23,7 @@
                     android:layout_width="150dp"
                     android:layout_height="70dp"
                     android:layout_weight="1"
+                    android:layout_marginTop="3dp"
                     app:srcCompat="@android:drawable/ic_menu_report_image" />
 
 

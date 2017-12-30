@@ -13,6 +13,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,11 +35,22 @@ public class Globals {
         NEWEST, OLDEST, WEEK, MONTH
     }
 
+    enum PollOrder {
+        NEWEST, OLDEST, WEEK, MONTH
+    }
+
     private User LoggedIn;
     private List<User> Users;
     private List<Forum> mPosts;
     private Boolean mDeletePosts = false;
+    private Boolean mDeletePolls = false;
     private PostOrder value = PostOrder.NEWEST;
+    private PollOrder PollValue = PollOrder.NEWEST;
+
+
+    private ArrayList<Poll> mPolls;
+    private ArrayList<Poll> temporaryPolls;
+    private ArrayList<String> mCreatePollOptions;
 
     private Context mContext;
 
@@ -79,6 +92,43 @@ public class Globals {
 
     public void setPostOrder(PostOrder val){this.value = val;}
     public PostOrder getPostOrder(){return value;}
+
+    public void setPolls(ArrayList<Poll> polls){ mPolls = polls;}
+    public ArrayList<Poll> getPolls(){return mPolls;}
+    public Poll getPollById(String id) {
+        Poll postForIndex = null;
+        for(Poll post: mPolls) {
+            if(post.getPostId().equals(id)) {
+                postForIndex = post;
+            }
+        }
+        return postForIndex;
+    }
+
+
+    public void setPollValue(PollOrder val){this.PollValue = val;}
+    public PollOrder getPollValue(){return PollValue;}
+    public void setDeletePolls(Boolean deletePosts){ mDeletePolls = deletePosts;}
+    public Boolean getDeletePolls(){return mDeletePolls;}
+
+    public void setPollOptionIndexVotes(String id, int optionIndex, int votes) {
+        Poll poll = getPollById(id);
+        poll.getOptions().get(optionIndex - 1).setVotes(votes);
+    }
+
+    public void setPollOptionIndexPercent(String id, int optionIndex, String percent) {
+        Poll poll = getPollById(id);
+        poll.getOptions().get(optionIndex).setPercent(percent);
+    }
+
+    public void setTemporaryPolls(ArrayList<Poll> polls){this.temporaryPolls = polls;}
+    public ArrayList<Poll> getTemporaryPolls(){return this.temporaryPolls;}
+
+    public void addCreatePoll(int index, String val) {
+        mCreatePollOptions.add(index, val);
+    }
+    public ArrayList<String> getCreatePollOptions(){return mCreatePollOptions;}
+    public void setCreatePollOptions(ArrayList<String> list){ this.mCreatePollOptions = list;}
 
 
 

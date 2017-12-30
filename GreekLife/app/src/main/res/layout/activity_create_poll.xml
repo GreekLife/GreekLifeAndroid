@@ -16,17 +16,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/Header"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="22dp"
-            android:textAlignment="center"
-            android:textColor="#FFDF00"
-            android:background="#141A6E"
-            android:padding="10dp"
-            android:text="Create Poll" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -39,6 +28,7 @@
                 android:layout_marginRight="1dp"
                 android:layout_weight="1"
                 android:background="#666666"
+                android:onClick="addOption"
                 android:text="Add"
                 android:textColor="#ff0000" />
 
@@ -48,6 +38,7 @@
                 android:layout_height="40dp"
                 android:layout_weight="1"
                 android:background="#666666"
+                android:onClick="removeOption"
                 android:text="Remove"
                 android:textColor="#ff0000" />
         </LinearLayout>
@@ -59,37 +50,37 @@
 
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/Question"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Ask Question here"
             android:inputType="textMultiLine" />
-    </LinearLayout>
 
-        <LinearLayout
+        <ScrollView
+            android:id="@+id/ScrollView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:layout_marginStart="5dp"
-                android:textStyle="bold"
-                android:text="1." />
-
-            <EditText
-                android:id="@+id/editText2"
+            <LinearLayout
+                android:id="@+id/ScrollViewLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:textSize="14sp"
-                android:hint="Option 1" />
-        </LinearLayout>
+                android:orientation="vertical">
+
+            </LinearLayout>
+        </ScrollView>
+
+        <Button
+            android:id="@+id/CreatePoll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#141A6E"
+            android:onClick="validate"
+            android:text="Create Poll"
+            android:textColor="#FFDF00" />
+    </LinearLayout>
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

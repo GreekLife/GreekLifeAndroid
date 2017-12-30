@@ -216,8 +216,8 @@ public class HomePage extends AppCompatActivity {
         //startActivity(calendar);
     }
     public void PollIntent(View view) {
-       // Intent poll = new Intent(HomePage.this, PollsActivity.class);
-        //startActivity(poll);
+        Intent poll = new Intent(HomePage.this, PollActivity.class);
+        startActivity(poll);
     }
     public void MemberIntent(View view) {
         Intent member = new Intent(HomePage.this, MembersActivity.class);

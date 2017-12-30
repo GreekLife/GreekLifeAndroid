@@ -149,7 +149,7 @@ public class ForumActivity extends AppCompatActivity {
                     }
 
                 }
-                Collections.reverse(posts);
+                Collections.reverse(posts); //dont need this?
                 globals.setPosts(posts);
                 forumAdapter = new ForumAdapter(ForumActivity.this, globals.getPosts());
 

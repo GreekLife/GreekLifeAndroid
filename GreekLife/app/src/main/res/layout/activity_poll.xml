@@ -53,6 +53,7 @@
                 android:layout_marginRight="1dp"
                 android:layout_weight="1"
                 android:background="#666666"
+                android:onClick="create"
                 android:text="Create Poll"
                 android:textColor="#ff0000" />
 
@@ -62,6 +63,7 @@
                 android:layout_height="40dp"
                 android:layout_weight="1"
                 android:background="#666666"
+                android:onClick="deleting"
                 android:text="Delete"
                 android:textColor="#ff0000" />
         </LinearLayout>
@@ -79,6 +81,7 @@
                 android:layout_weight="1"
                 android:background="#8080ff"
                 android:elevation="0dp"
+                android:onClick="newest"
                 android:text="Newest"
                 android:textColor="#ff0000"
                 android:textSize="10sp" />
@@ -90,6 +93,7 @@
                 android:layout_marginRight="1dp"
                 android:layout_weight="1"
                 android:background="#141A6E"
+                android:onClick="oldest"
                 android:text="Oldest"
                 android:textColor="#ff0000"
                 android:textSize="10sp" />
@@ -101,6 +105,7 @@
                 android:layout_marginEnd="1dp"
                 android:layout_weight="1"
                 android:background="#141A6E"
+                android:onClick="week"
                 android:text="This Week"
                 android:textColor="#ff0000"
                 android:textSize="10sp" />
@@ -111,12 +116,14 @@
                 android:layout_height="30dp"
                 android:layout_weight="1"
                 android:background="#141A6E"
+                android:onClick="month"
                 android:text="This Month"
                 android:textColor="#ff0000"
                 android:textSize="10sp" />
         </LinearLayout>
 
-        <ListView
+        <ExpandableListView
+            android:groupIndicator="@null"
             android:id="@+id/PollList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

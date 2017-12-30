@@ -50,7 +50,6 @@ public class Globals {
 
     private ArrayList<Poll> mPolls;
     private ArrayList<Poll> temporaryPolls;
-    private ArrayList<String> mCreatePollOptions;
 
     private Context mContext;
 
@@ -123,13 +122,6 @@ public class Globals {
 
     public void setTemporaryPolls(ArrayList<Poll> polls){this.temporaryPolls = polls;}
     public ArrayList<Poll> getTemporaryPolls(){return this.temporaryPolls;}
-
-    public void addCreatePoll(int index, String val) {
-        mCreatePollOptions.add(index, val);
-    }
-    public ArrayList<String> getCreatePollOptions(){return mCreatePollOptions;}
-    public void setCreatePollOptions(ArrayList<String> list){ this.mCreatePollOptions = list;}
-
 
 
     public static synchronized Globals getInstance(){

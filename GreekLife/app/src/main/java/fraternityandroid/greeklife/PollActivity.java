@@ -114,19 +114,6 @@ public class PollActivity extends AppCompatActivity {
                                     mList.expandGroup(i, false);
                                 }
 
-                                mList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-
-                                    @Override
-                                    public boolean onChildClick(ExpandableListView parent, View v,
-                                                                int groupPosition, int childPosition, long id) {
-
-
-
-                                        return true;
-
-                                    }
-                                });
-
                                 pollAdapter.notifyDataSetChanged();
                                 findViewById(R.id.loadingPanel).setVisibility(View.GONE);
 

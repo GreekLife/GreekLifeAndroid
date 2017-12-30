@@ -3,6 +3,7 @@ package fraternityandroid.greeklife;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -118,7 +119,7 @@ public class PollAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getGroupView(int position, boolean isLastChild, View convertView,
+    public View getGroupView(final int position, boolean isLastChild, View convertView,
                              ViewGroup parent) {
         if (mPolls != null) {
             final Globals globals = Globals.getInstance();
@@ -132,7 +133,6 @@ public class PollAdapter extends BaseExpandableListAdapter {
             final TextView name = (TextView) convertView.findViewById(R.id.Name);
             final TextView title = (TextView) convertView.findViewById(R.id.Title);
             final TextView date = (TextView) convertView.findViewById(R.id.Date);
-            final Button results = (Button) convertView.findViewById(R.id.Results);
             final Button vote = (Button) convertView.findViewById(R.id.Vote);
             final Button delete = (Button) convertView.findViewById(R.id.DeletePoll);
 
@@ -211,6 +211,15 @@ public class PollAdapter extends BaseExpandableListAdapter {
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .show();
 
+                }
+            });
+
+            vote.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent vote = new Intent(context, VotingActivity.class);
+                    vote.putExtra("Poll", mPolls.get(wPosition).getOptions());
+                    context.startActivity(vote);
                 }
             });
 

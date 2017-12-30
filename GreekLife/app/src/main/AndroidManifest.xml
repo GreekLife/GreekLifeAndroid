@@ -100,9 +100,11 @@
         </service>
 
         <activity android:name=".PollActivity" />
-        <activity android:name=".CreatePollActivity"
+        <activity
+            android:name=".CreatePollActivity"
             android:configChanges="keyboardHidden|orientation"
-            android:parentActivityName=".PollActivity"/>
+            android:parentActivityName=".PollActivity" />
+        <activity android:name=".VotingActivity"></activity>
     </application>
 
 </manifest>

@@ -2,6 +2,7 @@ package fraternityandroid.greeklife;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -51,8 +52,8 @@ public class ForumCommentActivity extends AppCompatActivity {
         date = (TextView) findViewById(R.id.ClickedPostDate);
         newComment = (EditText) findViewById(R.id.newComment);
 
-        post.setMaxLines(8);
-        title.setMaxLines(3);
+        post.setMovementMethod(new ScrollingMovementMethod());
+        title.setMovementMethod(new ScrollingMovementMethod());
 
         Bundle bundle = getIntent().getExtras();
         final String postId = bundle.getString("PostId");

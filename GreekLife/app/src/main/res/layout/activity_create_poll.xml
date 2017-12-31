@@ -48,14 +48,22 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-
-        <EditText
-            android:id="@+id/Question"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Ask Question here"
-            android:inputType="textMultiLine" />
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/Question"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:maxLines="5"
+                android:textSize="13sp"
+                android:hint="Ask Question here"
+                android:inputType="textMultiLine" />
+        </LinearLayout>
 
         <ScrollView
             android:id="@+id/ScrollView"

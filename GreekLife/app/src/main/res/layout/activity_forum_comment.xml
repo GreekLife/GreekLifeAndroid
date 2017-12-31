@@ -56,6 +56,9 @@
                     android:layout_marginTop="10dp"
                     android:hint="Title Goes Here"
                     android:textColor="#000"
+                    android:singleLine="false"
+                    android:maxLines="8"
+                    android:scrollbars="vertical"
                     android:textSize="14sp" />
 
                 <TextView
@@ -67,6 +70,9 @@
                     android:ems="10"
                     android:hint="Clicked post displays here"
                     android:textColor="#000"
+                    android:singleLine="false"
+                    android:maxLines="8"
+                    android:scrollbars="vertical"
                     android:textSize="12sp" />
 
             </LinearLayout>

@@ -17,6 +17,7 @@ public class Options {
         this.option = option;
         this.votes = 0;
         this.percent = "0%";
+        voters = new ArrayList<>();
     }
 
     public String getOption(){return this.option;}
@@ -26,7 +27,9 @@ public class Options {
 
     public void setVotes(int votes) {this.votes = votes;}
     public void setPercent(String percent){ this.percent = percent;}
-    public void setVoters(String voter){voters.add(voter);}
+    public void setVoters(String voter){
+        voters.add(voter);
+    }
     public void setVotersArray(ArrayList<String> voters){this.voters = voters;}
 
 }

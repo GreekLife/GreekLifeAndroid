@@ -218,7 +218,7 @@ public class PollAdapter extends BaseExpandableListAdapter {
                 @Override
                 public void onClick(View v) {
                     Intent vote = new Intent(context, VotingActivity.class);
-                    vote.putExtra("Poll", mPolls.get(wPosition).getOptions());
+                    globals.setSelectedPoll(mPolls.get(position));
                     context.startActivity(vote);
                 }
             });

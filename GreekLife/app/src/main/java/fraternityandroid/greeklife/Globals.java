@@ -46,6 +46,7 @@ public class Globals {
     private Boolean mDeletePolls = false;
     private PostOrder value = PostOrder.NEWEST;
     private PollOrder PollValue = PollOrder.NEWEST;
+    private Poll mSelectedPoll;
 
 
     private ArrayList<Poll> mPolls;
@@ -130,6 +131,9 @@ public class Globals {
         }
         return instance;
     }
+
+    public void setSelectedPoll(Poll poll) { mSelectedPoll = poll;}
+    public Poll getSelectedPoll(){ return mSelectedPoll;}
 
 
 

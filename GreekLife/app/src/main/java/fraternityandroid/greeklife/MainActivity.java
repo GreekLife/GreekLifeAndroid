@@ -207,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
                             Globals globals = Globals.getInstance();
                             globals.setLoggedIn(null);
                             findViewById(R.id.loadingPanel).setVisibility(View.GONE);
-                            Log.d(TAG, "Authenticating Failed");
+                            Log.d(TAG, "Authenticating process failed");
                             Toast.makeText(MainActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }

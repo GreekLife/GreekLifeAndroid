@@ -1,9 +1,15 @@
 package fraternityandroid.greeklife;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.ActionMode;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,9 +19,13 @@ import com.squareup.picasso.Picasso;
 
 public class ViewProfileActivity extends AppCompatActivity {
 
-    TextView name,brotherName, position, school, grad, birthday, degree, email, verified;
+    EditText name,brotherName, position, school, grad, birthday, degree, email;
+    TextView verified;
     Button verify;
     ImageView pic;
+
+    final String[] mPositions = {"Brother", "Alumni", "Pledge", "LT Master", "Scribe", "Exchequer", "Pledge Master", "Rush Chair"};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +86,25 @@ public class ViewProfileActivity extends AppCompatActivity {
                     verify.setVisibility(View.VISIBLE);
                     position.setEnabled(true);
                     brotherName.setEnabled(true);
+                    DisableCopyPaste(position);
+
+                    position.setOnClickListener(new View.OnClickListener() {
+
+                        @Override
+                        public void onClick(View v) {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(ViewProfileActivity.this);
+                            builder.setTitle("Position")
+                                    .setItems(mPositions, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            position.setText(mPositions[which]);
+                                        }
+                                    });
+
+                            AlertDialog alert = builder.create();
+
+                            alert.show();
+                        }
+                    });
                 }
             }
         }
@@ -92,4 +121,28 @@ public class ViewProfileActivity extends AppCompatActivity {
         verified.setText("true");
         verify.setVisibility(View.GONE);
     }
+
+
+    public void DisableCopyPaste(EditText text) {
+        text.setCustomSelectionActionModeCallback(new ActionMode.Callback() {
+
+            public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
+                return false;
+            }
+
+            public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
+                return false;
+            }
+
+            public boolean onActionItemClicked(ActionMode actionMode, MenuItem item) {
+                return false;
+            }
+
+            public void onDestroyActionMode(ActionMode actionMode) {
+            }
+        });
+
+        text.setLongClickable(false);
+    }
+
 }

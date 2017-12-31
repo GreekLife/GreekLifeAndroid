@@ -45,6 +45,8 @@
                     android:textAlignment="center"
                     android:textSize="12sp"
                     android:textStyle="bold"
+                    android:inputType="none"
+                    android:focusable="false"
                     android:text="Jonah Elbaz" />
 
                 <EditText
@@ -72,7 +74,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:textSize="12sp"
-                android:inputType="textPersonName"
+                android:inputType="none"
+                android:focusable="false"
                 android:text="Master" />
 
             <EditText
@@ -81,7 +84,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:textSize="12sp"
-                android:inputType="textPersonName"
+                android:inputType="none"
+                android:focusable="false"
                 android:text="master@aepiconcorda.ca" />
 
             <EditText
@@ -90,7 +94,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:textSize="12sp"
-                android:inputType="textPersonName"
+                android:inputType="none"
+                android:focusable="false"
                 android:text="Fiannce" />
 
             <EditText
@@ -99,7 +104,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:textSize="12sp"
-                android:inputType="textPersonName"
+                android:inputType="none"
+                android:focusable="false"
                 android:text="December 20, 2018" />
 
             <EditText
@@ -108,7 +114,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:textSize="12sp"
-                android:inputType="textPersonName"
+                android:inputType="none"
+                android:focusable="false"
                 android:text="Concordia" />
 
             <EditText
@@ -117,7 +124,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:textSize="12sp"
-                android:inputType="textPersonName"
+                android:inputType="none"
+                android:focusable="false"
                 android:text="May 1,1995" />
         </LinearLayout>
 

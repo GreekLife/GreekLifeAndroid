@@ -156,7 +156,7 @@ public class Globals {
         }
 
         if (connected == false) {
-            Toast.makeText(mContext, "You are not connected to the internet", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(mContext, "You are not connected to the internet", Toast.LENGTH_SHORT).show();
         } else {
 
             mContext = context;

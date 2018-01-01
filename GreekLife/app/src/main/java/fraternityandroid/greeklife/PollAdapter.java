@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
@@ -173,7 +174,9 @@ public class PollAdapter extends BaseExpandableListAdapter {
             String url = globals.getImageUrl(id);
 
             try {
-                Picasso.with(context).load(url).into(profilePicture);
+                Glide.with(context)
+                        .load(url)
+                        .into(profilePicture);
             }
             catch (IllegalArgumentException e) {
 

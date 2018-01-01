@@ -32,12 +32,14 @@ public class AccountDetailsActivity extends AppCompatActivity {
     public EditText mRePassword;
     public String mId = null;
     private static final String TAG = "AccountDetailsActivity";
+    Globals globals = Globals.getInstance();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_details);
+        globals.IsBlocked(this);
 
         mAuth = FirebaseAuth.getInstance();
         mEmail = findViewById(R.id.Email);

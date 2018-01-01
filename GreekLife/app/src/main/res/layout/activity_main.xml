@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="fraternityandroid.greeklife.MainActivity"
-    android:theme="@style/Platform.ThemeOverlay.AppCompat.Dark"
     tools:layout_editor_absoluteY="50dp">
 
     <RelativeLayout
@@ -17,7 +16,6 @@
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:Col="#FFDF00"
             android:indeterminate="true" />
     </RelativeLayout>
 
@@ -157,7 +155,7 @@
                 android:layout_gravity="bottom"
                 android:onClick="CreateAccount"
                 android:text="Create Account"
-                android:background="#000"
+                android:background="#00252525"
                 android:textColor="#FFDF00" />
 
             <Button
@@ -167,7 +165,7 @@
                 android:onClick="ForgotPassword"
                 android:layout_weight="1"
                 android:textColor="#FFDF00"
-                android:background="#000"
+                android:background="#00252525"
                 android:layout_gravity="bottom"
                 android:text="Forgot Password" />
         </LinearLayout>

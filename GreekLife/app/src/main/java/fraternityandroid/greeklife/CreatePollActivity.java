@@ -29,6 +29,7 @@ public class CreatePollActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_poll);
+        globals.IsBlocked(this);
 
         LinearLayout myRoot = (LinearLayout) findViewById(R.id.ScrollViewLayout);
         EditText newOption = new EditText(this);

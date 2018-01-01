@@ -10,7 +10,10 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name=".permission.RECEIVE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="fraternityandroid.greeklife.permission.C2D_MESSAGE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <permission
         android:name="fraternityandroid.greeklife.permission.C2D_MESSAGE"
@@ -18,11 +21,12 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/logo3generic"
+        android:icon="@drawable/logo"
+        android:largeHeap="true"
         android:label="fratBase"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/Theme.AppCompat">
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait">

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -14,6 +15,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.lang.reflect.Array;
+import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -140,44 +142,63 @@ public class Globals {
 
 
     public void IsBlocked(final Context context) {
-        mContext = context;
-        String id = getLoggedIn().UserID;
 
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        final  DatabaseReference ref = database.child("Blocked/"+id);
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                final Context wContext = mContext;
-                if (((Boolean)snapshot.child("Blocked").getValue())) {
-                    long delay = (long) snapshot.child("Delay").getValue();
+        Boolean connected = false;
 
-                    final AlertDialog.Builder dialog = new AlertDialog.Builder(wContext)
-                            .setTitle("Get Wrecked").setMessage(
-                                    "Your Master has temporarily disabled your access. It will return in " + delay + " minutes").setCancelable(false);
-                    final AlertDialog alert = dialog.create();
-                    alert.show();
-                    long time = delay * 60;
-                    Timer timer = new Timer();
-                    timer.schedule(new TimerTask() {
-                        @Override
-                        public void run() {
-                            if (alert.isShowing()) {
-                                alert.dismiss();
+        try {
+            InetAddress ipAddr = InetAddress.getByName("google.com"); //You can replace it with your name
+            if (!ipAddr.equals("")) {
+                connected = true;
+            }
+
+        } catch (Exception e) {
+            connected = false;
+        }
+
+        if (connected == false) {
+            Toast.makeText(mContext, "You are not connected to the internet", Toast.LENGTH_SHORT).show();
+        } else {
+
+            mContext = context;
+            String id = getLoggedIn().UserID;
+
+            DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+            final DatabaseReference ref = database.child("Blocked/" + id);
+            ref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    final Context wContext = mContext;
+                    if (((Boolean) snapshot.child("Blocked").getValue())) {
+                        long delay = (long) snapshot.child("Delay").getValue();
+
+                        final AlertDialog.Builder dialog = new AlertDialog.Builder(wContext)
+                                .setTitle("Get Wrecked").setMessage(
+                                        "Your Master has temporarily disabled your access. It will return in " + delay + " minutes").setCancelable(false);
+                        final AlertDialog alert = dialog.create();
+                        alert.show();
+                        long time = delay * 60;
+                        Timer timer = new Timer();
+                        timer.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                if (alert.isShowing()) {
+                                    alert.dismiss();
+                                }
+                                Map<String, Object> ban = new HashMap<String, Object>();
+                                ban.put("Blocked", false);
+                                ban.put("Delay", 0);
+                                ref.setValue(ban);
                             }
-                            Map<String, Object> ban = new HashMap<String, Object>();
-                            ban.put("Blocked", false);
-                            ban.put("Delay", 0);
-                            ref.setValue(ban);
-                        }
-                    }, time*1000);
+                        }, time * 1000);
+                    }
                 }
-            }
-            @Override
-            public void onCancelled(DatabaseError error) {
-                Log.d(TAG, "Error reading block");
-            }
-        });
+
+                @Override
+                public void onCancelled(DatabaseError error) {
+                    Log.d(TAG, "Error reading block");
+                }
+            });
+        }
     }
 
 }

@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
@@ -31,6 +32,7 @@ public class CreateForumActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_forum);
+        globals.IsBlocked(this);
 
         title = (EditText) findViewById(R.id.PostTitle);
         post = (EditText) findViewById(R.id.Posting);
@@ -40,7 +42,9 @@ public class CreateForumActivity extends AppCompatActivity {
         post.setMaxLines(10);
         title.setMaxLines(3);
 
-        Picasso.with(CreateForumActivity.this).load(globals.getLoggedIn().Image).into(postPic);
+        Glide.with(this)
+                .load(globals.getLoggedIn().Image)
+                .into(postPic);
         String name = globals.getLoggedIn().First_Name + " " + globals.getLoggedIn().Last_Name;
         poster.setText(name);
 

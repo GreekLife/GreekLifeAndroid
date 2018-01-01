@@ -1,6 +1,7 @@
 package fraternityandroid.greeklife;
 
 import android.app.AlertDialog;
+import android.app.Application;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
@@ -225,7 +227,14 @@ public class ForumAdapter extends BaseAdapter {
 
             String id = mPosts.get(position).getPosterId();
             String url = globals.getImageUrl(id);
-            Picasso.with(mContext).load(url).into(profilePicture);
+            Glide.with(mContext)
+                    .load(url)
+                    .into(profilePicture);
+//            Glide.with(ApplicationC)
+//                    .load(url)
+//                    .centerCrop()
+//                    .placeholder(R.drawable.loading_spinner)
+//                    .into(profilePicture);
 
             comments.setOnClickListener(new View.OnClickListener() {
                 @Override

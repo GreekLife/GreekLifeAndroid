@@ -62,6 +62,17 @@ public class HomePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+
+        ActivityManager am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+        int memoryClass;
+        try {
+            memoryClass = am.getMemoryClass();
+            Log.v("onCreate", "memoryClass:" + Integer.toString(memoryClass));
+        }
+        catch(NullPointerException e) {
+            //do nothing with it
+        }
+
         globals.IsBlocked(HomePage.this);
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());

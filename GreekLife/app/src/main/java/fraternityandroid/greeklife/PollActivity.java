@@ -45,6 +45,7 @@ public class PollActivity extends AppCompatActivity {
         oldest = (Button)findViewById(R.id.Oldest);
         week = (Button)findViewById(R.id.Week);
         month = (Button)findViewById(R.id.Month);
+        globals.IsBlocked(this);
 
         findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
         getPolls();

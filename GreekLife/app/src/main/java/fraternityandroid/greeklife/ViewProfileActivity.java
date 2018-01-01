@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
@@ -23,6 +24,7 @@ public class ViewProfileActivity extends AppCompatActivity {
     TextView verified;
     Button verify;
     ImageView pic;
+    Globals globals = Globals.getInstance();
 
     final String[] mPositions = {"Brother", "Alumni", "Pledge", "LT Master", "Scribe", "Exchequer", "Pledge Master", "Rush Chair"};
 
@@ -31,6 +33,8 @@ public class ViewProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_profile);
+
+        globals.IsBlocked(this);
 
         verify = findViewById(R.id.Verify);
         name = findViewById(R.id.Name);
@@ -70,7 +74,9 @@ public class ViewProfileActivity extends AppCompatActivity {
 
         for(User member: globals.getUsers()) {
             if(member.UserID.equals(id)) {
-                Picasso.with(ViewProfileActivity.this).load(member.Image).into(pic);
+                Glide.with(this)
+                        .load(member.Image)
+                        .into(pic);
                 verified.setText(member.Validated.toString());
                 name.setText(member.First_Name + " " + member.Last_Name);
                 brotherName.setText(member.BrotherName);

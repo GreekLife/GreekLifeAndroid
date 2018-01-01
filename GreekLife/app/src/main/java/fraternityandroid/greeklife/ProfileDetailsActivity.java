@@ -23,6 +23,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -55,6 +56,7 @@ public class ProfileDetailsActivity extends AppCompatActivity {
     Button button;
     private StorageReference mStorage;
     Uri uri;
+    Globals globals = Globals.getInstance();
 
     String firstEmail = "";
 
@@ -101,10 +103,10 @@ public class ProfileDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //TemporaryBan.IsBlocked(ProfileDetailsActivity.this);
-
-
         setContentView(R.layout.activity_profile_details);
+
+        globals.IsBlocked(this);
+
         mStorageRef = FirebaseStorage.getInstance().getReference();
         button = findViewById(R.id.SaveAccount);
         first = findViewById(R.id.FirstName);
@@ -196,7 +198,7 @@ public class ProfileDetailsActivity extends AppCompatActivity {
         if(type.equals("UPDATE")) {
             globals.IsBlocked(ProfileDetailsActivity.this);
 
-            Picasso.with(ProfileDetailsActivity.this).load(user.Image).into(image);
+            Glide.with(this).load(user.Image).into(image);
 
             first.setText(user.First_Name);
             last.setText(user.Last_Name);

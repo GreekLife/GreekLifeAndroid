@@ -47,6 +47,8 @@ public class VotingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voting);
 
+        globals.IsBlocked(this);
+
         mPoll = globals.getSelectedPoll();
         mOptions = mPoll.getOptions();
 

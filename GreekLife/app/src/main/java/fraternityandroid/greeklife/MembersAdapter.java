@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -57,7 +58,9 @@ public class MembersAdapter extends BaseAdapter {
         final TextView name = (TextView)convertView.findViewById(R.id.Name);
         final TextView degree = (TextView)convertView.findViewById(R.id.Degree);
 
-        Picasso.with(mContext).load(mMembers.get(position).Image).into(profilePicture);
+        Glide.with(mContext)
+                .load(mMembers.get(position).Image)
+                .into(profilePicture);
         name.setText(mMembers.get(position).First_Name + " " + mMembers.get(position).Last_Name);
         degree.setText(mMembers.get(position).Degree);
 

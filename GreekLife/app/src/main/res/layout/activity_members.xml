@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#AAAAAA"
     tools:context="fraternityandroid.greeklife.MembersActivity">
 
     <LinearLayout
@@ -20,7 +19,6 @@
             android:id="@+id/Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#141A6E"
             android:padding="10dp"
             android:text="Members"
             android:textAlignment="center"

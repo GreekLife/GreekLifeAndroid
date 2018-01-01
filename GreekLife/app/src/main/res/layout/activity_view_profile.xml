@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#AAAAAA"
     tools:context="fraternityandroid.greeklife.ViewProfileActivity">
 
     <LinearLayout
@@ -26,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:scaleType="fitCenter"
-                android:background="#000"
+                android:background="#141A6E"
                 android:layout_weight="1"
                 android:adjustViewBounds="true"
                 app:srcCompat="@android:drawable/ic_dialog_alert" />

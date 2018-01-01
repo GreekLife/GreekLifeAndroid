@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#AAAAAA"
     tools:context="fraternityandroid.greeklife.ProfileDetailsActivity">
 
     <LinearLayout
@@ -46,6 +45,7 @@
                     android:ems="10"
                     android:textSize="14sp"
                     android:inputType="textPersonName"
+                    android:textColorHint="#4894EC"
                     android:hint="First Name" />
 
                 <EditText
@@ -55,6 +55,7 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:textSize="14sp"
+                    android:textColorHint="#4894EC"
                     android:inputType="textPersonName"
                     android:hint="Last Name" />
             </LinearLayout>
@@ -74,6 +75,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:textSize="14sp"
+                android:textColorHint="#4894EC"
                 android:inputType="textPersonName"
                 android:hint="Brother Name" />
 
@@ -85,6 +87,7 @@
                 android:textSize="14sp"
                 android:inputType="none"
                 android:focusable="false"
+                android:textColorHint="#4894EC"
                 android:hint="Position" />
 
             <EditText
@@ -94,6 +97,7 @@
                 android:ems="10"
                 android:textSize="14sp"
                 android:inputType="textPersonName"
+                android:textColorHint="#4894EC"
                 android:hint="School" />
 
             <EditText
@@ -104,6 +108,7 @@
                 android:textSize="14sp"
                 android:focusable="false"
                 android:inputType="none"
+                android:textColorHint="#4894EC"
                 android:hint="Graduation Date" />
 
             <EditText
@@ -113,6 +118,7 @@
                 android:ems="10"
                 android:textSize="14sp"
                 android:inputType="textPersonName"
+                android:textColorHint="#4894EC"
                 android:hint="Degree" />
 
             <EditText
@@ -123,6 +129,7 @@
                 android:textSize="14sp"
                 android:inputType="none"
                 android:hint="Birthday"
+                android:textColorHint="#4894EC"
                 android:focusable="false"/>
 
             <EditText
@@ -131,6 +138,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Email"
+                android:textColorHint="#4894EC"
                 android:inputType="textEmailAddress"
                 android:textSize="14sp" />
         </LinearLayout>

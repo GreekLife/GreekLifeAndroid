@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#AAAAAA"
     tools:context="fraternityandroid.greeklife.InfoActivity">
 
     <LinearLayout
@@ -26,12 +25,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="#141A6E"
                 android:padding="10dp"
                 android:textAlignment="center"
                 android:textColor="#FFDF00"
                 android:textSize="20sp"
-                android:text="AEPi Chapter Details" />
+                android:text="Gamma Lambda Details" />
 
         </LinearLayout>
 
@@ -143,7 +141,7 @@
                 android:background="#141A6E"
                 android:textColor="#FFDF00"
                 android:layout_marginTop="10dp"
-                android:text="Founding Fathers" />
+                android:text="Classes" />
 
         </LinearLayout>
 

@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#AAAAAA"
     tools:context="fraternityandroid.greeklife.CreateForumActivity">
 
     <LinearLayout
@@ -37,7 +36,9 @@
                 android:layout_gravity="center"
                 android:layout_weight="0.5"
                 android:text="Jonah Elbaz"
-                android:textColor="#000" />
+                android:textColor="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color"
+
+                />
         </LinearLayout>
 
         <LinearLayout
@@ -51,8 +52,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Title"
+                android:textColorHint="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color"
                 android:textSize="14sp"
+                android:hint="Title"
                 android:inputType="textMultiLine" />
 
             <EditText
@@ -61,6 +63,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Post"
+                android:textColorHint="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color"
                 android:textSize="12sp"
                 android:inputType="textMultiLine" />
         </LinearLayout>

@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#141A6E"
     tools:context="fraternityandroid.greeklife.MainActivity"
+    android:theme="@style/Platform.ThemeOverlay.AppCompat.Dark"
     tools:layout_editor_absoluteY="50dp">
 
     <RelativeLayout
@@ -17,6 +17,7 @@
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:Col="#FFDF00"
             android:indeterminate="true" />
     </RelativeLayout>
 
@@ -45,14 +46,15 @@
             android:orientation="horizontal">
 
             <EditText
-            android:id="@+id/code1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-                android:textAlignment="center"
+                android:id="@+id/code1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="number"
                 android:nextFocusDown="@+id/code2"
-                android:inputType="number" />
+                android:textAlignment="center"
+                android:textColor="#FFDF00" />
 
             <EditText
                 android:id="@+id/code2"
@@ -60,9 +62,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:textAlignment="center"
+                android:inputType="number"
                 android:nextFocusDown="@+id/code3"
-                android:inputType="number" />
+                android:textAlignment="center"
+                android:textColor="#FFDF00" />
 
             <EditText
                 android:id="@+id/code3"
@@ -70,9 +73,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:textAlignment="center"
+                android:inputType="number"
                 android:nextFocusDown="@+id/code4"
-                android:inputType="number" />
+                android:textAlignment="center"
+                android:textColor="#FFDF00" />
 
             <EditText
                 android:id="@+id/code4"
@@ -80,8 +84,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:inputType="number"
                 android:textAlignment="center"
-                android:inputType="number" />
+                android:textColor="#FFDF00" />
 
         </LinearLayout>
 
@@ -94,14 +99,14 @@
                 android:id="@+id/Email"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
+                android:alpha="0.5"
+                android:background="#0d0d0d"
                 android:ems="10"
                 android:hint="Email or username"
-                android:textColorHint="#ffffff"
-                android:textColor="#ffffff"
-                android:background="#0d0d0d"
-                android:alpha="0.5"
                 android:inputType="textEmailAddress"
                 android:singleLine="false"
+                android:textColor="#ffffff"
+                android:textColorHint="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color"
                 android:textSize="12sp"
                 tools:layout_editor_absoluteX="71dp"
                 tools:layout_editor_absoluteY="357dp" />
@@ -110,13 +115,13 @@
                 android:id="@+id/Password"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
-                android:ems="10"
-                android:textColorHint="#ffffff"
-                android:hint="Password"
-                android:background="#0d0d0d"
-                android:textColor="#ffffff"
                 android:alpha="0.5"
+                android:background="#0d0d0d"
+                android:ems="10"
+                android:hint="Password"
                 android:inputType="textPassword"
+                android:textColor="#ffffff"
+                android:textColorHint="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color"
                 android:textSize="12sp"
                 tools:layout_editor_absoluteX="71dp"
                 tools:layout_editor_absoluteY="400dp" />
@@ -126,17 +131,16 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.2"
         android:orientation="vertical">
+
         <Button
             android:id="@+id/Login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#141A6E"
+            android:background="@color/colorPrimary"
             android:onClick="Login"
-            android:text="Login"
-            android:textColor="#FFDF00"
             android:padding="7dp"
-            tools:layout_editor_absoluteX="129dp"
-            tools:layout_editor_absoluteY="471dp" />
+            android:text="Login"
+            android:textColor="#FFDF00" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -149,21 +153,21 @@
                 android:id="@+id/CreateAccount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#141A6E"
                 android:layout_weight="1"
                 android:layout_gravity="bottom"
                 android:onClick="CreateAccount"
                 android:text="Create Account"
+                android:background="#000"
                 android:textColor="#FFDF00" />
 
             <Button
                 android:id="@+id/ForgotPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#141A6E"
                 android:onClick="ForgotPassword"
                 android:layout_weight="1"
                 android:textColor="#FFDF00"
+                android:background="#000"
                 android:layout_gravity="bottom"
                 android:text="Forgot Password" />
         </LinearLayout>

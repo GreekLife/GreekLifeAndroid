@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#AAAAAA"
     tools:context="fraternityandroid.greeklife.BETAActivity">
 
     <LinearLayout
@@ -23,6 +22,7 @@
             android:textAlignment="center"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="50dp"
+            android:textColor="#FFDF00"
             android:text="Welcome to your new fraternity application. As of Winter 2018 semester the fraternity will be communicating through this app. If you stumble accross any bugs, glitches, or just have any feature recomendations you can email us at any time." />
 
         <TextView
@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:textColor="#141A6E"
+            android:textColor="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color"
             android:text="Email" />
 
         <EditText

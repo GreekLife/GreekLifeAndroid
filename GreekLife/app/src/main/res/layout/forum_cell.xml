@@ -68,6 +68,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_weight="0.2"
+                    android:textColor="#FFDF00"
                     android:textSize="5sp"
                     android:text="XXX Comments" />
 

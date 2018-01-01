@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#AAAAAA"
     tools:context="fraternityandroid.greeklife.PollActivity">
 
 
@@ -37,7 +36,6 @@
             android:textSize="22dp"
             android:textAlignment="center"
             android:textColor="#FFDF00"
-            android:background="#141A6E"
             android:padding="10dp"
             android:text="Polls" />
 
@@ -52,7 +50,6 @@
                 android:layout_height="40dp"
                 android:layout_marginRight="1dp"
                 android:layout_weight="1"
-                android:background="#666666"
                 android:onClick="create"
                 android:text="Create Poll"
                 android:textColor="#ff0000" />
@@ -62,7 +59,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_weight="1"
-                android:background="#666666"
                 android:onClick="deleting"
                 android:text="Delete"
                 android:textColor="#ff0000" />
@@ -79,7 +75,7 @@
                 android:layout_height="30dp"
                 android:layout_marginRight="1dp"
                 android:layout_weight="1"
-                android:background="#8080ff"
+                android:background="#4894EC"
                 android:elevation="0dp"
                 android:onClick="newest"
                 android:text="Newest"

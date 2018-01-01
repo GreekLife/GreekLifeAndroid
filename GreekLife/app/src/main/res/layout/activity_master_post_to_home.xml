@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#AAAAAA"
     tools:context="fraternityandroid.greeklife.MasterPostToHomeActivity">
 
     <LinearLayout
@@ -34,6 +33,7 @@
                 android:id="@+id/Message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="#FFDF00"
                 android:text="Write your post for the home page. Only the Master can post there."
                 android:textAlignment="center" />
 

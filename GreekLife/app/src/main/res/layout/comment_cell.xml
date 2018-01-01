@@ -30,15 +30,11 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/DeleteComment"
-                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
                 android:layout_weight="0.2"
                 android:textSize="8sp"
                 android:textColor="#FF0000"
-                android:background="#AAAAAA"
-
                 android:text="Delete" />
 
             <TextView

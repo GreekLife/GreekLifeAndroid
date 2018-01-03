@@ -22,8 +22,8 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/logo"
-        android:largeHeap="true"
         android:label="fratBase"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat">
@@ -103,19 +103,20 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".PollActivity"
+        <activity
+            android:name=".PollActivity"
             android:parentActivityName=".HomePage"
-            android:screenOrientation="portrait"/>
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".CreatePollActivity"
             android:configChanges="keyboardHidden|orientation"
             android:parentActivityName=".PollActivity"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name=".VotingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".VotingActivity"
             android:parentActivityName=".PollActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+        <activity android:name=".CalendarActivity"></activity>
     </application>
 
 </manifest>

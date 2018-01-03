@@ -15,6 +15,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -22,9 +23,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -84,6 +88,8 @@ public class HomePage extends AppCompatActivity {
 
         updateNotificationKey(refreshedToken);
 
+        //getPictures();
+
         ImageButton googleDrive = findViewById(R.id.GoogleDrive);
         googleDrive.setEnabled(false);
 
@@ -101,6 +107,25 @@ public class HomePage extends AppCompatActivity {
     public void onBackPressed() {
         //do nothing
     }
+
+//    public void getPictures() {
+//        if (!globals.getPicturesRetrieved()) {
+//            ArrayList<ImageView> images = new ArrayList<>();
+//            for (User user : globals.getUsers()) {
+//                ImageView image = new ImageView(this);
+//                try {
+//                    Glide.with(this)
+//                            .load(user.Image)
+//                            .into(image);
+//                    images.add(image);
+//                } catch (IllegalArgumentException e) {
+//
+//                }
+//
+//            }
+//            globals.setPicturesRetrieved(true);
+//        }
+//    }
 
     public void getNews() {
 
@@ -120,7 +145,10 @@ public class HomePage extends AppCompatActivity {
                 }
                 mListView = findViewById(R.id.List);
 
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(HomePage.this,  android.R.layout.simple_list_item_1, android.R.id.text1, mNews);
+
+                LinearLayout layout = findViewById(R.id.HomeNewsCell);
+                HomeAdapter adapter = new HomeAdapter(HomePage.this, mNews);
+
 
                 mListView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();

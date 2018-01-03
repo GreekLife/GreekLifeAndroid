@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -50,6 +51,8 @@ public class Globals {
     private PollOrder PollValue = PollOrder.NEWEST;
     private Poll mSelectedPoll;
 
+    private ArrayList<ImageView> mProfilePictures;
+    private Boolean mPicturesRetrieved = false;
 
     private ArrayList<Poll> mPolls;
     private ArrayList<Poll> temporaryPolls;
@@ -137,9 +140,18 @@ public class Globals {
     public void setSelectedPoll(Poll poll) { mSelectedPoll = poll;}
     public Poll getSelectedPoll(){ return mSelectedPoll;}
 
+    public ArrayList<ImageView> getProfilePictures() {
+        return mProfilePictures;
+    }
 
+    public void setProfilePictures(ArrayList<ImageView> mProfilePictures) {
+        this.mProfilePictures = mProfilePictures;
+    }
 
-
+    public void setPicturesRetrieved(Boolean answer) {
+        this.mPicturesRetrieved = answer;
+    }
+    public Boolean getPicturesRetrieved(){return this.mPicturesRetrieved;}
 
     public void IsBlocked(final Context context) {
 

@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/GreekLife.iml" filepath="$PROJECT_DIR$/GreekLife.iml" />
-      <module fileurl="file://C:\Users\Jon Zlotnik\OneDrive - Concordia University - Canada\Work - iOS Dev AEPi\Android\GreekLife\GreekLife.iml" filepath="C:\Users\Jon Zlotnik\OneDrive - Concordia University - Canada\Work - iOS Dev AEPi\Android\GreekLife\GreekLife.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\Jon Zlotnik\OneDrive - Concordia University - Canada\Work - iOS Dev AEPi\Android\GreekLife\app\app.iml" filepath="C:\Users\Jon Zlotnik\OneDrive - Concordia University - Canada\Work - iOS Dev AEPi\Android\GreekLife\app\app.iml" />
     </modules>
   </component>
 </project>

@@ -223,8 +223,9 @@ public class HomePage extends AppCompatActivity {
 
     }
     public void CalendarIntent(View view) {
-        //Intent calendar = new Intent(HomePage.this, CalendarActivity.class);
-        //startActivity(calendar);
+        Intent calendar = new Intent(HomePage.this, CalendarActivity.class);
+        startActivity(calendar);
+        Log.d("blah","Tried to start calendar app");
     }
     public void PollIntent(View view) {
         Intent poll = new Intent(HomePage.this, PollActivity.class);

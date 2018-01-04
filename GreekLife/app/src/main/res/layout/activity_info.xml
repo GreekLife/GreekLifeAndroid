@@ -26,6 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="10dp"
+                android:fontFamily="monospace"
                 android:textAlignment="center"
                 android:textColor="#FFDF00"
                 android:textSize="20sp"
@@ -53,20 +54,52 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginRight="20dp"
                 android:padding="10dp">
 
                 <TextView
                     android:id="@+id/ChapterNameH"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="monospace"
+                    android:textStyle="bold"
                     android:layout_weight="1"
                     android:text="Chapter Name" />
+
+                <TextView
+                    android:id="@+id/FoundingDateH"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="monospace"
+                    android:textStyle="bold"
+                    android:text="Founding Date" />
+
+                <TextView
+                    android:id="@+id/ActiveMasterH"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="monospace"
+                    android:textStyle="bold"
+                    android:text="Active Master" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="10dp">
+
 
                 <TextView
                     android:id="@+id/ChapterName"
@@ -74,20 +107,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Gamma Lambda" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-                <TextView
-                    android:id="@+id/FoundingDateH"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Founding Date" />
 
                 <TextView
                     android:id="@+id/FoundingDate"
@@ -95,20 +114,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="October 15th 2017" />
-            </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Active Master" />
 
                 <TextView
                     android:id="@+id/textView"
@@ -116,6 +122,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Bradley Hier" />
+
             </LinearLayout>
 
         </LinearLayout>
@@ -129,17 +136,20 @@
                 android:id="@+id/Constitution"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#141A6E"
+                android:background="@drawable/border"
+                android:backgroundTint="#7b1e7ce6"
+                android:textColor="#181818"
                 android:onClick="displayConstitution"
                 android:text="Constitution"
-                android:textColor="#FFDF00" />
+                 />
 
             <Button
                 android:id="@+id/FoundingFathers"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#141A6E"
-                android:textColor="#FFDF00"
+                android:background="@drawable/border"
+                android:backgroundTint="#7b1e7ce6"
+                android:textColor="#181818"
                 android:layout_marginTop="10dp"
                 android:text="Classes" />
 

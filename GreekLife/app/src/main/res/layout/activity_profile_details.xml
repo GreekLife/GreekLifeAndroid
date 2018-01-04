@@ -24,10 +24,11 @@
                 android:id="@+id/Picture"
                 android:layout_width="300dp"
                 android:layout_height="150dp"
+                android:background="@drawable/border"
                 android:layout_weight="1"
-                android:background="#141A6E"
                 android:onClick="pickImage"
                 android:scaleType="fitCenter"
+                android:layout_marginRight="5dp"
                 app:srcCompat="@drawable/profile" />
 
             <LinearLayout
@@ -147,10 +148,11 @@
             android:id="@+id/SaveAccount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#141A6E"
+            android:backgroundTint="#7b1e7ce6"
+            android:textColor="#181818"
+            android:background="@drawable/border"
             android:onClick="SaveAccount"
-            android:text="Create Account"
-            android:textColor="#FFDF00" />
+            android:text="Create Account" />
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

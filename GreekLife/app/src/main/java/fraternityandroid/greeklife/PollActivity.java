@@ -2,14 +2,18 @@ package fraternityandroid.greeklife;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -46,6 +50,16 @@ public class PollActivity extends AppCompatActivity {
         week = (Button)findViewById(R.id.Week);
         month = (Button)findViewById(R.id.Month);
         globals.IsBlocked(this);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.HomeToolbar);
+        TextView header = new TextView(this);
+        header.setText("Polls");
+        header.setTypeface(Typeface.create("monospace", Typeface.NORMAL));
+        header.setTextColor(Color.parseColor("#FFDF00"));
+
+        //image button for back <-
+
+        myToolbar.addView(header);
 
         findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
         getPolls();
@@ -161,10 +175,13 @@ public class PollActivity extends AppCompatActivity {
 
     public void newest(View view) {
         globals.setPollValue(Globals.PollOrder.NEWEST);
-        newest.setBackgroundColor(Color.parseColor("#8080ff"));
-        oldest.setBackgroundColor(Color.parseColor("#141A6E"));
-        week.setBackgroundColor(Color.parseColor("#141A6E"));
-        month.setBackgroundColor(Color.parseColor("#141A6E"));
+        newest.setBackgroundColor(Color.parseColor("#222222"));
+        oldest.setBackgroundColor(Color.parseColor("#00FFFFFF"));
+        oldest.setBackground(ContextCompat.getDrawable(this, R.drawable.thick_border));
+        month.setBackgroundColor(Color.parseColor("#00FFFFFF"));
+        month.setBackground(ContextCompat.getDrawable(this, R.drawable.thick_border));
+        week.setBackgroundColor(Color.parseColor("#00FFFFFF"));
+        week.setBackground(ContextCompat.getDrawable(this, R.drawable.thick_border));
 
                  for (int i = 0; i < globals.getPolls().size(); i++) {
                     for (int j = i; j > 0; j--) {
@@ -190,10 +207,13 @@ public class PollActivity extends AppCompatActivity {
     }
     public void oldest(View view) {
         globals.setPollValue(Globals.PollOrder.OLDEST);
-        newest.setBackgroundColor(Color.parseColor("#141A6E"));
-        oldest.setBackgroundColor(Color.parseColor("#8080ff"));
-        week.setBackgroundColor(Color.parseColor("#141A6E"));
-        month.setBackgroundColor(Color.parseColor("#141A6E"));
+        newest.setBackgroundColor(Color.parseColor("#00FFFFFF"));
+        newest.setBackground(ContextCompat.getDrawable(this, R.drawable.thick_border));
+        oldest.setBackgroundColor(Color.parseColor("#222222"));
+        week.setBackgroundColor(Color.parseColor("#00FFFFFF"));
+        week.setBackground(ContextCompat.getDrawable(this, R.drawable.thick_border));
+        month.setBackgroundColor(Color.parseColor("#00FFFFFF"));
+        month.setBackground(ContextCompat.getDrawable(this, R.drawable.thick_border));
 
         for (int i = 0; i < globals.getPolls().size(); i++) {
             for (int j = i; j > 0; j--) {
@@ -221,10 +241,15 @@ public class PollActivity extends AppCompatActivity {
 
     public void week(View view) {
         globals.setPollValue(Globals.PollOrder.WEEK);
-        newest.setBackgroundColor(Color.parseColor("#141A6E"));
-        oldest.setBackgroundColor(Color.parseColor("#141A6E"));
-        week.setBackgroundColor(Color.parseColor("#8080ff"));
-        month.setBackgroundColor(Color.parseColor("#141A6E"));
+        newest.setBackgroundColor(Color.parseColor("#00FFFFFF"));
+        newest.setBackground(ContextCompat.getDrawable(this, R.drawable.thick_border));
+        oldest.setBackgroundColor(Color.parseColor("#00FFFFFF"));
+        oldest.setBackground(ContextCompat.getDrawable(this, R.drawable.thick_border));
+
+        week.setBackgroundColor(Color.parseColor("#222222"));
+
+        month.setBackgroundColor(Color.parseColor("#00FFFFFF"));
+        month.setBackground(ContextCompat.getDrawable(this, R.drawable.thick_border));
 
         for (int i = 0; i < globals.getPolls().size(); i++) {
             for (int j = i; j > 0; j--) {
@@ -261,10 +286,13 @@ public class PollActivity extends AppCompatActivity {
 
     public void month(View view) {
         globals.setPollValue(Globals.PollOrder.MONTH);
-        newest.setBackgroundColor(Color.parseColor("#141A6E"));
-        oldest.setBackgroundColor(Color.parseColor("#141A6E"));
-        week.setBackgroundColor(Color.parseColor("#141A6E"));
-        month.setBackgroundColor(Color.parseColor("#8080ff"));
+        newest.setBackgroundColor(Color.parseColor("#00FFFFFF"));
+        newest.setBackground(ContextCompat.getDrawable(this, R.drawable.thick_border));
+        oldest.setBackgroundColor(Color.parseColor("#00FFFFFF"));
+        oldest.setBackground(ContextCompat.getDrawable(this, R.drawable.thick_border));
+        week.setBackgroundColor(Color.parseColor("#00FFFFFF"));
+        week.setBackground(ContextCompat.getDrawable(this, R.drawable.thick_border));
+        month.setBackgroundColor(Color.parseColor("#222222"));
 
         for (int i = 0; i < globals.getPolls().size(); i++) {
             for (int j = i; j > 0; j--) {

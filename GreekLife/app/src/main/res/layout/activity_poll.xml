@@ -19,6 +19,18 @@
             android:indeterminate="true" />
     </RelativeLayout>
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/HomeToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:elevation="4dp"
+        android:gravity="right"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        />
+
 
     <LinearLayout
         android:layout_width="0dp"
@@ -52,7 +64,7 @@
                 android:layout_weight="1"
                 android:onClick="create"
                 android:text="Create Poll"
-                android:textColor="#ff0000" />
+                android:textColor="#268cc5" />
 
             <Button
                 android:id="@+id/Delete"
@@ -61,7 +73,7 @@
                 android:layout_weight="1"
                 android:onClick="deleting"
                 android:text="Delete"
-                android:textColor="#ff0000" />
+                android:textColor="#268cc5" />
         </LinearLayout>
 
         <LinearLayout
@@ -75,11 +87,10 @@
                 android:layout_height="30dp"
                 android:layout_marginRight="1dp"
                 android:layout_weight="1"
-                android:background="#4894EC"
+                android:background="@drawable/thick_border"
                 android:elevation="0dp"
                 android:onClick="newest"
                 android:text="Newest"
-                android:textColor="#ff0000"
                 android:textSize="10sp" />
 
             <Button
@@ -88,10 +99,9 @@
                 android:layout_height="30dp"
                 android:layout_marginRight="1dp"
                 android:layout_weight="1"
-                android:background="#141A6E"
                 android:onClick="oldest"
                 android:text="Oldest"
-                android:textColor="#ff0000"
+                android:background="@drawable/thick_border"
                 android:textSize="10sp" />
 
             <Button
@@ -100,10 +110,9 @@
                 android:layout_height="30dp"
                 android:layout_marginEnd="1dp"
                 android:layout_weight="1"
-                android:background="#141A6E"
                 android:onClick="week"
                 android:text="This Week"
-                android:textColor="#ff0000"
+                android:background="@drawable/thick_border"
                 android:textSize="10sp" />
 
             <Button
@@ -111,14 +120,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_weight="1"
-                android:background="#141A6E"
                 android:onClick="month"
                 android:text="This Month"
-                android:textColor="#ff0000"
+                android:background="@drawable/thick_border"
                 android:textSize="10sp" />
         </LinearLayout>
 
         <ExpandableListView
+            android:layout_marginTop="10dp"
             android:groupIndicator="@null"
             android:id="@+id/PollList"
             android:layout_width="match_parent"

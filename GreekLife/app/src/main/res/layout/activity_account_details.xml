@@ -20,12 +20,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="TextView"
+            android:text="Account Details"
             android:textAlignment="center"
+            android:fontFamily="monospace"
             android:textColor="#FFDF00"
             android:textSize="20sp"
-            android:layout_marginBottom="50dp"
-            tools:text="Account Details" />
+            android:layout_marginBottom="50dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -71,9 +71,11 @@
             android:id="@+id/Next"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#141A6E"
             android:onClick="submitDetails"
             android:text="Next"
-            android:textColor="#FFDF00" />
+            android:background="@drawable/border"
+            android:backgroundTint="#7b1e7ce6"
+            android:textColor="#181818"
+            />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

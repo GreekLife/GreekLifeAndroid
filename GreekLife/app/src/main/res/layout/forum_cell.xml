@@ -65,12 +65,13 @@
 
                 <Button
                     android:id="@+id/Comments"
-                    android:layout_width="30dp"
+                    android:layout_width="80dp"
                     android:layout_height="30dp"
                     android:layout_weight="0.2"
-                    android:textColor="#FFDF00"
-                    android:textSize="5sp"
-                    android:text="XXX Comments" />
+                    android:textColor="#268cc5"
+                    android:background="#0000"
+                    android:textSize="14sp"
+                    android:text="Comments" />
 
                 <TextView
                     android:id="@+id/Date"
@@ -89,6 +90,7 @@
             android:background="#ff0000"
             android:textColor="#0000cc"
             android:layout_marginRight="1dp"
+            android:layout_marginBottom="20dp"
             android:text="Delete" />
 
         </LinearLayout>

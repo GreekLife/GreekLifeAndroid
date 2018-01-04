@@ -18,6 +18,18 @@
             android:indeterminate="true" />
     </RelativeLayout>
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/HomeToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:elevation="4dp"
+        android:gravity="right"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        />
+
 
     <LinearLayout
         android:layout_width="0dp"
@@ -33,6 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="22dp"
+            android:fontFamily="monospace"
             android:textAlignment="center"
             android:textColor="#FFDF00"
             android:padding="10dp"
@@ -51,7 +64,7 @@
                 android:layout_weight="1"
                 android:onClick="CreatePost"
                 android:text="Post"
-                android:textColor="#ff0000" />
+                android:textColor="#268cc5" />
 
             <Button
                 android:id="@+id/Delete"
@@ -60,7 +73,7 @@
                 android:layout_weight="1"
                 android:onClick="DeletePost"
                 android:text="Delete"
-                android:textColor="#ff0000" />
+                android:textColor="#268cc5" />
         </LinearLayout>
 
         <LinearLayout
@@ -77,8 +90,7 @@
                 android:elevation="0dp"
                 android:onClick="newest"
                 android:text="Newest"
-                android:background="#4894EC"
-                android:textColor="#ff0000"
+                android:background="@drawable/thick_border"
                 android:textSize="10sp" />
 
             <Button
@@ -87,10 +99,9 @@
                 android:layout_height="30dp"
                 android:layout_marginRight="1dp"
                 android:layout_weight="1"
-                android:background="#141A6E"
+                android:background="@drawable/thick_border"
                 android:onClick="oldest"
                 android:text="Oldest"
-                android:textColor="#ff0000"
                 android:textSize="10sp" />
 
             <Button
@@ -99,10 +110,9 @@
                 android:layout_height="30dp"
                 android:layout_marginRight="1dp"
                 android:layout_weight="1"
-                android:background="#141A6E"
+                android:background="@drawable/thick_border"
                 android:onClick="week"
                 android:text="This Week"
-                android:textColor="#ff0000"
                 android:textSize="10sp" />
 
             <Button
@@ -110,10 +120,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_weight="1"
-                android:background="#141A6E"
+                android:background="@drawable/thick_border"
                 android:onClick="month"
                 android:text="This Month"
-                android:textColor="#ff0000"
                 android:textSize="10sp" />
         </LinearLayout>
 

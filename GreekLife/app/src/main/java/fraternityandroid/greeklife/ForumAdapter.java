@@ -230,11 +230,6 @@ public class ForumAdapter extends BaseAdapter {
             Glide.with(mContext)
                     .load(url)
                     .into(profilePicture);
-//            Glide.with(ApplicationC)
-//                    .load(url)
-//                    .centerCrop()
-//                    .placeholder(R.drawable.loading_spinner)
-//                    .into(profilePicture);
 
             comments.setOnClickListener(new View.OnClickListener() {
                 @Override

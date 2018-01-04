@@ -104,6 +104,8 @@
                 android:inputType="textEmailAddress"
                 android:singleLine="false"
                 android:textColor="#ffffff"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:textColorHint="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color"
                 android:textSize="12sp"
                 tools:layout_editor_absoluteX="71dp"
@@ -116,6 +118,8 @@
                 android:alpha="0.5"
                 android:background="#0d0d0d"
                 android:ems="10"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:hint="Password"
                 android:inputType="textPassword"
                 android:textColor="#ffffff"
@@ -134,11 +138,13 @@
             android:id="@+id/Login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/border"
+            android:backgroundTint="#7b1e7ce6"
+            android:textColor="#181818"
             android:onClick="Login"
             android:padding="7dp"
             android:text="Login"
-            android:textColor="#FFDF00" />
+             />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -156,7 +162,7 @@
                 android:onClick="CreateAccount"
                 android:text="Create Account"
                 android:background="#00252525"
-                android:textColor="#FFDF00" />
+                android:textColor="#c1ffdf00" />
 
             <Button
                 android:id="@+id/ForgotPassword"
@@ -164,7 +170,7 @@
                 android:layout_height="wrap_content"
                 android:onClick="ForgotPassword"
                 android:layout_weight="1"
-                android:textColor="#FFDF00"
+                android:textColor="#c1ffdf00"
                 android:background="#00252525"
                 android:layout_gravity="bottom"
                 android:text="Forgot Password" />

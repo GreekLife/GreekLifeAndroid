@@ -189,7 +189,7 @@ public class ProfileDetailsActivity extends AppCompatActivity {
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pickImage();
+                pickImage(v);
             }
         });
 
@@ -226,7 +226,7 @@ public class ProfileDetailsActivity extends AppCompatActivity {
         }
     }
 
-    public void pickImage() {
+    public void pickImage(View view) {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);

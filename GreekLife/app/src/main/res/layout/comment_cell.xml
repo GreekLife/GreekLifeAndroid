@@ -36,6 +36,7 @@
                 android:layout_weight="0.2"
                 android:textSize="8sp"
                 android:textColor="#FF0000"
+                android:background="#00ffffff"
                 android:text="Delete" />
 
             <TextView

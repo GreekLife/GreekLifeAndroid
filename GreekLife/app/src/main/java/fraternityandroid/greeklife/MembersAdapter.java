@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -60,6 +61,7 @@ public class MembersAdapter extends BaseAdapter {
 
         Glide.with(mContext)
                 .load(mMembers.get(position).Image)
+                .apply(RequestOptions.circleCropTransform())
                 .into(profilePicture);
         name.setText(mMembers.get(position).First_Name + " " + mMembers.get(position).Last_Name);
         degree.setText(mMembers.get(position).Degree);

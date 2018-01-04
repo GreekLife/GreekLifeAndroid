@@ -121,10 +121,11 @@ public class VotingActivity extends AppCompatActivity {
             globals.setPollOptionIndexPercent(mPoll.getPostId(), count, percentString);
             ((TextView)mElements.get(count).get("Percent")).setText(percentString);
 
+
             String name = globals.getLoggedIn().First_Name+ " " + globals.getLoggedIn().Last_Name;
             ShapeDrawable shapedrawable = new ShapeDrawable();
             shapedrawable.setShape(new RectShape());
-            shapedrawable.getPaint().setColor(Color.parseColor("#141A6E"));
+            shapedrawable.getPaint().setColor(Color.parseColor("#268cc5"));
             shapedrawable.getPaint().setStrokeWidth(10f);
             shapedrawable.getPaint().setStyle(Paint.Style.STROKE);
             ((Button)mElements.get(count).get("Option")).setBackground(shapedrawable);
@@ -152,7 +153,7 @@ public class VotingActivity extends AppCompatActivity {
             LinearLayout layout = new LinearLayout(this);
             layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             layout.setOrientation(LinearLayout.HORIZONTAL);
-            layout.setBackgroundColor(Color.parseColor("#141A6E"));
+            layout.setBackgroundColor(Color.parseColor("#268cc5"));
 
             Map<String, Object> element = new HashMap<>();
             final Button option = new Button(this);
@@ -170,7 +171,7 @@ public class VotingActivity extends AppCompatActivity {
 
             ShapeDrawable shapedrawable = new ShapeDrawable();
             shapedrawable.setShape(new RectShape());
-            shapedrawable.getPaint().setColor(Color.parseColor("#141A6E"));
+            shapedrawable.getPaint().setColor(Color.parseColor("#268cc5"));
             final String name = globals.getLoggedIn().First_Name + " " + globals.getLoggedIn().Last_Name;
 
             shapedrawable.getPaint().setStrokeWidth(10f);
@@ -226,7 +227,7 @@ public class VotingActivity extends AppCompatActivity {
                                         alert.dismiss();
                                     }
                                 })
-                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .setIcon(android.R.drawable.btn_star)
                                 .show();
                     }
                 });

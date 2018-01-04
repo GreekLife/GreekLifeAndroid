@@ -1,5 +1,9 @@
 package fraternityandroid.greeklife;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,8 +14,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
@@ -44,7 +50,9 @@ public class CreateForumActivity extends AppCompatActivity {
 
         Glide.with(this)
                 .load(globals.getLoggedIn().Image)
+                .apply(RequestOptions.circleCropTransform())
                 .into(postPic);
+
         String name = globals.getLoggedIn().First_Name + " " + globals.getLoggedIn().Last_Name;
         poster.setText(name);
 

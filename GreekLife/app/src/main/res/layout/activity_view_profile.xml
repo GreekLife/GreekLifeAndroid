@@ -22,16 +22,15 @@
 
             <ImageView
                 android:id="@+id/ProfilePicture"
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:scaleType="fitCenter"
-                android:background="#141A6E"
-                android:layout_weight="1"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_margin="10dp"
                 android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
                 app:srcCompat="@android:drawable/ic_dialog_alert" />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
@@ -154,10 +153,12 @@
             android:id="@+id/Verify"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#141A6E"
+            android:background="@drawable/border"
+            android:backgroundTint="#7b1e7ce6"
+            android:textColor="#181818"
             android:onClick="Verify"
             android:text="Verify"
-            android:textColor="#FFDF00" />
+            />
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

@@ -2,6 +2,7 @@ package fraternityandroid.greeklife;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.drawable.GradientDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ActionMode;
@@ -64,6 +65,7 @@ public class ViewProfileActivity extends AppCompatActivity {
         verified = findViewById(R.id.Status);
         pic = findViewById(R.id.ProfilePicture);
 
+        pic.setBackgroundResource(R.drawable.tags_rounded_corners);
 
 
 

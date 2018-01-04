@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
@@ -229,6 +230,7 @@ public class ForumAdapter extends BaseAdapter {
             String url = globals.getImageUrl(id);
             Glide.with(mContext)
                     .load(url)
+                    .apply(RequestOptions.circleCropTransform())
                     .into(profilePicture);
 
             comments.setOnClickListener(new View.OnClickListener() {

@@ -88,15 +88,6 @@ public class CommentAdapter extends BaseAdapter {
         final TextView name = (TextView)convertView.findViewById(R.id.CommenterName);
         final TextView delete = (TextView)convertView.findViewById(R.id.DeleteComment);
 
-        if(position % 2 == 0) {
-            convertView.setBackgroundColor(Color.parseColor("#ff7f7f"));
-            delete.setBackgroundColor(Color.parseColor("#ff7f7f"));
-        }
-        else {
-            convertView.setBackgroundColor(Color.parseColor("#AAAAAA"));
-            delete.setBackgroundColor(Color.parseColor("#AAAAAA"));
-        }
-
         final fraternityandroid.greeklife.Comment com = mComments.get(position);
 
         comment.setText(com.getComment());
@@ -159,7 +150,7 @@ public class CommentAdapter extends BaseAdapter {
         });
 
         if(globals.getLoggedIn().UserID.equals(mComments.get(position).getCommenterId())) {
-            name.setTextColor(Color.BLUE);
+            name.setTextColor(Color.parseColor("#4894EC"));
         }
         else {
             name.setTextColor(Color.BLACK);

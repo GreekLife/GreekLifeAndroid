@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
@@ -176,6 +177,7 @@ public class PollAdapter extends BaseExpandableListAdapter {
             try {
                 Glide.with(context)
                         .load(url)
+                        .apply(RequestOptions.circleCropTransform())
                         .into(profilePicture);
             }
             catch (IllegalArgumentException e) {

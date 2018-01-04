@@ -26,6 +26,7 @@
                 android:id="@+id/PosterPic"
                 android:layout_width="wrap_content"
                 android:layout_height="70dp"
+                android:layout_marginLeft="6dp"
                 app:srcCompat="@android:drawable/stat_sys_warning" />
 
             <TextView
@@ -72,8 +73,9 @@
             android:id="@+id/PostForum"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#141A6E"
-            android:textColor="#FFDF00"
+            android:background="@drawable/border"
+            android:backgroundTint="#7b1e7ce6"
+            android:textColor="#181818"
             android:onClick="postToForum"
             android:text="Post" />
     </LinearLayout>

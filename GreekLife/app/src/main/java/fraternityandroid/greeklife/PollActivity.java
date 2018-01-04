@@ -61,6 +61,8 @@ public class PollActivity extends AppCompatActivity {
 
         myToolbar.addView(header);
 
+        newest.setBackgroundColor(Color.parseColor("#222222"));
+
         findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
         getPolls();
     }

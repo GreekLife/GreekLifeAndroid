@@ -7,6 +7,7 @@
     tools:context="fraternityandroid.greeklife.ForumCommentActivity">
 
     <LinearLayout
+        android:id="@+id/commentLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
@@ -17,12 +18,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#94252525"
                 android:orientation="horizontal">
                 <TextView
                     android:id="@+id/ClickedPoster"
@@ -30,14 +32,14 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_gravity="center"
-                    android:textColor="#000"
+                    android:textStyle="bold"
                     android:text="Jonah Elbaz" />
 
                 <TextView
                     android:id="@+id/ClickedPostDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#000"
+                    android:textColor="#4894EC"
                     android:text="100d" />
 
             </LinearLayout>
@@ -45,17 +47,18 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#94252525"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/ClickedPostTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fadeScrollbars="false"
                     android:ems="10"
                     android:layout_marginTop="10dp"
                     android:hint="Title Goes Here"
                     android:textColorHint="#4894EC"
-                    android:textColor="#000"
                     android:singleLine="false"
                     android:maxLines="8"
                     android:scrollbars="vertical"
@@ -68,9 +71,9 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:ems="10"
+                    android:fadeScrollbars="false"
                     android:textColorHint="#4894EC"
                     android:hint="Clicked post displays here"
-                    android:textColor="#000"
                     android:singleLine="false"
                     android:maxLines="8"
                     android:scrollbars="vertical"
@@ -80,7 +83,8 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:orientation="vertical">
 
 
@@ -88,19 +92,18 @@
                     android:id="@+id/CommentList"
                     android:layout_width="match_parent"
                     android:layout_weight="1"
-                    android:layout_height="0dp" />
+                    android:layout_height="wrap_content" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
+                    android:background="#202020"
                     android:orientation="horizontal">
 
                     <EditText
                         android:id="@+id/newComment"
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:minHeight="30dp"
+                        android:layout_height="wrap_content"
                         android:ems="10"
                         android:layout_weight="1"
                         android:textColor="#AAA"
@@ -112,10 +115,11 @@
                         android:id="@+id/PostComment"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
-                        android:background="#141A6E"
                         android:onClick="PostComment"
                         android:text="POST"
-                        android:textColor="#FFDF00"
+                        android:background="@drawable/border"
+                        android:backgroundTint="#7b1e7ce6"
+                        android:textColor="#181818"
                         android:textSize="12sp" />
                 </LinearLayout>
 

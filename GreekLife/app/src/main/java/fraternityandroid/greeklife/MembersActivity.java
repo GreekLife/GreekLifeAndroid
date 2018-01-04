@@ -1,11 +1,15 @@
 package fraternityandroid.greeklife;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.TextView;
 
 public class MembersActivity extends AppCompatActivity {
 
@@ -17,6 +21,16 @@ public class MembersActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_members);
         globals.IsBlocked(MembersActivity.this);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.HomeToolbar);
+        TextView header = new TextView(this);
+        header.setText("Members");
+        header.setTypeface(Typeface.create("monospace", Typeface.NORMAL));
+        header.setTextColor(Color.parseColor("#FFDF00"));
+
+        //image button for back <-
+
+        myToolbar.addView(header);
 
         GridView gridView = (GridView)findViewById(R.id.MemberGrid);
         MembersAdapter memberAdapter = new MembersAdapter(this, globals.getUsers());

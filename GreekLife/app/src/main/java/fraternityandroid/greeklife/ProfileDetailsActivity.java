@@ -127,6 +127,8 @@ public class ProfileDetailsActivity extends AppCompatActivity {
         DisableCopyPaste(grad);
 
 
+
+
        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
             @Override
@@ -185,7 +187,7 @@ public class ProfileDetailsActivity extends AppCompatActivity {
         User user = globals.getLoggedIn();
 
         image = findViewById(R.id.Picture);
-
+        image.setBackgroundResource(R.drawable.tags_rounded_corners);
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

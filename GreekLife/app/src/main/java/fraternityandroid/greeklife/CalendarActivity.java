@@ -7,6 +7,7 @@ import android.text.format.DateUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -32,7 +33,7 @@ import javax.xml.datatype.Duration;
 
 public class CalendarActivity extends AppCompatActivity {
 
-      //---------------------------------------------------------------
+    //---------------------------------------------------------------
      // The Model
     //
     class CalendarEvent {
@@ -125,6 +126,37 @@ public class CalendarActivity extends AppCompatActivity {
                     return "WTF?";
             }
         }
+        public String monthToString (int month) {
+            switch (month)
+            {
+                case 0 :
+                    return "January";
+                case 1 :
+                    return "February";
+                case 2 :
+                    return "March";
+                case 3 :
+                    return "April";
+                case 4 :
+                    return "May";
+                case 5 :
+                    return "June";
+                case 6 :
+                    return "July";
+                case 7 :
+                    return "August";
+                case 8 :
+                    return "Septembre";
+                case 9 :
+                    return "Octobre";
+                case 10 :
+                    return "Novembre";
+                case 11 :
+                    return "December";
+                default:
+                    return "Not a Month";
+            }
+        }
 
     }
 
@@ -141,8 +173,39 @@ public class CalendarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
 
-        final LinearLayout eventListView = findViewById(R.id.eventListView);
+        reloadUI();
 
+    }
+
+    //--------------------------------
+    // Change Month Viewing
+    //
+    public void goToNextMonth(View view)
+    {
+        if (theCalendar.monthViewing == 11) {
+            theCalendar.monthViewing = 0;
+            theCalendar.yearViewing++;
+        }else{
+            theCalendar.monthViewing++;
+        }
+        reloadUI();
+    }
+    public void goToPrevMonth(View view) {
+        if (theCalendar.monthViewing == 0) {
+            theCalendar.monthViewing = 11;
+            theCalendar.yearViewing--;
+        }else{
+            theCalendar.monthViewing--;
+        }
+        reloadUI();
+    }
+
+    //-----------------------------------------------------
+    //  Reload the UI
+    //
+    private void reloadUI () {
+        final LinearLayout eventListView = findViewById(R.id.eventListView);
+        final Button monthButton = findViewById(R.id.monthViewingBTN);
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Calendar");
 
         ValueEventListener calendarEventsListener = new ValueEventListener() {
@@ -179,16 +242,14 @@ public class CalendarActivity extends AppCompatActivity {
                 Toast.makeText(CalendarActivity.this, "There was an ERROR with the Database!!!", Toast.LENGTH_LONG).show();
             }
         };
-
-        mDatabase.addValueEventListener(calendarEventsListener);
-        /*createDateView(eventListView);
-        eventListView.removeAllViewsInLayout();
-        createDateView(eventListView);
-        createDateView(eventListView);*/
-
+        mDatabase.addListenerForSingleValueEvent(calendarEventsListener);
+        monthButton.setText(theCalendar.monthToString(theCalendar.monthViewing)+ " " +theCalendar.yearViewing);
 
     }
 
+    //--------------------------------------------------
+    // Methods for setting up the event cards/views
+    //
     public void createDateView(LinearLayout parent, Calendar date, CalendarEvent calEvent)
     {
         View dayLayout = getLayoutInflater().inflate(R.layout.calendar_day_cell, null);

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <EditText
+            android:id="@+id/eventTitleField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Event Title" />
+
+        <EditText
+            android:id="@+id/eventLocationField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Location" />
+        <EditText
+            android:id="@+id/eventDescriptionField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="A brief description..."
+            android:gravity="bottom"
+            android:layout_marginBottom="10dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="Date:"
+                android:textSize="18sp"/>
+            <Button
+                android:id="@+id/eventDateBTN"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Choose a date..."
+                android:textAllCaps="false"/>
+        </LinearLayout>
+        <DatePicker
+            android:id="@+id/datePicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:datePickerMode="spinner"
+            android:calendarViewShown="false"
+            android:visibility="gone"
+            android:background="#333"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="Time:"
+                android:textSize="18sp"/>
+            <Button
+                android:id="@+id/eventTimeBTN"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Choose a time..."
+                android:textAllCaps="false" />
+        </LinearLayout>
+
+        <TimePicker
+            android:id="@+id/timePicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:timePickerMode="spinner"
+            android:visibility="gone"
+            android:background="#333"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"> </TimePicker>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingVertical="5dp">
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="Duration:"
+                android:textSize="18sp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+                <EditText
+                    android:id="@+id/hoursField"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:textAlignment="center"
+                    android:text="0"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="h"
+                    android:textSize="18sp"
+                    android:paddingRight="10dp"/>
+                <EditText
+                    android:id="@+id/minutesField"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:textAlignment="center"
+                    android:text="15"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="min"
+                    android:textSize="18sp"
+                    android:paddingRight="10dp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

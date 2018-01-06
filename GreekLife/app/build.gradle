@@ -5,7 +5,7 @@ android {
     buildToolsVersion '27.0.2'
     defaultConfig {
         applicationId "fraternityandroid.greeklife"
-        minSdkVersion 22
+        minSdkVersion 23
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -45,6 +45,7 @@ dependencies {
 
     compile "com.android.support:support-core-utils:27.0.2"
 }
+
 
 
 

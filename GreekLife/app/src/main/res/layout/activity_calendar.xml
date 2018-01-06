@@ -13,7 +13,29 @@
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp"
         tools:ignore="MissingConstraints">
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="prev"
+                android:onClick="goToPrevMonth"/>
+            <Button
+                android:id="@+id/monthViewingBTN"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="January 2018"
+                android:layout_weight="1"
+                android:textAllCaps="false"
+                android:background="#0000"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:onClick="goToNextMonth"
+                android:text="next"
+                />
+        </LinearLayout>
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -31,43 +53,26 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:id="@+id/calendarEBoardTools">
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="edit"/>
+                android:text="edit"
+                android:onClick="editMode"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"/>
             <Button
+                android:id="@+id/newEventBTN"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="new"/>
+                android:text="new"
+                android:onClick="editEvent"/>
 
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="L-"
-                android:onClick="goToPrevMonth"/>
-            <Button
-                android:id="@+id/monthViewingBTN"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="January 2018"
-                android:layout_weight="1"
-                android:textAllCaps="false"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:onClick="goToNextMonth"
-                android:text="->"
-                />
-        </LinearLayout>
+
     </LinearLayout>
 
 

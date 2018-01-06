@@ -1,67 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="15dp"
         android:layout_margin="5dp"
-        android:background="#111">
-    <TextView
-        android:id="@+id/eventTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Kick-ass Party!!"
-        android:textSize="14dp"
-        android:textStyle="bold|italic"/>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:background="#222"
+        android:orientation="vertical"
+        android:padding="15dp">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="10dp"
-            android:text="From "/>
-        <TextView
-            android:id="@+id/eventStartTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="10dp"
-            android:text="10am"
-            android:textStyle="bold"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="10dp"
-            android:text=" to "/>
-        <TextView
-            android:id="@+id/eventEndTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="10dp"
-            android:text="12pm"
-            android:textStyle="bold"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="10dp"
-            android:text=" at "/>
-        <TextView
-            android:id="@+id/eventLocation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="10dp"
-            android:text="School"
-            android:textStyle="bold"/>
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:paddingVertical="10dp"
+            android:paddingLeft="5dp">
 
+            <TextView
+                android:id="@+id/eventTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kick-ass Party!!"
+                android:textSize="14dp"
+                android:textStyle="bold|italic" />
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="From "
+                    android:textSize="10dp" />
+
+                <TextView
+                    android:id="@+id/eventStartTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10am"
+                    android:textSize="10dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" to "
+                    android:textSize="10dp" />
+
+                <TextView
+                    android:id="@+id/eventEndTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="12pm"
+                    android:textSize="10dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" at "
+                    android:textSize="10dp" />
+
+                <TextView
+                    android:id="@+id/eventLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="School"
+                    android:textSize="10dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/eventDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="alkdsjflskjdf alkdsjflskjdf alkdsjflskjdf alkdsjflskjdf alkdsjflskjdf alkdsjflskjdf alkdsjflskjdf alkdsjflskjdf alkdsjflskjdf alkdsjflskjdf alkdsjflskjdf alkdsjflskjdf alkdsjflskjdf alkdsjflskjdf alkdsjflskjdf alkdsjflskjdf alkdsjflskjdf alkdsjflskjdf alkdsjflskjdf alkdsjflskjdf alkdsjflskjdfalkdsjflskjdf alkdsjflskjdf alkdsjflskjdf alkdsjflskjdf alkdsjflskjdf"
+                android:textSize="12dp" />
+        </LinearLayout>
+        <Button
+            android:id="@+id/deleteBTN"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Delete"
+            android:textColor="#F00"
+            android:onClick="deleteEvent"
+            android:visibility="gone"/>
+
     </LinearLayout>
 
 

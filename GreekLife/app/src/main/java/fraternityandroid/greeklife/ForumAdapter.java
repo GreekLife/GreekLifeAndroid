@@ -221,6 +221,8 @@ public class ForumAdapter extends BaseAdapter {
                 display = Integer.toString(min) + "m";
             }
 
+            date.setText(display);
+
             date.setText(display); //format epoch
 
             String numOfCom = Long.toString(mPosts.get(position).getNumberOfComments());

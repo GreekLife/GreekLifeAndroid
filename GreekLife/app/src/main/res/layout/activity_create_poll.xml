@@ -28,7 +28,7 @@
                 android:layout_weight="1"
                 android:onClick="addOption"
                 android:text="Add"
-                android:textColor="#ff0000" />
+                android:textColor="#7b1e7ce6" />
 
             <Button
                 android:id="@+id/Delete"
@@ -37,7 +37,7 @@
                 android:layout_weight="1"
                 android:onClick="removeOption"
                 android:text="Remove"
-                android:textColor="#ff0000" />
+                android:textColor="#7b1e7ce6" />
         </LinearLayout>
 
     <LinearLayout
@@ -82,7 +82,8 @@
             android:id="@+id/CreatePoll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#141A6E"
+            android:background="@drawable/border"
+            android:backgroundTint="#7b1e7ce6"
             android:onClick="validate"
             android:text="Create Poll"
             android:textColor="#FFDF00" />

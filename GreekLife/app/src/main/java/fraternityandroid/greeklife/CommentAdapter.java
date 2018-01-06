@@ -67,7 +67,7 @@ public class CommentAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
-        Globals globals = Globals.getInstance();
+        final Globals globals = Globals.getInstance();
 
         if (convertView == null) {
             final LayoutInflater layoutInflater = LayoutInflater.from(mContext);
@@ -132,7 +132,7 @@ public class CommentAdapter extends BaseAdapter {
                                 // continue with delete
 
                                 FirebaseDatabase database = FirebaseDatabase.getInstance();
-                                DatabaseReference myRef = database.getReference("Forum/"+mPost.getPostId()+"/Comments/"+com.getCommentId());
+                                DatabaseReference myRef = database.getReference(globals.DatabaseNode()+"/Forum/"+mPost.getPostId()+"/Comments/"+com.getCommentId());
                                 myRef.removeValue();
                                 //test for success
                                 Toast.makeText(mContext, "Comment removed", Toast.LENGTH_SHORT).show();

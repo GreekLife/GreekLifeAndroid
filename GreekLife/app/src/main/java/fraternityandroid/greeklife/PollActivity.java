@@ -69,7 +69,7 @@ public class PollActivity extends AppCompatActivity {
 
     public void getPolls() {
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference ref = database.child("Polls");
+        DatabaseReference ref = database.child(globals.DatabaseNode()+"/Polls");
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -104,7 +104,7 @@ public class PollActivity extends AppCompatActivity {
 
                         final String id = postId;
                         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-                        DatabaseReference ref = database.child("PollOptions/"+id);
+                        DatabaseReference ref = database.child(globals.DatabaseNode()+"/PollOptions/"+id);
 
                         ref.addValueEventListener(new ValueEventListener() {
                             @Override

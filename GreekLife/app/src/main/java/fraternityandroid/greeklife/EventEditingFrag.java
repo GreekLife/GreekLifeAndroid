@@ -36,6 +36,8 @@ public class EventEditingFrag extends DialogFragment {
     View edittingView;
     CalendarActivity presentingClass;
 
+    Globals globals = Globals.getInstance();
+
 
     public void setEventDate(Calendar eventDate) {
         this.eventDate = eventDate;
@@ -231,7 +233,7 @@ public class EventEditingFrag extends DialogFragment {
                     } else {
                          DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
                          if(creatingNew){
-                             mDatabase = mDatabase.child("Calendar");
+                             mDatabase = mDatabase.child(globals.DatabaseNode()+"/Calendar");
                              String eventID = String.valueOf((int)(eventDate.getTimeInMillis()/1000));
                              mDatabase.child(eventID+"/date").setValue(Double.parseDouble(eventID));
                              mDatabase.child(eventID+"/description").setValue(description);

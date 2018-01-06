@@ -69,7 +69,7 @@ public class CreateForumActivity extends AppCompatActivity {
         String time = Long.toString(System.currentTimeMillis()/1000L);
         Double epoch = new Double(time+".01");
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("Forum/"+id);
+        DatabaseReference myRef = database.getReference(globals.DatabaseNode()+"/Forum/"+id);
         Map<String, Object> newPost = new HashMap<String, Object>();
         newPost.put("Post", post.getText().toString());
         newPost.put("PostTitle", title.getText().toString());
@@ -80,7 +80,7 @@ public class CreateForumActivity extends AppCompatActivity {
         newPost.put("Poster", (globals.getLoggedIn().First_Name + " " + globals.getLoggedIn().Last_Name));
         //Test for success
         myRef.setValue(newPost);
-        DatabaseReference myRef2 = database.getReference("Forum/ForumIds"); //Does this successfully add the object?
+        DatabaseReference myRef2 = database.getReference(globals.DatabaseNode()+"/Forum/ForumIds"); //Does this successfully add the object?
         myRef2.child(id).setValue(id);
 
         Toast.makeText(CreateForumActivity.this, "Your post has been successfully made.", Toast.LENGTH_SHORT).show();

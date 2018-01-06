@@ -51,7 +51,7 @@ public class InfoActivity extends AppCompatActivity {
 
     public void getInfo() {
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference ref = database.child("Info");
+        DatabaseReference ref = database.child(globals.DatabaseNode()+"/Info");
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override

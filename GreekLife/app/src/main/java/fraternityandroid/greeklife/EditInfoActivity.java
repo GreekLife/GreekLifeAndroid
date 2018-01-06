@@ -45,6 +45,8 @@ public class EditInfoActivity extends AppCompatActivity {
     String originalURL;
     public static final int PICK_IMAGE = 1;
 
+    Globals globals = Globals.getInstance();
+
     private static final String TAG = "EditInfoActivity";
 
     @Override
@@ -106,7 +108,7 @@ public class EditInfoActivity extends AppCompatActivity {
         }
         StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
 
-        StorageReference filepath = mStorageRef.child("Info/InfoLogoImage.jpg");
+        StorageReference filepath = mStorageRef.child(globals.DatabaseNode()+"/Info/InfoLogoImage.jpg");
         if (uri == null) {
             Toast.makeText(this, "You need a profile picture", Toast.LENGTH_SHORT).show();
             return;
@@ -114,7 +116,7 @@ public class EditInfoActivity extends AppCompatActivity {
 
         if(originalURL.equals(logoURL)) {
             FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = database.getReference("Info");
+            DatabaseReference myRef = database.getReference(globals.DatabaseNode()+"/Info");
             Map<String, Object> info = new HashMap<>();
             info.put("ActiveMaster", mMaster.getText().toString());
             info.put("ChapterName", mChapter.getText().toString());
@@ -130,7 +132,7 @@ public class EditInfoActivity extends AppCompatActivity {
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             Uri downloadUrl = taskSnapshot.getDownloadUrl();
                             FirebaseDatabase database = FirebaseDatabase.getInstance();
-                            DatabaseReference myRef = database.getReference("Info");
+                            DatabaseReference myRef = database.getReference(globals.DatabaseNode()+"/Info");
                             Map<String, Object> info = new HashMap<>();
                             info.put("ActiveMaster", mMaster.getText().toString());
                             info.put("ChapterName", mChapter.getText().toString());
@@ -158,7 +160,7 @@ public class EditInfoActivity extends AppCompatActivity {
 
     public void getInfo() {
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference ref = database.child("Info");
+        DatabaseReference ref = database.child(globals.DatabaseNode()+"/Info");
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override

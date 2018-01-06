@@ -122,7 +122,7 @@ public class ViewProfileActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         final String id = bundle.getString("id");
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("Users/"+id+"/Validated");
+        DatabaseReference myRef = database.getReference(globals.DatabaseNode() + "/Users/"+id+"/Validated");
         myRef.setValue(true);
         brotherName.setEnabled(false);
         position.setEnabled(false);

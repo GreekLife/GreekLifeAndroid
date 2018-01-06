@@ -23,7 +23,7 @@ public class MasterControlsActivity extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
     private static final String TAG = "MainActivity";
-
+    Globals globals = Globals.getInstance();
     Button code;
 
     @Override
@@ -36,7 +36,7 @@ public class MasterControlsActivity extends AppCompatActivity {
 
     public void getCode() {
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference ref = database.child("CreateAccount/GeneratedKey");
+        DatabaseReference ref = database.child(globals.DatabaseNode()+"/CreateAccount/GeneratedKey");
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -62,7 +62,7 @@ public class MasterControlsActivity extends AppCompatActivity {
         String newCode = Integer.toString(val1) + Integer.toString(val2) + Integer.toString(val3) + Integer.toString(val4);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("CreateAccount/GeneratedKey").setValue(newCode);
+        mDatabase.child(globals.DatabaseNode()+"/CreateAccount/GeneratedKey").setValue(newCode);
 
     }
 

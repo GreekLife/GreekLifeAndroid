@@ -45,6 +45,8 @@ import javax.xml.datatype.Duration;
 
 public class CalendarActivity extends AppCompatActivity {
 
+    Globals globals = Globals.getInstance();
+
     //---------------------------------------------------------------
     // The Model
     //
@@ -173,7 +175,7 @@ public class CalendarActivity extends AppCompatActivity {
     public void reloadUI() {
         final LinearLayout eventListView = findViewById(R.id.eventListView);
         final Button monthButton = findViewById(R.id.monthViewingBTN);
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("Calendar");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child(globals.DatabaseNode()+"/Calendar");
 
         ValueEventListener calendarEventsListener = new ValueEventListener() {
             @Override
@@ -301,7 +303,7 @@ public class CalendarActivity extends AppCompatActivity {
     //
     public void deleteEvent(View view) {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("Calendar/"+view.getId()).removeValue();
+        mDatabase.child(globals.DatabaseNode()+"/Calendar/"+view.getId()).removeValue();
         reloadUI();
     }
 }

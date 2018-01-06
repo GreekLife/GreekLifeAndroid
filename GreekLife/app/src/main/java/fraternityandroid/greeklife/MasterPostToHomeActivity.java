@@ -25,11 +25,7 @@ public class MasterPostToHomeActivity extends AppCompatActivity {
     TextView text;
     Button value;
 
-    /*
-    TODO: limit size of text box so the button doesnt get pushed off the page
-
-    TODO: Epoch is wrong????
-     */
+    Globals globals = Globals.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +52,7 @@ public class MasterPostToHomeActivity extends AppCompatActivity {
             String id = UUID.randomUUID().toString();
             long epoch = System.currentTimeMillis();
             DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-            DatabaseReference ref = database.child("News/" + id);
+            DatabaseReference ref = database.child(globals.DatabaseNode()+"/News/" + id);
 
             Map<String, Object> posting = new HashMap<String, Object>();
             posting.put("PostId", id);
@@ -71,7 +67,7 @@ public class MasterPostToHomeActivity extends AppCompatActivity {
         }
         else {
             DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-            DatabaseReference ref = database.child("GeneralMessage/Master");
+            DatabaseReference ref = database.child(globals.DatabaseNode()+"/GeneralMessage/Master");
             ref.setValue(post.getText().toString());
             Intent master = new Intent(MasterPostToHomeActivity.this, MasterControlsActivity.class);
             startActivity(master);

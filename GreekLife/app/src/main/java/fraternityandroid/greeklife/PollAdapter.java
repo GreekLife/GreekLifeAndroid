@@ -200,9 +200,9 @@ public class PollAdapter extends BaseExpandableListAdapter {
                                 public void onClick(DialogInterface dialog, int which) {
 
                                         FirebaseDatabase database = FirebaseDatabase.getInstance();
-                                        DatabaseReference myRef = database.getReference("Polls/" + mPolls.get(wPosition).getPostId());
+                                        DatabaseReference myRef = database.getReference(globals.DatabaseNode() + "/Polls/" + mPolls.get(wPosition).getPostId());
                                         myRef.removeValue();
-                                        DatabaseReference nextRef = database.getReference("PollOptions/" + mPolls.get(wPosition).getPostId());
+                                        DatabaseReference nextRef = database.getReference(globals.DatabaseNode() + "/PollOptions/" + mPolls.get(wPosition).getPostId());
                                         nextRef.removeValue();
 
                                         globals.setDelete(false);

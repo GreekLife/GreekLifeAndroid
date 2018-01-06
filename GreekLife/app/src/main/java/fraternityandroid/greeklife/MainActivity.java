@@ -33,12 +33,13 @@ import com.google.firebase.database.ValueEventListener;
 public class MainActivity extends AppCompatActivity {
 
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
-    private static final String Tag = "yourtag";
+    private static final String Tag = "MainActivity";
     EditText mEmail, mPassword;
     EditText code1, code2, code3, code4;
     Button login;
     private FirebaseAuth mAuth;
     private static final String TAG = "MainActivity";
+    Globals globals = Globals.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void validateExists() {
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference ref = database.child("Users");
+        DatabaseReference ref = database.child(globals.DatabaseNode()+"/Users");
 
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -185,7 +186,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void authenticate() {
         mAuth = FirebaseAuth.getInstance();
-        System.out.println("Authenticating");
         mAuth.signInWithEmailAndPassword(mEmail.getText().toString(), mPassword.getText().toString())
                 .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -224,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
        }
        else {
            DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-           DatabaseReference ref = database.child("CreateAccount/GeneratedKey");
+           DatabaseReference ref = database.child(globals.DatabaseNode()+"/CreateAccount/GeneratedKey");
 
            ref.addListenerForSingleValueEvent(new ValueEventListener() {
                @Override

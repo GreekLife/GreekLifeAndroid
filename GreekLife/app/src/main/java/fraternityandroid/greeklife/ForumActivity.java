@@ -137,7 +137,7 @@ public class ForumActivity extends AppCompatActivity {
 
     public void getForumPosts() {
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference ref = database.child("Forum");
+        DatabaseReference ref = database.child(globals.DatabaseNode()+"/Forum");
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override

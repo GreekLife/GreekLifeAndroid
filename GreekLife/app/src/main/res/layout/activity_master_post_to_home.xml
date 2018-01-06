@@ -54,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="100dp"
-                android:background="#141A6E"
+                android:background="#7b1e7ce6"
                 android:onClick="postToHome"
                 android:text="Post"
                 android:textColor="#FFDF00" />

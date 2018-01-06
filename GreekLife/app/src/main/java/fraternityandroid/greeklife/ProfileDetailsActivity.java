@@ -135,7 +135,6 @@ public class ProfileDetailsActivity extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
-                // TODO Auto-generated method stub
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -302,7 +301,7 @@ public class ProfileDetailsActivity extends AppCompatActivity {
                 uri = Uri.parse(user.Image);
             }
         }
-            StorageReference filepath = mStorageRef.child("ProfilePictures/" + id + ".jpg");
+            StorageReference filepath = mStorageRef.child(globals.DatabaseNode()+"/ProfilePictures/" + id + ".jpg");
     if(type.equals("CREATE")) {
         if (uri == null) {
             Toast.makeText(ProfileDetailsActivity.this, "You need a profile picture", Toast.LENGTH_SHORT).show();
@@ -317,7 +316,7 @@ public class ProfileDetailsActivity extends AppCompatActivity {
                             Uri downloadUrl = taskSnapshot.getDownloadUrl();
 
                             FirebaseDatabase database = FirebaseDatabase.getInstance();
-                            DatabaseReference myRef = database.getReference("Users/" + title);
+                            DatabaseReference myRef = database.getReference(globals.DatabaseNode()+"/Users/" + title);
                             Map<String, Object> newUser = new HashMap<>(); //using a hashmap becuase im stupid and the name keys need a space.
                             User User = new User(brother.getText().toString(), id, birthday.getText().toString(), brother.getText().toString(), degree.getText().toString(), mail, first.getText().toString(), last.getText().toString(), grad.getText().toString(), downloadUrl.toString(), school.getText().toString(), position.getText().toString(), false);
 
@@ -345,7 +344,7 @@ public class ProfileDetailsActivity extends AppCompatActivity {
                             newUser.put("UserID", User.UserID);
                             myRef.setValue(newUser);
 
-                            DatabaseReference BanRef = database.getReference("Blocked/" + id);
+                            DatabaseReference BanRef = database.getReference(globals.DatabaseNode()+"/Blocked/" + id);
                             Map<String, Object> ban = new HashMap<>();
                             ban.put("Delay", 0);
                             ban.put("Blocked", false);
@@ -384,7 +383,7 @@ public class ProfileDetailsActivity extends AppCompatActivity {
                         public void onFailure(@NonNull Exception exception) {
                             if(type.equals("UPDATE")) {
                                 final FirebaseDatabase database = FirebaseDatabase.getInstance();
-                                DatabaseReference myRef = database.getReference("Users/" + title);
+                                DatabaseReference myRef = database.getReference(globals.DatabaseNode()+"/Users/" + title);
                                 Map<String, Object> newUser = new HashMap<>(); //using a hashmap becuase im stupid and the name keys need a space.
                                 User User = new User(brother.getText().toString(), id, birthday.getText().toString(), brother.getText().toString(), degree.getText().toString(), email.getText().toString(), first.getText().toString(), last.getText().toString(), grad.getText().toString(), user.Image, school.getText().toString(), position.getText().toString(), false);
                                 if(user.Position.equals("Master")) {
@@ -432,7 +431,7 @@ public class ProfileDetailsActivity extends AppCompatActivity {
                                 myRef.setValue(newUser);
 
 
-                                DatabaseReference BanRef = database.getReference("Blocked/" + id);
+                                DatabaseReference BanRef = database.getReference(globals.DatabaseNode()+"/Blocked/" + id);
                                 Map<String, Object> ban = new HashMap<>();
                                 ban.put("Delay", 0);
                                 ban.put("Blocked", false);

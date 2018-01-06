@@ -178,7 +178,7 @@ public class ForumAdapter extends BaseAdapter {
 
                                     if(mPosts.get(position).getPosterId().equals(globals.getLoggedIn().UserID)) {
                                         FirebaseDatabase database = FirebaseDatabase.getInstance();
-                                        DatabaseReference myRef = database.getReference("Forum/" + mPosts.get(position).getPostId());
+                                        DatabaseReference myRef = database.getReference(globals.DatabaseNode() + "/Forum/" + mPosts.get(position).getPostId());
 
                                         myRef.removeValue();
                                         globals.setDelete(false);

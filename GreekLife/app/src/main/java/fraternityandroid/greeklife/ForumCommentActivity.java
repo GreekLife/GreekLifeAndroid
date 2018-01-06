@@ -93,7 +93,7 @@ public class ForumCommentActivity extends AppCompatActivity {
         newPost.put("Poster", user);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("Forum/"+mPost.getPostId()+"/Comments/"+id);
+        DatabaseReference myRef = database.getReference(globals.DatabaseNode()+"/Forum/"+mPost.getPostId()+"/Comments/"+id);
         myRef.setValue(newPost);
         Toast.makeText(ForumCommentActivity.this, "Your comment has been successfully made.", Toast.LENGTH_SHORT).show();
         newComment.setText("");
@@ -102,7 +102,7 @@ public class ForumCommentActivity extends AppCompatActivity {
 
     public void getComments() {
             DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-            DatabaseReference ref = database.child("Forum/"+mPost.getPostId());
+            DatabaseReference ref = database.child(globals.DatabaseNode()+"/Forum/"+mPost.getPostId());
             ref.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {

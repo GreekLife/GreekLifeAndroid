@@ -92,7 +92,7 @@ public class CreatePollActivity extends AppCompatActivity {
             Double epoch = new Double(time + ".01");
 
             DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-            DatabaseReference ref = database.child("Polls/" + id);
+            DatabaseReference ref = database.child(globals.DatabaseNode()+"/Polls/" + id);
 
             Map<String, Object> newPoll = new HashMap<String, Object>();
 
@@ -106,10 +106,10 @@ public class CreatePollActivity extends AppCompatActivity {
 
             ref.setValue(newPoll);
 
-            DatabaseReference opRef = database.child("PollOptions/" + id + "/\"0\"/Names/" + globals.getLoggedIn().UserID);
+            DatabaseReference opRef = database.child(globals.DatabaseNode()+"/PollOptions/" + id + "/\"0\"/Names/" + globals.getLoggedIn().UserID);
             opRef.setValue(globals.getLoggedIn().UserID);
 
-            DatabaseReference idRef = database.child("Polls/PollIds/" + id);
+            DatabaseReference idRef = database.child(globals.DatabaseNode()+"/Polls/PollIds/" + id);
             idRef.setValue(id);
 
 

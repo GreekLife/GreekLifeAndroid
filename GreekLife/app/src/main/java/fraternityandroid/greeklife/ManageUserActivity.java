@@ -21,6 +21,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.microedition.khronos.opengles.GL;
+
 public class ManageUserActivity extends AppCompatActivity {
 
     ListView mListView;
@@ -37,7 +39,7 @@ public class ManageUserActivity extends AppCompatActivity {
 
         mListView = (ListView) findViewById(R.id.List);
 
-        Globals globals = Globals.getInstance();
+        final Globals globals = Globals.getInstance();
         mUsers = globals.getUsers();
         List<String> names = new ArrayList<String>();
         final List<String> ids = new ArrayList<>();
@@ -81,7 +83,7 @@ public class ManageUserActivity extends AppCompatActivity {
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     FirebaseDatabase database = FirebaseDatabase.getInstance();
-                                    DatabaseReference myRef = database.getReference("Users/"+userId);
+                                    DatabaseReference myRef = database.getReference(globals.DatabaseNode()+"/Users/"+userId);
                                     myRef.removeValue();
                                     alert.dismiss();
                                 }
@@ -109,7 +111,7 @@ public class ManageUserActivity extends AppCompatActivity {
                             .setItems(delays, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     FirebaseDatabase database = FirebaseDatabase.getInstance();
-                                    DatabaseReference myRef = database.getReference("Blocked/"+userId);
+                                    DatabaseReference myRef = database.getReference(globals.DatabaseNode()+"/Blocked/"+userId);
                                     Map<String, Object> ban = new HashMap<String, Object>();
                                     long delay = 0;
                                     switch (which) {

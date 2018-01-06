@@ -124,7 +124,7 @@ public class HomePage extends AppCompatActivity {
     public void getNews() {
 
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference ref = database.child("News");
+        DatabaseReference ref = database.child(globals.DatabaseNode()+"/News");
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -194,7 +194,7 @@ public class HomePage extends AppCompatActivity {
 
     public void GetUsers() {
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference ref = database.child("Users");
+        DatabaseReference ref = database.child(globals.DatabaseNode()+"/Users");
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -252,7 +252,6 @@ public class HomePage extends AppCompatActivity {
     public void CalendarIntent(View view) {
         Intent calendar = new Intent(HomePage.this, CalendarActivity.class);
         startActivity(calendar);
-        Log.d("blah","Tried to start calendar app");
     }
     public void PollIntent(View view) {
         Intent poll = new Intent(HomePage.this, PollActivity.class);
@@ -293,7 +292,7 @@ public class HomePage extends AppCompatActivity {
 
     public void updateNotificationKey(String token) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef2 = database.getReference("NotificationIds/Android"); //Does this successfully add the object?
+        DatabaseReference myRef2 = database.getReference(globals.DatabaseNode()+"/NotificationIds/Android"); //Does this successfully add the object?
         Map<String, Object> keyObj = new HashMap<>();
         keyObj.put("Id", token);
         keyObj.put("UserId", globals.getLoggedIn().UserID);
@@ -302,7 +301,7 @@ public class HomePage extends AppCompatActivity {
 
         String id = globals.getLoggedIn().UserID;
 
-        DatabaseReference updateProf = database.getReference("Users/"+id+"/NotificationId");
+        DatabaseReference updateProf = database.getReference(globals.DatabaseNode()+"/Users/"+id+"/NotificationId");
         updateProf.setValue(token);
     }
 

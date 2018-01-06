@@ -42,6 +42,8 @@ public class Globals {
         NEWEST, OLDEST, WEEK, MONTH
     }
 
+    private String DatabaseNode = "GammaLambda";
+
     private User LoggedIn;
     private List<User> Users;
     private List<Forum> mPosts;
@@ -61,6 +63,9 @@ public class Globals {
 
 
     private Globals() {}
+
+    public String DatabaseNode() {return DatabaseNode;}
+    public void setDatabaseNode(String node) {this.DatabaseNode = node;}
 
     public void setLoggedIn(User member) {
         this.LoggedIn = member;

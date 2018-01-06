@@ -58,7 +58,7 @@ public class VotingActivity extends AppCompatActivity {
 
     public void getStats() {
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference ref = database.child("PollOptions/"+mPoll.getPostId());
+        DatabaseReference ref = database.child(globals.DatabaseNode()+"/PollOptions/"+mPoll.getPostId());
 
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -240,7 +240,7 @@ public class VotingActivity extends AppCompatActivity {
                         final String value = Integer.toString(++val);
 
                     final DatabaseReference databaseCheck = FirebaseDatabase.getInstance().getReference();
-                    DatabaseReference ref = databaseCheck.child("PollOptions/" + mPoll.getPostId() + "/\"" + value + "\"/Names/");
+                    DatabaseReference ref = databaseCheck.child(globals.DatabaseNode()+"/PollOptions/" + mPoll.getPostId() + "/\"" + value + "\"/Names/");
 
                     ref.addListenerForSingleValueEvent(new ValueEventListener() {
                            @Override
@@ -250,7 +250,7 @@ public class VotingActivity extends AppCompatActivity {
 
                                if (snapshot.child(globals.getLoggedIn().UserID).exists()) {
 
-                                   DatabaseReference delete = database.child("PollOptions/" + mPoll.getPostId() + "/\"" + value + "\"/Names/" + globals.getLoggedIn().UserID);
+                                   DatabaseReference delete = database.child(globals.DatabaseNode()+"/PollOptions/" + mPoll.getPostId() + "/\"" + value + "\"/Names/" + globals.getLoggedIn().UserID);
                                    delete.removeValue();
                                    int hasVoted = 0;
                                    for(Options opt: mOptions) {
@@ -262,7 +262,7 @@ public class VotingActivity extends AppCompatActivity {
 
                                      }
                                     if(hasVoted == 1) {
-                                        DatabaseReference refTotal = database.child("PollOptions/" + mPoll.getPostId() + "/\"0\"/Names/" + globals.getLoggedIn().UserID);
+                                        DatabaseReference refTotal = database.child(globals.DatabaseNode()+"/PollOptions/" + mPoll.getPostId() + "/\"0\"/Names/" + globals.getLoggedIn().UserID);
                                         refTotal.removeValue();
                                     }
                                     mOptions.get(tag).getVoters().remove(usersName);
@@ -293,10 +293,10 @@ public class VotingActivity extends AppCompatActivity {
                                    ((Button)mElements.get(tag).get("Option")).setBackground(shapedrawable);
 
                                } else {
-                                   DatabaseReference ref = database.child("PollOptions/" + mPoll.getPostId() + "/\"" + value + "\"/Names/" + globals.getLoggedIn().UserID);
+                                   DatabaseReference ref = database.child(globals.DatabaseNode()+"/PollOptions/" + mPoll.getPostId() + "/\"" + value + "\"/Names/" + globals.getLoggedIn().UserID);
                                    ref.setValue(usersName);
 
-                                   DatabaseReference refTotal = database.child("PollOptions/" + mPoll.getPostId() + "/\"0\"/Names/" + globals.getLoggedIn().UserID);
+                                   DatabaseReference refTotal = database.child(globals.DatabaseNode()+"/PollOptions/" + mPoll.getPostId() + "/\"0\"/Names/" + globals.getLoggedIn().UserID);
                                    refTotal.setValue(globals.getLoggedIn().UserID);
 
                                    mOptions.get(tag).getVoters().add(usersName);

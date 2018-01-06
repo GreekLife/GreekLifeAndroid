@@ -66,6 +66,11 @@ public class MasterControlsActivity extends AppCompatActivity {
 
     }
 
+    public void EditInfo(View view) {
+        Intent info = new Intent(this, EditInfoActivity.class);
+        startActivity(info);
+    }
+
     public void PostToHome(View view) {
         Intent post = new Intent(MasterControlsActivity.this, MasterPostToHomeActivity.class);
         post.putExtra("Posting", true);

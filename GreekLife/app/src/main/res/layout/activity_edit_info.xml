@@ -15,6 +15,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/EditInfoToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:elevation="4dp"
+            android:gravity="right"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            />
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,23 +42,8 @@
                 android:fontFamily="monospace"
                 android:textAlignment="center"
                 android:textColor="#FFDF00"
-                android:textSize="20sp"
-                android:text="Gamma Lambda Details" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="20dp">
-
-            <ImageView
-                android:id="@+id/logoImageView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                app:srcCompat="@drawable/logo4" />
+                android:textSize="15sp"
+                android:text="Define the info page for your chapter." />
 
         </LinearLayout>
 
@@ -64,31 +62,43 @@
                 android:layout_marginRight="20dp"
                 android:padding="10dp">
 
-                <TextView
+                <EditText
                     android:id="@+id/ChapterNameH"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="monospace"
                     android:textStyle="bold"
                     android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:textSize="14sp"
+                    android:focusable="false"
+                    android:cursorVisible="false"
                     android:text="Chapter Name" />
 
-                <TextView
+                <EditText
                     android:id="@+id/FoundingDateH"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="monospace"
                     android:textStyle="bold"
+                    android:background="@android:color/transparent"
+                    android:textSize="14sp"
+                    android:focusable="false"
+                    android:cursorVisible="false"
                     android:text="Founding Date" />
 
-                <TextView
+                <EditText
                     android:id="@+id/ActiveMasterH"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="monospace"
                     android:textStyle="bold"
+                    android:background="@android:color/transparent"
+                    android:textSize="14sp"
+                    android:focusable="false"
+                    android:cursorVisible="false"
                     android:text="Active Master" />
 
 
@@ -101,27 +111,30 @@
                 android:padding="10dp">
 
 
-                <TextView
-                    android:id="@+id/ChapterName"
+                <EditText
+                    android:id="@+id/EditChapterName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    />
+                    android:textSize="14sp"
+                    android:text="" />
 
-                <TextView
-                    android:id="@+id/FoundingDate"
+                <EditText
+                    android:id="@+id/EditFoundingDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                     />
+                    android:textSize="14sp"
+                    android:text="" />
 
 
-                <TextView
-                    android:id="@+id/ActiveMaster"
+                <EditText
+                    android:id="@+id/EditMaster"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    />
+                    android:textSize="14sp"
+                    android:text="" />
 
             </LinearLayout>
 
@@ -130,28 +143,31 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <ImageButton
+                android:id="@+id/InfoLogo"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:src="@drawable/info" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <Button
-                android:id="@+id/Constitution"
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/border"
-                android:backgroundTint="#7b1e7ce6"
-                android:textColor="#181818"
-                android:onClick="displayConstitution"
                 android:text="Constitution"
-                 />
-
-            <Button
-                android:id="@+id/FoundingFathers"
+                android:textStyle="bold"/>
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/border"
-                android:backgroundTint="#7b1e7ce6"
-                android:textColor="#181818"
-                android:layout_marginTop="10dp"
-                android:text="Classes" />
+                android:layout_height="100dp" />
 
         </LinearLayout>
 

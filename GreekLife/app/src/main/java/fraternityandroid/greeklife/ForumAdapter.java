@@ -228,10 +228,19 @@ public class ForumAdapter extends BaseAdapter {
 
             String id = mPosts.get(position).getPosterId();
             String url = globals.getImageUrl(id);
-            Glide.with(mContext)
-                    .load(url)
-                    .apply(RequestOptions.circleCropTransform())
-                    .into(profilePicture);
+
+            try {
+                Glide.with(mContext)
+                        .load(globals.getImageForId(id).image)
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(profilePicture);
+            }
+            catch (NullPointerException e) {
+                Glide.with(mContext)
+                        .load(url)
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(profilePicture);
+            }
 
             comments.setOnClickListener(new View.OnClickListener() {
                 @Override

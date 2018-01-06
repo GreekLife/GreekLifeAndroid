@@ -61,9 +61,11 @@ public class CreateForumActivity extends AppCompatActivity {
     public void postToForum(View view) {
         if(title.getText().toString().equals("") || title.getText().toString().length()<15)  {
             Toast.makeText(CreateForumActivity.this, "Your title must be at least 30 characters", Toast.LENGTH_SHORT).show();
+            return;
         }
         if(post.getText().toString().equals("") || post.getText().toString().length()<40)  {
             Toast.makeText(CreateForumActivity.this, "Your post must be at least 40 characters", Toast.LENGTH_SHORT).show();
+            return;
         }
         String id = UUID.randomUUID().toString();
         String time = Long.toString(System.currentTimeMillis()/1000L);

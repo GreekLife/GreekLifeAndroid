@@ -200,6 +200,7 @@ public class HomePage extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 List<User> users = new ArrayList<User>();
+                HashMap<String,User> usersByID = new HashMap<>();
                 for (DataSnapshot userSnapshot : snapshot.getChildren()) {
                     String email = (String) userSnapshot.child("Email").getValue();
                     String username = (String) userSnapshot.child("Username").getValue();
@@ -216,8 +217,10 @@ public class HomePage extends AppCompatActivity {
                     Boolean validated = (Boolean) userSnapshot.child("Validated").getValue();
                     User user = new User(username, userId, birthday, brother, degree, email, first, last, grad, imageURL, school, position, validated);
                     users.add(user);
+                    usersByID.put(userId,user);
                 }
                 globals.setUsers(users);
+                globals.setUsersByID(usersByID);
                 getImages();
 
             }

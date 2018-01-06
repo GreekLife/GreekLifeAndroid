@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -23,6 +24,7 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
@@ -45,6 +47,7 @@ import javax.xml.datatype.Duration;
 
 public class CalendarActivity extends AppCompatActivity {
     Globals globals = Globals.getInstance();
+
     //---------------------------------------------------------------
     // The Model
     //
@@ -107,7 +110,7 @@ public class CalendarActivity extends AppCompatActivity {
 
         public void addEvent(DataSnapshot snapshot) {
             HashMap<String, String> attendees = new HashMap<String, String>();
-            for (DataSnapshot childSnapshot : snapshot.getChildren()) {
+            for (DataSnapshot childSnapshot : snapshot.child("attendees").getChildren()) {
                 attendees.put(childSnapshot.getKey(), childSnapshot.getValue().toString());
             }
             long eventDate = ((Number) snapshot.child("date").getValue()).longValue();
@@ -118,7 +121,6 @@ public class CalendarActivity extends AppCompatActivity {
             CalendarEvent newEvent = new CalendarEvent(attendees, eventDate, eventDescription, eventDuration, eventLocation, eventTitle);
             calendarEvents.add(newEvent);
         }
-
 
 
     }
@@ -174,7 +176,7 @@ public class CalendarActivity extends AppCompatActivity {
     public void reloadUI() {
         final LinearLayout eventListView = findViewById(R.id.eventListView);
         final Button monthButton = findViewById(R.id.monthViewingBTN);
-        mDatabase = FirebaseDatabase.getInstance().getReference().child(globals.DatabaseNode()+"/Calendar");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child(globals.DatabaseNode() + "/Calendar");
 
         ValueEventListener calendarEventsListener = new ValueEventListener() {
             @Override
@@ -218,7 +220,7 @@ public class CalendarActivity extends AppCompatActivity {
     //--------------------------------------------------
     // Methods for setting up the event cards/views
     //
-    public void createDateView(LinearLayout parent, Calendar date, CalendarEvent calEvent) {
+    public void createDateView(LinearLayout parent, Calendar date, final CalendarEvent calEvent) {
         View dayLayout = getLayoutInflater().inflate(R.layout.calendar_day_cell, null);
 
         ((TextView) dayLayout.findViewById(R.id.numDate)).setText(String.valueOf(date.get(Calendar.DAY_OF_MONTH)));
@@ -226,12 +228,12 @@ public class CalendarActivity extends AppCompatActivity {
         LinearLayout eventsLayout = (dayLayout.findViewById(R.id.eventsLayout));
         eventsLayout.setId(date.get(Calendar.DAY_OF_MONTH));
         View eventLayout = getLayoutInflater().inflate(R.layout.calendar_event_cell, eventsLayout);
-        if(editing){
+        if (editing) {
             eventLayout.findViewById(R.id.deleteBTN).setVisibility(View.VISIBLE);
-        }else{
+        } else {
             eventLayout.findViewById(R.id.deleteBTN).setVisibility(View.GONE);
         }
-        int idValue = ((Long)(calEvent.eventDate)).intValue();
+        final int idValue = ((Long) (calEvent.eventDate)).intValue();
         eventLayout.findViewById(R.id.deleteBTN).setId(idValue);
         ((TextView) eventLayout.findViewById(R.id.eventTitle)).setText(calEvent.eventTitle);
         ((TextView) eventLayout.findViewById(R.id.eventStartTime)).setText(
@@ -248,6 +250,40 @@ public class CalendarActivity extends AppCompatActivity {
         ((TextView) eventLayout.findViewById(R.id.eventDescription)).setText(
                 calEvent.eventDescription
         );
+
+        if( calEvent.attendees.containsKey(globals.getLoggedIn().UserID)){
+            ((ToggleButton)eventLayout.findViewById(R.id.goingNotGoing)).setChecked(true);
+        }else {
+            ((ToggleButton)eventLayout.findViewById(R.id.goingNotGoing)).setChecked(false);
+        }
+        ((ToggleButton)eventLayout.findViewById(R.id.goingNotGoing)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean going) {
+                if (going){
+                    FirebaseDatabase.getInstance().getReference()
+                            .child(globals.DatabaseNode()+"/Calendar/"+idValue+"/attendees/"+globals.getLoggedIn().UserID).setValue(globals.getLoggedIn().UserID);
+                } else {
+                    FirebaseDatabase.getInstance().getReference()
+                            .child(globals.DatabaseNode()+"/Calendar/"+idValue+"/attendees/"+globals.getLoggedIn().UserID).removeValue();
+                }
+                reloadUI();
+            }
+        });
+        String attendanceList = "";
+        for (String userID:(calEvent.attendees.keySet())){
+            attendanceList +=
+                    " - "+globals.getUserByID(userID).First_Name+" "+globals.getUserByID(userID).Last_Name+"\n";
+        }
+        final String finalAttendanceList = attendanceList;
+        ((Button)eventLayout.findViewById(R.id.whosGoing)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(CalendarActivity.this);
+                builder.setTitle("Attendance:").setMessage(finalAttendanceList);
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
 
         parent.addView(dayLayout);
     }
@@ -270,12 +306,47 @@ public class CalendarActivity extends AppCompatActivity {
         ((TextView) eventLayout.findViewById(R.id.eventDescription)).setText(
                 calEvent.eventDescription
         );
-        if(editing){
+        if (editing) {
             eventLayout.findViewById(R.id.deleteBTN).setVisibility(View.VISIBLE);
-        }else{
+        } else {
             eventLayout.findViewById(R.id.deleteBTN).setVisibility(View.GONE);
         }
-        int idValue = ((Long)(calEvent.eventDate)).intValue();
+        final int idValue = ((Long) (calEvent.eventDate)).intValue();
+
+        if( calEvent.attendees.containsKey(globals.getLoggedIn().UserID)){
+            ((ToggleButton)eventLayout.findViewById(R.id.goingNotGoing)).setChecked(true);
+        }else {
+            ((ToggleButton)eventLayout.findViewById(R.id.goingNotGoing)).setChecked(false);
+        }
+        ((ToggleButton)eventLayout.findViewById(R.id.goingNotGoing)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean going) {
+                if (going){
+                    FirebaseDatabase.getInstance().getReference()
+                            .child(globals.DatabaseNode()+"/Calendar/"+idValue+"/attendees/"+globals.getLoggedIn().UserID).setValue(globals.getLoggedIn().UserID);
+                } else {
+                    FirebaseDatabase.getInstance().getReference()
+                            .child(globals.DatabaseNode()+"/Calendar/"+idValue+"/attendees/"+globals.getLoggedIn().UserID).removeValue();
+                }
+                reloadUI();
+            }
+        });
+        String attendanceList = "";
+        for (String userID:(calEvent.attendees.keySet())){
+            attendanceList +=
+                    " - "+globals.getUserByID(userID).First_Name+" "+globals.getUserByID(userID).Last_Name+"\n";
+        }
+        final String finalAttendanceList = attendanceList;
+        ((Button)eventLayout.findViewById(R.id.whosGoing)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(CalendarActivity.this);
+                builder.setTitle("Attendance:").setMessage(finalAttendanceList);
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
+
         eventLayout.findViewById(R.id.deleteBTN).setId(idValue);
         eventsLayout.addView(eventLayout);
     }
@@ -292,8 +363,11 @@ public class CalendarActivity extends AppCompatActivity {
     }
 
     public void editMode(View view) {
-        if(editing){editing = false;}
-        else{editing = true;}
+        if (editing) {
+            editing = false;
+        } else {
+            editing = true;
+        }
         reloadUI();
     }
 
@@ -308,7 +382,7 @@ public class CalendarActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-                mDatabase.child(globals.DatabaseNode()+"/Calendar/"+viewy.getId()).removeValue();
+                mDatabase.child(globals.DatabaseNode() + "/Calendar/" + viewy.getId()).removeValue();
                 reloadUI();
             }
         });
@@ -318,7 +392,8 @@ public class CalendarActivity extends AppCompatActivity {
                 dialogInterface.dismiss();
             }
         });
-        builder.show();
-
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
+
 }

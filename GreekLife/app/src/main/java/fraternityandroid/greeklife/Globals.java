@@ -46,6 +46,7 @@ public class Globals {
 
     private User LoggedIn;
     private List<User> Users;
+    private HashMap<String,User> UsersByID;
     private List<Forum> mPosts;
     private Boolean mDeletePosts = false;
     private Boolean mDeletePolls = false;
@@ -74,6 +75,9 @@ public class Globals {
 
     public void setUsers(List<User> users){ this.Users = users;}
     public List<User> getUsers(){ return Users;}
+    public void setUsersByID(HashMap<String,User> usersByID){this.UsersByID = usersByID;}
+    public HashMap<String,User> getUsersByID(){return UsersByID;}
+    public User getUserByID(String id) {return UsersByID.get(id);}
 
     public void setPosts(List<Forum> posts){ mPosts = posts;}
     public List<Forum> getPosts(){return mPosts;}

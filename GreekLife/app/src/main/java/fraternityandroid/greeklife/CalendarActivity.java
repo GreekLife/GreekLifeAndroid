@@ -44,9 +44,7 @@ import com.google.firebase.database.ValueEventListener;
 import javax.xml.datatype.Duration;
 
 public class CalendarActivity extends AppCompatActivity {
-
     Globals globals = Globals.getInstance();
-
     //---------------------------------------------------------------
     // The Model
     //
@@ -135,6 +133,7 @@ public class CalendarActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        globals.IsBlocked(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
 
@@ -175,7 +174,7 @@ public class CalendarActivity extends AppCompatActivity {
     public void reloadUI() {
         final LinearLayout eventListView = findViewById(R.id.eventListView);
         final Button monthButton = findViewById(R.id.monthViewingBTN);
-        mDatabase = FirebaseDatabase.getInstance().getReference().child(globals.DatabaseNode()+"/Calendar");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Calendar");
 
         ValueEventListener calendarEventsListener = new ValueEventListener() {
             @Override
@@ -302,8 +301,23 @@ public class CalendarActivity extends AppCompatActivity {
     //  Deleting an event
     //
     public void deleteEvent(View view) {
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child(globals.DatabaseNode()+"/Calendar/"+view.getId()).removeValue();
-        reloadUI();
+        final View viewy = view;
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("You sure you wanna delete that, bro?").setTitle("Confirm Delete");
+        builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+                mDatabase.child("Calendar/"+viewy.getId()).removeValue();
+                reloadUI();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+
     }
 }

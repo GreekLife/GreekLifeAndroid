@@ -80,7 +80,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="alkdsjflskjdf alkdsjflskjdf alkdsjflskjdf alkdsjflskjdf alkdsjflskjdf alkdsjflskjdf alkdsjflskjdf alkdsjflskjdf alkdsjflskjdf alkdsjflskjdf alkdsjflskjdf alkdsjflskjdf alkdsjflskjdf alkdsjflskjdf alkdsjflskjdf alkdsjflskjdf alkdsjflskjdf alkdsjflskjdf alkdsjflskjdf alkdsjflskjdf alkdsjflskjdfalkdsjflskjdf alkdsjflskjdf alkdsjflskjdf alkdsjflskjdf alkdsjflskjdf"
+                android:text="The description"
                 android:textSize="12dp" />
         </LinearLayout>
         <Button

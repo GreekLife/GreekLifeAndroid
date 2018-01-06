@@ -14,18 +14,18 @@
             android:id="@+id/eventTitleField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Event Title" />
+            android:hint="Event Title" />
 
         <EditText
             android:id="@+id/eventLocationField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Location" />
+            android:hint="Location" />
         <EditText
             android:id="@+id/eventDescriptionField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="A brief description..."
+            android:hint="A brief description..."
             android:gravity="bottom"
             android:layout_marginBottom="10dp" />
         <LinearLayout
@@ -102,7 +102,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="number"
                     android:textAlignment="center"
-                    android:text="0"/>
+                    android:hint="0"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -115,7 +115,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="number"
                     android:textAlignment="center"
-                    android:text="15"/>
+                    android:hint="15"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

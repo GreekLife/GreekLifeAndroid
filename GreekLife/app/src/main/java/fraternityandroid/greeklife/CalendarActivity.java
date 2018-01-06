@@ -174,7 +174,7 @@ public class CalendarActivity extends AppCompatActivity {
     public void reloadUI() {
         final LinearLayout eventListView = findViewById(R.id.eventListView);
         final Button monthButton = findViewById(R.id.monthViewingBTN);
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("Calendar");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child(globals.DatabaseNode()+"/Calendar");
 
         ValueEventListener calendarEventsListener = new ValueEventListener() {
             @Override
@@ -308,7 +308,7 @@ public class CalendarActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-                mDatabase.child("Calendar/"+viewy.getId()).removeValue();
+                mDatabase.child(globals.DatabaseNode()+"/Calendar/"+viewy.getId()).removeValue();
                 reloadUI();
             }
         });
@@ -318,6 +318,7 @@ public class CalendarActivity extends AppCompatActivity {
                 dialogInterface.dismiss();
             }
         });
+        builder.show();
 
     }
 }

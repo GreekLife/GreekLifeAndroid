@@ -1,6 +1,12 @@
 package fraternityandroid.greeklife;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,11 +14,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
 
 /*
  * Created by jonahelbaz on 2017-12-22.
@@ -51,22 +58,35 @@ public class MembersAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
+        Globals globals = Globals.getInstance();
+
         if (convertView == null) {
             final LayoutInflater layoutInflater = LayoutInflater.from(mContext);
             convertView = layoutInflater.inflate(R.layout.member_cell, null);
         }
-        final ImageView profilePicture = (ImageView)convertView.findViewById(R.id.ProfilePicture);
-        final TextView name = (TextView)convertView.findViewById(R.id.Name);
-        final TextView degree = (TextView)convertView.findViewById(R.id.Degree);
+        ImageView profilePicture = (ImageView)convertView.findViewById(R.id.ProfilePicture);
+        TextView name = (TextView)convertView.findViewById(R.id.Name);
+        TextView degree = (TextView)convertView.findViewById(R.id.Degree);
 
+    try {
+        Glide.with(mContext)
+                .load(globals.getImageForId(mMembers.get(position).UserID).image)
+                .apply(RequestOptions.circleCropTransform())
+                .into(profilePicture);
+    }
+    catch (NullPointerException e) {
         Glide.with(mContext)
                 .load(mMembers.get(position).Image)
                 .apply(RequestOptions.circleCropTransform())
                 .into(profilePicture);
+    }
+
+
         name.setText(mMembers.get(position).First_Name + " " + mMembers.get(position).Last_Name);
         degree.setText(mMembers.get(position).Degree);
 
 
         return convertView;
     }
+
 }

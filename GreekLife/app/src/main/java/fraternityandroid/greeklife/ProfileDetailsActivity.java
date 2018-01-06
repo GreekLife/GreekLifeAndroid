@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -200,7 +201,16 @@ public class ProfileDetailsActivity extends AppCompatActivity {
         if(type.equals("UPDATE")) {
             globals.IsBlocked(ProfileDetailsActivity.this);
 
-            Glide.with(this).load(user.Image).into(image);
+            try {
+                Glide.with(this)
+                        .load(globals.getImageForId(user.UserID).image)
+                        .into(image);
+            }
+            catch (NullPointerException e) {
+                Glide.with(this)
+                        .load(user.Image)
+                        .into(image);
+            }
 
             first.setText(user.First_Name);
             last.setText(user.Last_Name);

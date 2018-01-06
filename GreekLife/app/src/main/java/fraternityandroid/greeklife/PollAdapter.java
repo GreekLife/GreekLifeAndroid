@@ -176,12 +176,15 @@ public class PollAdapter extends BaseExpandableListAdapter {
 
             try {
                 Glide.with(context)
-                        .load(url)
+                        .load(globals.getImageForId(mPolls.get(position).getPosterId()).image)
                         .apply(RequestOptions.circleCropTransform())
                         .into(profilePicture);
             }
-            catch (IllegalArgumentException e) {
-
+            catch (NullPointerException e) {
+                Glide.with(context)
+                        .load(url)
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(profilePicture);
             }
 
 

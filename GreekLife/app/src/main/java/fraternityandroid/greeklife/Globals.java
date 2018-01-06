@@ -51,7 +51,7 @@ public class Globals {
     private PollOrder PollValue = PollOrder.NEWEST;
     private Poll mSelectedPoll;
 
-    private ArrayList<ImageView> mProfilePictures;
+    private ArrayList<Image> mProfilePictures;
     private Boolean mPicturesRetrieved = false;
 
     private ArrayList<Poll> mPolls;
@@ -140,14 +140,21 @@ public class Globals {
     public void setSelectedPoll(Poll poll) { mSelectedPoll = poll;}
     public Poll getSelectedPoll(){ return mSelectedPoll;}
 
-    public ArrayList<ImageView> getProfilePictures() {
+    public ArrayList<Image> getProfilePictures() {
         return mProfilePictures;
     }
-
-    public void setProfilePictures(ArrayList<ImageView> mProfilePictures) {
+    public void setProfilePictures(ArrayList<Image> mProfilePictures) {
         this.mProfilePictures = mProfilePictures;
     }
-
+    public Image getImageForId(String id) {
+        Image image = null;
+        for(Image pic: mProfilePictures) {
+            if(pic.id.equals(id)) {
+                image = pic;
+            }
+        }
+        return image;
+    }
     public void setPicturesRetrieved(Boolean answer) {
         this.mPicturesRetrieved = answer;
     }

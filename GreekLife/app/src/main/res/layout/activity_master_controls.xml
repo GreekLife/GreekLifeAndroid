@@ -42,8 +42,10 @@
                     android:id="@+id/Code"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#141A6E"
-                    android:textColor="#d20000"
+                    android:background="@drawable/border"
+                    android:backgroundTint="#7b1e7ce6"
+                    android:textColor="#000000"
+                    android:textStyle="bold"
                     android:text="0000"
                     android:layout_marginBottom="10dp" />
 
@@ -52,17 +54,30 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:background="#141A6E"
+                    android:background="@drawable/border"
+                    android:backgroundTint="#7b1e7ce6"
                     android:onClick="GenerateCode"
                     android:text="Generate new code"
                     android:textColor="#FFDF00" />
+
+                <Button
+                    android:id="@+id/Info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border"
+                    android:backgroundTint="#7b1e7ce6"
+                    android:textColor="#FFDF00"
+                    android:text="Info Page"
+                    android:onClick="EditInfo"
+                    android:layout_marginBottom="10dp" />
 
                 <Button
                     android:id="@+id/Kick"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:background="#141A6E"
+                    android:background="@drawable/border"
+                    android:backgroundTint="#7b1e7ce6"
                     android:onClick="KickUser"
                     android:text="Kick a member"
                     android:textColor="#FFDF00" />
@@ -72,7 +87,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:background="#141A6E"
+                    android:background="@drawable/border"
+                    android:backgroundTint="#7b1e7ce6"
                     android:onClick="PostToHome"
                     android:text="Post to home page"
                     android:textColor="#FFDF00" />
@@ -82,7 +98,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:background="#141A6E"
+                    android:background="@drawable/border"
+                    android:backgroundTint="#7b1e7ce6"
                     android:onClick="CustomNotif"
                     android:text="Send a Custom Notification"
                     android:textColor="#FFDF00" />
@@ -92,7 +109,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:background="#141A6E"
+                    android:background="@drawable/border"
+                    android:backgroundTint="#7b1e7ce6"
                     android:onClick="Ban"
                     android:text="Temporariily Ban User"
                     android:textColor="#FFDF00" />
@@ -102,7 +120,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:background="#141A6E"
+                    android:background="@drawable/border"
+                    android:backgroundTint="#7b1e7ce6"
                     android:onClick="Verify"
                     android:text="Validate New Users"
                     android:textColor="#FFDF00" />

@@ -120,7 +120,8 @@
             android:name=".CalendarActivity"
             android:parentActivityName=".HomePage"
             android:screenOrientation="portrait" />
-        <activity android:name=".EditInfoActivity"></activity>
+        <activity android:name=".EditInfoActivity" />
+        <activity android:name=".MessengerActivity"></activity>
     </application>
 
 </manifest>

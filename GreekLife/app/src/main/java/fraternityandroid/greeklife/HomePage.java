@@ -230,8 +230,8 @@ public class HomePage extends AppCompatActivity {
     }
 
     public void ImIntent(View view) {
-       // Intent messaging = new Intent(HomePage.this, MessagingActivity.class);
-        //startActivity(messaging);
+       Intent messaging = new Intent(HomePage.this, MessengerActivity.class);
+       startActivity(messaging);
     }
     public void ForumIntent(View view) {
         Intent forum = new Intent(HomePage.this, ForumActivity.class);
@@ -281,12 +281,12 @@ public class HomePage extends AppCompatActivity {
 
     public void updateNotificationKey(String token) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef2 = database.getReference(globals.DatabaseNode()+"/NotificationIds/Android"); //Does this successfully add the object?
+        DatabaseReference myRef2 = database.getReference(globals.DatabaseNode()+"/NotificationIds/Android/"+token); //Does this successfully add the object?
         Map<String, Object> keyObj = new HashMap<>();
         keyObj.put("Id", token);
         keyObj.put("UserId", globals.getLoggedIn().UserID);
         keyObj.put("Username", globals.getLoggedIn().Username);
-        myRef2.child(token).setValue(keyObj);
+        myRef2.setValue(keyObj);
 
         DatabaseReference databaseNotif = FirebaseDatabase.getInstance().getReference();
         DatabaseReference refNotif = databaseNotif.child(globals.DatabaseNode()+"/Users/"+ globals.getLoggedIn().UserID+"/NotificationId");

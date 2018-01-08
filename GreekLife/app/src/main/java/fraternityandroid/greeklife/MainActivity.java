@@ -27,7 +27,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
+import com.google.firebase.iid.FirebaseInstanceId;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -200,6 +200,13 @@ public class MainActivity extends AppCompatActivity {
                             editor.putString("Password", mPassword.getText().toString());
                             editor.commit();
                             findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+
+                            String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+                            editor.putString("NotificationKey", refreshedToken);
+                            editor.apply();
+                            DatabaseReference databaseNotif = FirebaseDatabase.getInstance().getReference();
+                            DatabaseReference refNotif = databaseNotif.child(globals.DatabaseNode()+"/Users/"+ globals.getLoggedIn().UserID+"/NotificationId");
+                            refNotif.setValue(refreshedToken);
 
                             Intent goToHomePage = new Intent(MainActivity.this, HomePage.class);
                             startActivity(goToHomePage);

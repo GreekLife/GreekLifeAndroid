@@ -65,7 +65,7 @@ public class AccountDetailsActivity extends AppCompatActivity {
                             FirebaseDatabase database = FirebaseDatabase.getInstance();
                             String id = mAuth.getCurrentUser().getUid();
                             mId = id;
-                            DatabaseReference myRef = database.getReference("Users/"+id);
+                            DatabaseReference myRef = database.getReference(globals.DatabaseNode()+"/Users/"+id);
 
                             String refreshedToken = FirebaseInstanceId.getInstance().getToken();
                             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());

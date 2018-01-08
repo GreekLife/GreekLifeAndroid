@@ -21,7 +21,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/Logo512"
+        android:icon="@drawable/logoblack"
         android:label="FratBase"
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -78,7 +78,10 @@
             android:name=".ViewProfileActivity"
             android:parentActivityName=".MembersActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".BETAActivity" />
+        <activity android:name=".BETAActivity"
+            android:parentActivityName=".HomePage"
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".ForumActivity"
             android:parentActivityName=".HomePage"
@@ -91,18 +94,6 @@
             android:name=".ForumCommentActivity"
             android:parentActivityName=".ForumActivity"
             android:screenOrientation="portrait" />
-
-        <service android:name=".MyFirebaseMessagingService">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-        <service android:name=".MyFirebaseInstanceIDService">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-            </intent-filter>
-        </service>
-
         <activity
             android:name=".PollActivity"
             android:parentActivityName=".HomePage"
@@ -120,8 +111,25 @@
             android:name=".CalendarActivity"
             android:parentActivityName=".HomePage"
             android:screenOrientation="portrait" />
-        <activity android:name=".EditInfoActivity" />
-        <activity android:name=".MessengerActivity"></activity>
+        <activity android:name=".EditInfoActivity"
+            android:parentActivityName=".CalendarActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".MessengerActivity"
+            android:parentActivityName=".HomePage"
+            android:screenOrientation="portrait"
+            />
+
+        <service android:name=".MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

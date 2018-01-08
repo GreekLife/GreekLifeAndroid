@@ -44,11 +44,7 @@
                 android:id="@+id/logoImageView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-<<<<<<< HEAD
                 android:layout_gravity="center" />
-=======
-                android:layout_gravity="center"/>
->>>>>>> 3df0a417eb032cea593e7eed652c90b295c5cf03
 
         </LinearLayout>
 

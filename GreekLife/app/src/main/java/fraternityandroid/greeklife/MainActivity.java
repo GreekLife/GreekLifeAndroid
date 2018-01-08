@@ -5,10 +5,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -27,7 +27,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
+import com.google.firebase.iid.FirebaseInstanceId;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -200,6 +200,10 @@ public class MainActivity extends AppCompatActivity {
                             editor.putString("Password", mPassword.getText().toString());
                             editor.commit();
                             findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+
+                            String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+                            editor.putString("NotificationKey", refreshedToken);
+                            editor.apply();
 
                             Intent goToHomePage = new Intent(MainActivity.this, HomePage.class);
                             startActivity(goToHomePage);

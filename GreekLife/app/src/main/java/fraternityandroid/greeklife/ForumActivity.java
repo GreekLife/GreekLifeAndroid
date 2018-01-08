@@ -3,19 +3,16 @@ package fraternityandroid.greeklife;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.GridView;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -48,7 +45,6 @@ public class ForumActivity extends AppCompatActivity {
         header.setTypeface(Typeface.create("monospace", Typeface.NORMAL));
         header.setTextColor(Color.parseColor("#FFDF00"));
 
-       //image button for back <-
 
         myToolbar.addView(header);
 

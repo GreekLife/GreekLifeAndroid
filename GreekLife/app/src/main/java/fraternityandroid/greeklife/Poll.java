@@ -1,8 +1,6 @@
 package fraternityandroid.greeklife;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by jonahelbaz on 2017-12-28.

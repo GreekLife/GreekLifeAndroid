@@ -1,10 +1,6 @@
 package fraternityandroid.greeklife;
 
-import android.content.Context;
 import android.graphics.Bitmap;
-import android.widget.ImageView;
-
-import java.util.BitSet;
 
 /**
  * Created by jonahelbaz on 2018-01-05.

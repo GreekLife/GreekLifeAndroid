@@ -1,49 +1,26 @@
 package fraternityandroid.greeklife;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.DialogInterface;
-import android.graphics.Color;
-import android.location.Location;
-import android.os.Debug;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.format.DateUtils;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.NumberPicker;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import java.lang.reflect.Array;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.Year;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Dictionary;
-import java.util.HashMap;
-
-import com.google.android.gms.vision.barcode.Barcode;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import javax.xml.datatype.Duration;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 
 public class CalendarActivity extends AppCompatActivity {
     Globals globals = Globals.getInstance();

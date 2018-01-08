@@ -288,6 +288,10 @@ public class HomePage extends AppCompatActivity {
         keyObj.put("Username", globals.getLoggedIn().Username);
         myRef2.child(token).setValue(keyObj);
 
+        DatabaseReference databaseNotif = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference refNotif = databaseNotif.child(globals.DatabaseNode()+"/Users/"+ globals.getLoggedIn().UserID+"/NotificationId");
+        refNotif.setValue(token);
+
         String id = globals.getLoggedIn().UserID;
 
         DatabaseReference updateProf = database.getReference(globals.DatabaseNode()+"/Users/"+id+"/NotificationId");

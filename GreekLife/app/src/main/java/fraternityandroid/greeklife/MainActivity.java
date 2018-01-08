@@ -204,9 +204,6 @@ public class MainActivity extends AppCompatActivity {
                             String refreshedToken = FirebaseInstanceId.getInstance().getToken();
                             editor.putString("NotificationKey", refreshedToken);
                             editor.apply();
-                            DatabaseReference databaseNotif = FirebaseDatabase.getInstance().getReference();
-                            DatabaseReference refNotif = databaseNotif.child(globals.DatabaseNode()+"/Users/"+ globals.getLoggedIn().UserID+"/NotificationId");
-                            refNotif.setValue(refreshedToken);
 
                             Intent goToHomePage = new Intent(MainActivity.this, HomePage.class);
                             startActivity(goToHomePage);

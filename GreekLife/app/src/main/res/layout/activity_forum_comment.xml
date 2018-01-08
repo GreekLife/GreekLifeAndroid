@@ -109,7 +109,7 @@
                         android:textColor="#AAA"
                         android:hint="Comment..."
                         android:textColorHint="#4894EC"
-                        android:textSize="10sp" />
+                        android:textSize="12sp" />
 
                     <Button
                         android:id="@+id/PostComment"

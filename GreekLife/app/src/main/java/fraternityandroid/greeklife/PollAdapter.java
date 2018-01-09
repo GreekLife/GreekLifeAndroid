@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +47,12 @@ public class PollAdapter extends BaseExpandableListAdapter {
     @Override
     public int getChildrenCount(int groupPosition) {
         try {
-            return mPolls.get(groupPosition).getOptions().size();
+            if(mPolls.get(groupPosition).getOptions().size() > 10) {
+              return 10;
+            }
+            else {
+                return mPolls.get(groupPosition).getOptions().size();
+            }
         }
         catch(IndexOutOfBoundsException e) {
             return 0;
@@ -86,9 +92,27 @@ public class PollAdapter extends BaseExpandableListAdapter {
         String percentString =  ((int)percentage) + "%";
         globals.setPollOptionIndexPercent(mPolls.get(groupPosition).getPostId(), childPosition, percentString);
 
-        option.setText(thisOption.getOption());
-        percent.setText(thisOption.getPercent());
-        votes.setText(Integer.toString(thisOption.getVotes()));
+
+        if(mPolls.get(groupPosition).getOptions().size() > 10) {
+            if(childPosition == 10) {
+                option.setText("...");
+                option.setTextColor(Color.parseColor("#FFDF00"));
+                percent.setText("");
+                votes.setText("");
+            }
+            else {
+                option.setText(thisOption.getOption());
+                option.setTextColor(Color.WHITE);
+                percent.setText(thisOption.getPercent());
+                votes.setText(Integer.toString(thisOption.getVotes()));
+            }
+        }
+        else {
+            option.setTextColor(Color.WHITE);
+            option.setText(thisOption.getOption());
+            percent.setText(thisOption.getPercent());
+            votes.setText(Integer.toString(thisOption.getVotes()));
+        }
 
 
         return convertView;

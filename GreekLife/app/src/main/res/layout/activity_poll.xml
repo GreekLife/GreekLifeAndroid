@@ -58,7 +58,7 @@
 
             <Button
                 android:id="@+id/Post"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginRight="1dp"
                 android:layout_weight="1"
@@ -68,7 +68,7 @@
 
             <Button
                 android:id="@+id/Delete"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_weight="1"
                 android:onClick="deleting"

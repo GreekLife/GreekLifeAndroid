@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.support.v7.widget.Toolbar;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -123,6 +124,7 @@ public class MessagingInterfaceActivity extends AppCompatActivity {
             dialogueSnapshot = dataSnapshot;
             dialogue = new Dialogue(getIntent().getStringExtra("dialogueID"));
             updateMessages();
+
             scrollToBottom();
         }
 
@@ -137,6 +139,18 @@ public class MessagingInterfaceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messaging_interface);
         String path = getIntent().getStringExtra("dialogueType")+"/"+getIntent().getStringExtra("dialogueID");
+        Toolbar toolbar = (Toolbar) findViewById(R.id.MessengerInterfaceToolbar);
+        TextView header = new TextView(this);
+        header.setTextColor(Color.parseColor("#c1ffdf00"));
+        header.setGravity(Gravity.CENTER);
+        toolbar.addView(header);
+        header.setText(getIntent().getStringExtra("dialogueName"));
+//        if(getIntent().getStringExtra("dialogueType").equals("DirectDialogues")) {
+//
+//        }
+//        else {
+//
+//        }
         FirebaseDatabase.getInstance().getReference()
                 .child(globals.DatabaseNode()+"/"+path).addValueEventListener(dialogueListener);
         ((Button)findViewById(R.id.sendBTN)).setOnClickListener(new View.OnClickListener() {
@@ -156,6 +170,14 @@ public class MessagingInterfaceActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View view, boolean b) {
                 scrollToBottom();
+            }
+        });
+
+        ((ScrollView)findViewById(R.id.messagesScrollView)).post(new Runnable() {
+
+            @Override
+            public void run() {
+               scrollToBottom();
             }
         });
 

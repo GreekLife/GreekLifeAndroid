@@ -408,13 +408,14 @@ public class MessengerActivity extends AppCompatActivity {
                     Intent messagingInterface = new Intent(MessengerActivity.this, MessagingInterfaceActivity.class);
                     messagingInterface.putExtra("dialogueID", dialogue.dialogueID);
                     messagingInterface.putExtra("dialogueType", dialogue.type);
+                    messagingInterface.putExtra("dialogueName", dialogue.dialogueName);
                     startActivity(messagingInterface);
                 }
             });
             channelCell.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    if (globals.getLoggedIn().Position.equals("Master") && globals.getLoggedIn().Validated) {
+                    if ((globals.getLoggedIn().Position.equals("Master") && globals.getLoggedIn().Validated) || (globals.getLoggedIn().Position.equals("LT Master") && globals.getLoggedIn().Validated)) {
                         final AlertDialog.Builder builder = new AlertDialog.Builder(MessengerActivity.this);
                         builder.setTitle("Delete Channel?");
                         builder.setMessage("Are you sure you would like to delete this channel?");
@@ -450,6 +451,7 @@ public class MessengerActivity extends AppCompatActivity {
                     Intent messagingInterface = new Intent(MessengerActivity.this, MessagingInterfaceActivity.class);
                     messagingInterface.putExtra("dialogueID", dialogue.dialogueID);
                     messagingInterface.putExtra("dialogueType", dialogue.type);
+                    messagingInterface.putExtra("dialogueName", dialogue.dialogueName);
                     startActivity(messagingInterface);
                 }
             });

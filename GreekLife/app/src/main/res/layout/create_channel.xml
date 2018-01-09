@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:padding="15dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/channelTitleField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Channel Title" />
+
+            <EditText
+                android:id="@+id/welcomeMessageField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Write a welcome message..."
+                android:textSize="14sp" />
+
+            <!--<EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="Choose who you'd like to be members of this channel"
+                android:textColor="#CCC"/>-->
+            <ScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#222">
+
+                <LinearLayout
+                    android:id="@+id/channelMembersField"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minHeight="200dp"
+                    android:minWidth="300dp"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+            </ScrollView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/cancelBTN"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Cancel"
+                    android:textAllCaps="false"/>
+                <Button
+                    android:id="@+id/createChannelBTN"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Create"
+                    android:layout_weight="1"
+                    android:textAllCaps="false" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

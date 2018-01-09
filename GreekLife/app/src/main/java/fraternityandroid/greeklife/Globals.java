@@ -73,6 +73,10 @@ public class Globals {
     public HashMap<String,User> getUsersByID(){return UsersByID;}
     public User getUserByID(String id) {return UsersByID.get(id);}
 
+    public String userFirstLastNameByID(String id){
+        return getUserByID(id).First_Name + " " + getUserByID(id).Last_Name;
+    }
+
     public void setPosts(List<Forum> posts){ mPosts = posts;}
     public List<Forum> getPosts(){return mPosts;}
     public Forum getPostById(String id) {

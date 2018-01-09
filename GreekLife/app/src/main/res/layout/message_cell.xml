@@ -14,15 +14,20 @@
             android:layout_height="wrap_content"
             android:background="#70268cc5"
             android:orientation="vertical"
-            android:padding="15dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
             android:layout_gravity="right"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp">
 
             <LinearLayout
                 android:id="@+id/messageHeaderContainer"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginBottom="6dp">
 
                 <TextView
                     android:id="@+id/messageSender"
@@ -31,6 +36,11 @@
                     android:layout_weight="1"
                     android:text="John Smith"
                     android:textSize="12dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" | "/>
 
                 <TextView
                     android:id="@+id/timeSent"
@@ -44,7 +54,6 @@
                 android:id="@+id/messageContent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
                 android:text="This is the message that is being sent to the dialogue." />
         </LinearLayout>
     </LinearLayout>

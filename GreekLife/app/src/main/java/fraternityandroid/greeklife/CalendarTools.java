@@ -68,5 +68,29 @@ public class CalendarTools {
                 return "Not a Month";
         }
     }
+    public static String formatTime(Calendar cal) {
+
+        String formattedTime = "";
+
+        int hour = cal.get(Calendar.HOUR);
+        int minute = cal.get(Calendar.MINUTE);
+        if (hour == 0) {
+            hour = 12;
+        }
+        formattedTime = hour + ":";
+        if (minute < 10) {
+            formattedTime += "0" + minute;
+        } else {
+            formattedTime += minute;
+        }
+
+        if (cal.get(Calendar.AM_PM) == 1) {
+            formattedTime += "pm";
+        } else {
+            formattedTime += "am";
+        }
+
+        return formattedTime;
+    }
 
 }

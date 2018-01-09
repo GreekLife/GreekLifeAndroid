@@ -18,22 +18,43 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/channelsView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical">
-
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Channels:" />
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Channels:"
+                        android:paddingBottom="8dp"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="15dp"
+                        android:textSize="16sp"
+                        android:layout_weight="1"/>
+                    <Button
+                        android:id="@+id/createChannel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="+"
+                        android:textColor="#26ccc5"
+                        android:background="#303031"
+                        android:textSize="24sp"/>
+                </LinearLayout>
+
 
                 <ScrollView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:background="#303031">
 
                     <LinearLayout
+                        android:id="@+id/channelsContainer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
@@ -44,22 +65,33 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/directsView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical">
-
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#000">
+                </FrameLayout>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Direct Messaging:" />
+                    android:text="Direct Messaging:"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="15dp"
+                    android:textSize="16sp"/>
 
                 <ScrollView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:background="#303031">
 
                     <LinearLayout
+                        android:id="@+id/directsContainer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
@@ -75,20 +107,24 @@
             android:orientation="horizontal">
 
             <ToggleButton
+                android:id="@+id/channelsBTN"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textAllCaps="false"
                 android:textOff="Channels"
-                android:textOn="Channels" />
+                android:textOn="Channels"
+                android:checked="false"/>
 
             <ToggleButton
+                android:id="@+id/directMessagingBTN"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textAllCaps="false"
                 android:textOff="Direct Messaging"
-                android:textOn="Direct Messaging" />
+                android:textOn="Direct Messaging"
+                android:checked="false"/>
         </LinearLayout>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

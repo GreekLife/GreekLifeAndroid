@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/messengeeCell"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#333"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="2dp">
+
+        <CheckBox
+            android:id="@+id/messengeeCheckbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/messengeeName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Firstname, Lastname"/>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

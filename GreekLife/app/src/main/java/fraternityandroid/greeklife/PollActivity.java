@@ -52,9 +52,12 @@ public class PollActivity extends AppCompatActivity {
         header.setTypeface(Typeface.create("monospace", Typeface.NORMAL));
         header.setTextColor(Color.parseColor("#FFDF00"));
 
+        Button refresh = new Button(this);
+
         //image button for back <-
 
         myToolbar.addView(header);
+        myToolbar.addView(refresh);
 
         newest.setBackgroundColor(Color.parseColor("#222222"));
 
@@ -66,7 +69,7 @@ public class PollActivity extends AppCompatActivity {
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
         DatabaseReference ref = database.child(globals.DatabaseNode()+"/Polls");
 
-        ref.addValueEventListener(new ValueEventListener() {
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 ArrayList<Poll> polls = new ArrayList<>();

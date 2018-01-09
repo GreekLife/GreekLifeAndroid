@@ -61,7 +61,7 @@ public class ProfileDetailsActivity extends AppCompatActivity {
 
     final Calendar myCalendar = Calendar.getInstance();
 
-    final String[] mPositions = {"Brother", "Alumni", "Pledge", "LT Master", "Scribe", "Exchequer", "Pledge Master", "Rush Chair"};
+    final String[] mPositions = {"Brother", "Alumni", "Brother at Large", "LT Master", "Scribe", "Exchequer", "Pledge Master", "Rush Chair"};
 
     public static final int PICK_IMAGE = 1;
     private static final String TAG = "ProfileDetailsActivity";

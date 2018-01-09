@@ -256,8 +256,8 @@ public class HomePage extends AppCompatActivity {
         startActivity(profile);
     }
     public void GoogleIntent(View view) {
-     //   Intent google = new Intent(HomePage.this, GoogleDriveActivity.class);
-       // startActivity(google);
+        Intent google = new Intent(HomePage.this, GoogleDriveActivity.class);
+        startActivity(google);
     }
     public void InfoIntent(View view) {
         Intent info = new Intent(HomePage.this, InfoActivity.class);

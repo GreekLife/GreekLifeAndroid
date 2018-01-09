@@ -28,7 +28,7 @@ public class GoogleDriveActivity extends AppCompatActivity {
             }
         });
 
-        mWebview .loadUrl("http://www.google.com");
+        mWebview .loadUrl("https://www.google.com/drive/");
         setContentView(mWebview );
 
     }

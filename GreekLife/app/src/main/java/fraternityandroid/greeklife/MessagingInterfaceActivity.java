@@ -155,6 +155,7 @@ public class MessagingInterfaceActivity extends AppCompatActivity {
     }
 
     public void updateMessages () {
+        scrollToBottom();
         ((LinearLayout)findViewById(R.id.messagesContainer)).removeAllViews();
         for(final Message message:dialogue.messages){
             View messageCell = getLayoutInflater().inflate(R.layout.message_cell, null);
@@ -190,6 +191,7 @@ public class MessagingInterfaceActivity extends AppCompatActivity {
                 LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) messageCell.findViewById(R.id.messageContainer).getLayoutParams();
                 params.gravity= Gravity.LEFT;
                 messageCell.findViewById(R.id.messageContainer).setLayoutParams(params);
+
             }else{
                 messageCell.findViewById(R.id.messageHeaderContainer).setVisibility(View.GONE);
             }
@@ -204,7 +206,7 @@ public class MessagingInterfaceActivity extends AppCompatActivity {
                         builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                FirebaseDatabase.getInstance().getReference().child(globals.DatabaseNode()+"/"+dialogue.type+"/"+dialogue.dialogueID+"/Messages/"+message.messageID).setValue("***Message Removed***");
+                                FirebaseDatabase.getInstance().getReference().child(globals.DatabaseNode()+"/"+dialogue.type+"/"+dialogue.dialogueID+"/Messages/"+message.messageID).setValue("Deleted Message*");
                                 updateMessages();
                             }
                         });

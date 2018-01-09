@@ -36,7 +36,7 @@ public class Globals {
         NEWEST, OLDEST, WEEK, MONTH
     }
 
-    private String DatabaseNode = "GammaLambda";
+    private String DatabaseNode = "Development";
 
     private User LoggedIn;
     private List<User> Users;

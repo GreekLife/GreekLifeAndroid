@@ -86,9 +86,6 @@ public class HomePage extends AppCompatActivity {
 
         //getPictures();
 
-        ImageButton googleDrive = findViewById(R.id.GoogleDrive);
-        googleDrive.setEnabled(false);
-
         ImageButton masterIcon = findViewById(R.id.Master);
         String user = globals.getLoggedIn().Position;
         if(!user.equals("Master")) {

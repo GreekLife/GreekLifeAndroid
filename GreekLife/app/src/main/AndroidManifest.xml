@@ -78,10 +78,10 @@
             android:name=".ViewProfileActivity"
             android:parentActivityName=".MembersActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".BETAActivity"
+        <activity
+            android:name=".BETAActivity"
             android:parentActivityName=".HomePage"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ForumActivity"
             android:parentActivityName=".HomePage"
@@ -111,14 +111,14 @@
             android:name=".CalendarActivity"
             android:parentActivityName=".HomePage"
             android:screenOrientation="portrait" />
-        <activity android:name=".EditInfoActivity"
+        <activity
+            android:name=".EditInfoActivity"
             android:parentActivityName=".CalendarActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".MessengerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MessengerActivity"
             android:parentActivityName=".HomePage"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
 
         <service android:name=".MyFirebaseMessagingService">
             <intent-filter>
@@ -130,6 +130,8 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
+
+        <activity android:name=".GoogleDriveActivity"></activity>
     </application>
 
 </manifest>

@@ -301,6 +301,14 @@ public class MessengerActivity extends AppCompatActivity {
                 }
                 final AlertDialog alertDialog = builder.create();
 
+                ((Button) newChannelView.findViewById(R.id.cancelBTN)).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        alertDialog.dismiss();
+                    }
+
+                    });
+
 
                 ((Button) newChannelView.findViewById(R.id.createChannelBTN)).setOnClickListener(new View.OnClickListener() {
                     @Override

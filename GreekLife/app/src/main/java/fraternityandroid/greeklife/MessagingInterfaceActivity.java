@@ -159,8 +159,32 @@ public class MessagingInterfaceActivity extends AppCompatActivity {
         for(final Message message:dialogue.messages){
             View messageCell = getLayoutInflater().inflate(R.layout.message_cell, null);
             ((TextView)messageCell.findViewById(R.id.messageSender)).setText(globals.userFirstLastNameByID(message.senderID));
-            //((TextView)messageCell.findViewById(R.id.timeSent)).setText(message.timeSent);
-            ((TextView)messageCell.findViewById(R.id.messageContent)).setText(message.messageContent);
+            String timeSent;
+            long currentEpoch = System.currentTimeMillis() / 1000L;
+            long secondsSince = currentEpoch - Integer.parseInt(message.timeSent);
+            int hours = (int) (secondsSince / 3600);
+            int min = (int) (hours / 60);
+            int days = hours / 24;
+            String display;
+            if (days < 1) {
+                display = Integer.toString(hours) + "h";
+            } else if (hours < 0) {
+                display = Integer.toString(min) + "m";
+            } else {
+                display = Integer.toString(days) + "d";
+            }
+            timeSent = display;
+
+            ((TextView)messageCell.findViewById(R.id.timeSent)).setText(timeSent);
+            if(message.messageContent.equals("Deleted Message*")) {
+                message.messageContent = "This message has been removed";
+                ((TextView) messageCell.findViewById(R.id.messageContent)).setText(message.messageContent);
+                ((TextView) messageCell.findViewById(R.id.messageContent)).setTextColor(Color.RED);
+            }
+            else {
+                ((TextView) messageCell.findViewById(R.id.messageContent)).setText(message.messageContent);
+                ((TextView) messageCell.findViewById(R.id.messageContent)).setTextColor(Color.WHITE);
+            }
             if(!message.senderID.equals(globals.getLoggedIn().UserID)){
                 ((LinearLayout)messageCell.findViewById(R.id.messageContainer)).setBackgroundColor(Color.rgb(5,5,3));
                 LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) messageCell.findViewById(R.id.messageContainer).getLayoutParams();

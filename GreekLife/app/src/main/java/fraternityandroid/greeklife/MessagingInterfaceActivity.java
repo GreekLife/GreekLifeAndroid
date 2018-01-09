@@ -240,6 +240,6 @@ public class MessagingInterfaceActivity extends AppCompatActivity {
     }
 
     public void scrollToBottom(){
-        ((ScrollView)findViewById(R.id.messagesScrollView)).scrollTo(0, ((ScrollView)findViewById(R.id.messagesScrollView)).getBottom());
+        ((ScrollView)findViewById(R.id.messagesScrollView)).fullScroll(View.FOCUS_DOWN);
     }
 }

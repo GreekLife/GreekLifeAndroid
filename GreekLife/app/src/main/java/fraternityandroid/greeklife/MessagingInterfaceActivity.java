@@ -161,7 +161,7 @@ public class MessagingInterfaceActivity extends AppCompatActivity {
             ((TextView)messageCell.findViewById(R.id.messageSender)).setText(globals.userFirstLastNameByID(message.senderID));
             String timeSent;
             long currentEpoch = System.currentTimeMillis() / 1000L;
-            long secondsSince = currentEpoch - Integer.parseInt(message.timeSent);
+            long secondsSince = currentEpoch - Long.parseLong(message.timeSent);
             int hours = (int) (secondsSince / 3600);
             int min = (int) (hours / 60);
             int days = hours / 24;

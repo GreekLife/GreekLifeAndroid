@@ -151,6 +151,15 @@ public class MessagingInterfaceActivity extends AppCompatActivity {
                 }
             }
         });
+
+        ((TextView) findViewById(R.id.messageField)).setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                scrollToBottom();
+            }
+        });
+
+
         scrollToBottom();
     }
 

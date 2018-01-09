@@ -359,6 +359,25 @@ public class MessengerActivity extends AppCompatActivity {
     public void updateDialogueList(DataSnapshot dialoguesSnap) {
         if (dialoguesSnap.getKey().equals("DirectDialogues")) {
             directDialogues.clear();
+            for (User user:globals.getUsers()){
+                if(!user.UserID.equals(globals.getLoggedIn().UserID)){
+                    boolean dialogueExists = false;
+                    for(DataSnapshot snapshot:dialoguesSnap.getChildren()){
+                        if(snapshot.getKey().contains(user.UserID) && snapshot.getKey().contains(globals.getLoggedIn().UserID)){
+                            dialogueExists = true;
+                        }
+                    }
+                    if(!dialogueExists){
+                        List<String> ids = new ArrayList<>();
+                        ids.add(user.UserID);
+                        ids.add(globals.getLoggedIn().UserID);
+                        Collections.sort(ids);
+                        Message welcomeMessage = new Message(globals.getLoggedIn().UserID, String.valueOf(Calendar.getInstance().getTimeInMillis()),"Welcome to FratBase Direct Messenger!");
+                        FirebaseDatabase.getInstance().getReference().child(globals.DatabaseNode()+"/DirectDialogues/"+ids.get(0)+", "+ids.get(1)+"/Messages/"+welcomeMessage.messageID).setValue(welcomeMessage.messageContent);
+                        reload();
+                    }
+                }
+            }
             for (DataSnapshot dialogueSnap : dialoguesSnap.getChildren()) {
                 if (dialogueSnap.getKey().contains(globals.getLoggedIn().UserID)) {
                     directDialogues.add(new Dialogue(dialogueSnap.getKey()));

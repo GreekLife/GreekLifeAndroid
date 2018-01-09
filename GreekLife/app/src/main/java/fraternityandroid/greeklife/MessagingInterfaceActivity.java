@@ -155,6 +155,7 @@ public class MessagingInterfaceActivity extends AppCompatActivity {
     }
 
     public void updateMessages () {
+        scrollToBottom();
         ((LinearLayout)findViewById(R.id.messagesContainer)).removeAllViews();
         for(final Message message:dialogue.messages){
             View messageCell = getLayoutInflater().inflate(R.layout.message_cell, null);
@@ -191,6 +192,7 @@ public class MessagingInterfaceActivity extends AppCompatActivity {
                 params.gravity= Gravity.LEFT;
                 params.setMarginEnd(200);
                 messageCell.findViewById(R.id.messageContainer).setLayoutParams(params);
+
             }else{
                 params.setMarginStart(200);
                 messageCell.findViewById(R.id.messageContainer).setLayoutParams(params);
@@ -207,7 +209,7 @@ public class MessagingInterfaceActivity extends AppCompatActivity {
                         builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                FirebaseDatabase.getInstance().getReference().child(globals.DatabaseNode()+"/"+dialogue.type+"/"+dialogue.dialogueID+"/Messages/"+message.messageID).setValue("***Message Removed***");
+                                FirebaseDatabase.getInstance().getReference().child(globals.DatabaseNode()+"/"+dialogue.type+"/"+dialogue.dialogueID+"/Messages/"+message.messageID).setValue("Deleted Message*");
                                 updateMessages();
                             }
                         });

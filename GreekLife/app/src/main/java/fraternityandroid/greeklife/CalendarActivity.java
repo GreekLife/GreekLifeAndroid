@@ -121,7 +121,6 @@ public class CalendarActivity extends AppCompatActivity {
             masterControls.removeAllViews();
         }
         reloadUI();
-
     }
 
     //--------------------------------

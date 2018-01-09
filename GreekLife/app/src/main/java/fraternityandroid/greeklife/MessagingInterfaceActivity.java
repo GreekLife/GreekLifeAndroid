@@ -185,12 +185,15 @@ public class MessagingInterfaceActivity extends AppCompatActivity {
                 ((TextView) messageCell.findViewById(R.id.messageContent)).setText(message.messageContent);
                 ((TextView) messageCell.findViewById(R.id.messageContent)).setTextColor(Color.WHITE);
             }
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) messageCell.findViewById(R.id.messageContainer).getLayoutParams();
             if(!message.senderID.equals(globals.getLoggedIn().UserID)){
                 ((LinearLayout)messageCell.findViewById(R.id.messageContainer)).setBackgroundColor(Color.rgb(5,5,3));
-                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) messageCell.findViewById(R.id.messageContainer).getLayoutParams();
                 params.gravity= Gravity.LEFT;
+                params.setMarginEnd(200);
                 messageCell.findViewById(R.id.messageContainer).setLayoutParams(params);
             }else{
+                params.setMarginStart(200);
+                messageCell.findViewById(R.id.messageContainer).setLayoutParams(params);
                 messageCell.findViewById(R.id.messageHeaderContainer).setVisibility(View.GONE);
             }
             messageCell.setLongClickable(true);

@@ -52,12 +52,9 @@ public class PollActivity extends AppCompatActivity {
         header.setTypeface(Typeface.create("monospace", Typeface.NORMAL));
         header.setTextColor(Color.parseColor("#FFDF00"));
 
-        Button refresh = new Button(this);
-
         //image button for back <-
 
         myToolbar.addView(header);
-        myToolbar.addView(refresh);
 
         newest.setBackgroundColor(Color.parseColor("#222222"));
 

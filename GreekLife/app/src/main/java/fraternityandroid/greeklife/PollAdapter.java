@@ -48,7 +48,7 @@ public class PollAdapter extends BaseExpandableListAdapter {
     public int getChildrenCount(int groupPosition) {
         try {
             if(mPolls.get(groupPosition).getOptions().size() > 10) {
-              return 10;
+              return 11;
             }
             else {
                 return mPolls.get(groupPosition).getOptions().size();

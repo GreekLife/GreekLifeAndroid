@@ -73,25 +73,6 @@ public class AccountDetailsActivity extends AppCompatActivity {
                             editor.putString("NotificationKey", refreshedToken);
                             editor.apply();
 
-                            Map<String, Object> userEmpty = new HashMap<>(); //using a hashmap becuase im stupid and the name keys need a space.
-                            User emptyUser = new User("",id,"","","",mEmail.getText().toString(),"","","","","","", false);
-                            userEmpty.put("Username", "");
-                            userEmpty.put("Birthday", "");
-                            userEmpty.put("BrotherName", "");
-                            userEmpty.put("Degree", "");
-                            userEmpty.put("Email", mEmail.getText().toString());
-                            userEmpty.put("First Name", "");
-                            userEmpty.put("Last Name", "");
-                            userEmpty.put("Image", "");
-                            userEmpty.put("School", "");
-                            userEmpty.put("Position", "");
-                            userEmpty.put("GraduationDate", "");
-                            userEmpty.put("NotificationId", refreshedToken);
-                            userEmpty.put("Validated", false);
-                            userEmpty.put("UserID", id);
-
-
-                            myRef.setValue(userEmpty);
                             Intent completeAuth = new Intent(AccountDetailsActivity.this, ProfileDetailsActivity.class);
                             completeAuth.putExtra("Id", id);
                             completeAuth.putExtra("Email", mEmail.getText().toString());

@@ -1,18 +1,13 @@
 package fraternityandroid.greeklife;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.provider.ContactsContract;
-import android.provider.Settings;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Layout;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -22,11 +17,8 @@ import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -87,6 +79,7 @@ public class MessagingInterfaceActivity extends AppCompatActivity {
 
         }
 
+
         public void sendMessage(Message message) {
             FirebaseDatabase.getInstance().getReference().child(globals.DatabaseNode()+"/"+this.type +"/"+dialogueID+ "/Messages/" + message.messageID).setValue(message.messageContent);
         }
@@ -123,6 +116,7 @@ public class MessagingInterfaceActivity extends AppCompatActivity {
             dialogueSnapshot = dataSnapshot;
             dialogue = new Dialogue(getIntent().getStringExtra("dialogueID"));
             updateMessages();
+
             scrollToBottom();
         }
 
@@ -137,6 +131,13 @@ public class MessagingInterfaceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messaging_interface);
         String path = getIntent().getStringExtra("dialogueType")+"/"+getIntent().getStringExtra("dialogueID");
+        Toolbar toolbar = (Toolbar) findViewById(R.id.MessengerInterfaceToolbar);
+        TextView header = new TextView(this);
+        header.setTextColor(Color.parseColor("#c1ffdf00"));
+        header.setGravity(Gravity.CENTER);
+        toolbar.addView(header);
+        header.setText(getIntent().getStringExtra("dialogueName"));
+
         FirebaseDatabase.getInstance().getReference()
                 .child(globals.DatabaseNode()+"/"+path).addValueEventListener(dialogueListener);
         ((Button)findViewById(R.id.sendBTN)).setOnClickListener(new View.OnClickListener() {
@@ -155,13 +156,28 @@ public class MessagingInterfaceActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.messageField)).setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                scrollToBottom();
+
+                  scrollToBottom();
             }
         });
+<<<<<<< HEAD
         //((ScrollView)findViewById(R.id.messagesScrollView)).draw
+=======
+
+        ((ScrollView)findViewById(R.id.messagesScrollView)).post(new Runnable() {
+
+            @Override
+            public void run() {
+                    scrollToBottom();
+            }
+
+        });
+
+>>>>>>> 9212d7e0368666fc2db045191bf7d6cb4023078e
 
         scrollToBottom();
     }
+
 
     public void updateMessages () {
         scrollToBottom();
@@ -240,7 +256,11 @@ public class MessagingInterfaceActivity extends AppCompatActivity {
     }
 
     public void scrollToBottom(){
+<<<<<<< HEAD
         ((ScrollView)findViewById(R.id.messagesScrollView)).invalidate();
         //((ScrollView)findViewById(R.id.messagesScrollView)).scrollTo(0, ((ScrollView)findViewById(R.id.messagesScrollView)).getBottom());
+=======
+        ((ScrollView)findViewById(R.id.messagesScrollView)).fullScroll(View.FOCUS_DOWN);
+>>>>>>> 9212d7e0368666fc2db045191bf7d6cb4023078e
     }
 }

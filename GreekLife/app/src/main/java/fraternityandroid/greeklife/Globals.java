@@ -74,7 +74,12 @@ public class Globals {
     public User getUserByID(String id) {return UsersByID.get(id);}
 
     public String userFirstLastNameByID(String id){
-        return getUserByID(id).First_Name + " " + getUserByID(id).Last_Name;
+        if (getUserByID(id) == null){
+            return "Deleted User";
+        }else{
+            return getUserByID(id).First_Name + " " + getUserByID(id).Last_Name;
+        }
+
     }
 
     public void setPosts(List<Forum> posts){ mPosts = posts;}

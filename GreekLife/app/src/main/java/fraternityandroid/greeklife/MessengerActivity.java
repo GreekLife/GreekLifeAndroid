@@ -32,6 +32,7 @@ import org.w3c.dom.Text;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
@@ -87,7 +88,7 @@ public class MessengerActivity extends AppCompatActivity {
     public class Dialogue {
         public String dialogueID;
         public ArrayList<Message> messages = new ArrayList<>();
-        public String[] messengeeIDs;
+        public ArrayList<String> messengeeIDs;
         public ArrayList<User> messengees = new ArrayList<>();
         public String type;
         public String dialogueName;
@@ -101,26 +102,56 @@ public class MessengerActivity extends AppCompatActivity {
                 this.type = "DirectDialogues";
                 this.dialogueSnap = dialogueDB.directsSnap.child(this.dialogueID);
 
-                this.messengeeIDs = dialogueID.split(", ").clone();
+                this.messengeeIDs = new ArrayList<>(Arrays.asList(dialogueID.split(", ")));
 
                 this.dialogueName = "";
                 for (String messengeeID : this.messengeeIDs) {
-                    if (!messengeeID.equals(globals.getLoggedIn().UserID)) {
-                        this.dialogueName += globals.getUserByID(messengeeID).First_Name + " " + globals.getUserByID(messengeeID).Last_Name + ", ";
-
+                    boolean userInDialogueExists = false;
+                    for(User user:globals.getUsers()){
+                        if(user.UserID.equals(messengeeID)){
+                            userInDialogueExists = true;
+                        }
                     }
+                    if (!userInDialogueExists){
+                        FirebaseDatabase.getInstance().getReference().child(globals.DatabaseNode()+"/"+type+"/"+dialogueID).removeValue();
+                        dialogueID = "deleted";
+                    }else{
+                        if (!messengeeID.equals(globals.getLoggedIn().UserID)) {
+                            this.dialogueName += globals.getUserByID(messengeeID).First_Name + " " + globals.getUserByID(messengeeID).Last_Name + ", ";
+                            this.dialogueName = this.dialogueName.substring(0, this.dialogueName.length() - 2);
+                        }
+                        this.messengees.add(globals.getUserByID(messengeeID));
+                    }
+
                 }
-                this.dialogueName = this.dialogueName.substring(0, this.dialogueName.length() - 2);
+
             } else {
                 this.type = "ChannelDialogues";
                 this.dialogueSnap = dialogueDB.channelsSnap.child(this.dialogueID);
 
-                this.messengeeIDs = dialogueSnap.child("Messengees").getValue().toString().split(", ").clone();
+                this.messengeeIDs = new ArrayList<>(Arrays.asList(dialogueSnap.child("Messengees").getValue().toString().split(", ")));
+
+                for (String messengeeID : messengeeIDs) {
+                    boolean userExists = false;
+                    for (User user : globals.getUsers()) {
+                        if (user.UserID.equals(messengeeID)) {
+                            userExists = true;
+                        }
+                    }
+                    if (userExists) {
+                        this.messengees.add(globals.getUserByID(messengeeID));
+                    }
+                }
+                String messengeeIDsString = "";
+                for (User user:messengees){
+                    messengeeIDsString += user.UserID + ", ";
+                }
+                messengeeIDsString = messengeeIDsString.substring(0, messengeeIDsString.length()-2);
+                this.messengeeIDs = new ArrayList<>(Arrays.asList(messengeeIDsString.split(", ")));
+                FirebaseDatabase.getInstance().getReference().child(globals.DatabaseNode()+"/"+type+"/"+dialogueID+"/Messengees").setValue(messengeeIDsString);
             }
 
-            for (String messengeeID : messengeeIDs) {
-                this.messengees.add(globals.getUserByID(messengeeID));
-            }
+
 
             for (DataSnapshot messageSnap : dialogueSnap.child("Messages").getChildren()) {
                 String messageID = messageSnap.getKey();
@@ -443,19 +474,21 @@ public class MessengerActivity extends AppCompatActivity {
         LinearLayout directContainer = findViewById(R.id.directsContainer);
         directContainer.removeAllViews();
         for (final Dialogue dialogue : directDialogues) {
-            View directCell = getLayoutInflater().inflate(R.layout.dialogue_cell, null);
-            putInfoInCell(directCell, dialogue, directContainer);
-            directCell.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent messagingInterface = new Intent(MessengerActivity.this, MessagingInterfaceActivity.class);
-                    messagingInterface.putExtra("dialogueID", dialogue.dialogueID);
-                    messagingInterface.putExtra("dialogueType", dialogue.type);
-                    messagingInterface.putExtra("dialogueName", dialogue.dialogueName);
-                    startActivity(messagingInterface);
-                }
-            });
-            directContainer.addView(directCell);
+            if (dialogue.dialogueID != "deleted"){
+                View directCell = getLayoutInflater().inflate(R.layout.dialogue_cell, null);
+                putInfoInCell(directCell, dialogue, directContainer);
+                directCell.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent messagingInterface = new Intent(MessengerActivity.this, MessagingInterfaceActivity.class);
+                        messagingInterface.putExtra("dialogueID", dialogue.dialogueID);
+                        messagingInterface.putExtra("dialogueType", dialogue.type);
+                        messagingInterface.putExtra("dialogueName", dialogue.dialogueName);
+                        startActivity(messagingInterface);
+                    }
+                });
+                directContainer.addView(directCell);
+            }
         }
     }
 
@@ -470,7 +503,11 @@ public class MessengerActivity extends AppCompatActivity {
             lastMessageTimeSentString = lastMessageTimeSent.get(Calendar.YEAR) + "-" + lastMessageTimeSent.get(Calendar.MONTH) + "-" + lastMessageTimeSent.get(Calendar.DAY_OF_MONTH);
         }
         ((TextView) dialogueCell.findViewById(R.id.lastMessageTimeSent)).setText(lastMessageTimeSentString);
-        ((TextView) dialogueCell.findViewById(R.id.lastSenderAndMessage)).setText(
-                globals.getUserByID(dialogue.lastMessage.senderID).First_Name + " " + globals.getUserByID(dialogue.lastMessage.senderID).Last_Name + ": " + dialogue.lastMessage.messageContent);
+        if (globals.getUserByID(dialogue.lastMessage.senderID) == null){
+            ((TextView) dialogueCell.findViewById(R.id.lastSenderAndMessage)).setText("Deleted User: " + dialogue.lastMessage.messageContent);
+        }else {
+            ((TextView) dialogueCell.findViewById(R.id.lastSenderAndMessage)).setText(
+                    globals.getUserByID(dialogue.lastMessage.senderID).First_Name + " " + globals.getUserByID(dialogue.lastMessage.senderID).Last_Name + ": " + dialogue.lastMessage.messageContent);
+        }
     }
 }

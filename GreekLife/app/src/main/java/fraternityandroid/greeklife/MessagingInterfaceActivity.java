@@ -160,9 +160,9 @@ public class MessagingInterfaceActivity extends AppCompatActivity {
                   scrollToBottom();
             }
         });
-<<<<<<< HEAD
+
         //((ScrollView)findViewById(R.id.messagesScrollView)).draw
-=======
+
 
         ((ScrollView)findViewById(R.id.messagesScrollView)).post(new Runnable() {
 
@@ -173,7 +173,7 @@ public class MessagingInterfaceActivity extends AppCompatActivity {
 
         });
 
->>>>>>> 9212d7e0368666fc2db045191bf7d6cb4023078e
+
 
         scrollToBottom();
     }
@@ -184,7 +184,9 @@ public class MessagingInterfaceActivity extends AppCompatActivity {
         ((LinearLayout)findViewById(R.id.messagesContainer)).removeAllViews();
         for(final Message message:dialogue.messages){
             View messageCell = getLayoutInflater().inflate(R.layout.message_cell, null);
-            ((TextView)messageCell.findViewById(R.id.messageSender)).setText(globals.userFirstLastNameByID(message.senderID));
+
+            ((TextView) messageCell.findViewById(R.id.messageSender)).setText(globals.userFirstLastNameByID(message.senderID));
+
             String timeSent;
             long currentEpoch = System.currentTimeMillis() / 1000L;
             long secondsSince = currentEpoch - Long.parseLong(message.timeSent);
@@ -256,11 +258,9 @@ public class MessagingInterfaceActivity extends AppCompatActivity {
     }
 
     public void scrollToBottom(){
-<<<<<<< HEAD
+
         ((ScrollView)findViewById(R.id.messagesScrollView)).invalidate();
         //((ScrollView)findViewById(R.id.messagesScrollView)).scrollTo(0, ((ScrollView)findViewById(R.id.messagesScrollView)).getBottom());
-=======
         ((ScrollView)findViewById(R.id.messagesScrollView)).fullScroll(View.FOCUS_DOWN);
->>>>>>> 9212d7e0368666fc2db045191bf7d6cb4023078e
     }
 }

@@ -71,7 +71,14 @@ public class Globals {
     public List<User> getUsers(){ return Users;}
     public void setUsersByID(HashMap<String,User> usersByID){this.UsersByID = usersByID;}
     public HashMap<String,User> getUsersByID(){return UsersByID;}
-    public User getUserByID(String id) {return UsersByID.get(id);}
+    public User getUserByID(String id) {
+        if (UsersByID.get(id) == null) {
+            return new User("deleted_user",id,"January 1st, 1970","Brother Deleted","Deletion & Removal", "deleted@gmail.com","Deleted","User","never","none","deletionU","none",false);
+        }else {
+            return UsersByID.get(id);
+        }
+
+    }
 
     public String userFirstLastNameByID(String id){
         if (getUserByID(id) == null){

@@ -233,10 +233,10 @@ public class MessengerActivity extends AppCompatActivity {
                         public void onAnimationUpdate(ValueAnimator valueAnimator) {
                             view.setLayoutParams(new LinearLayout.LayoutParams(
                                     ViewGroup.LayoutParams.MATCH_PARENT,
-                                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                                    ViewGroup.LayoutParams.MATCH_PARENT,
                                     (float) valueAnimator.getAnimatedValue()
                             ));
-                            //view.invalidate();
+                            view.invalidate();
                         }
                     });
                     if (((ToggleButton) findViewById(R.id.channelsBTN)).isChecked()) {
@@ -250,11 +250,11 @@ public class MessengerActivity extends AppCompatActivity {
                         @Override
                         public void onAnimationUpdate(ValueAnimator valueAnimator) {
                             view.setLayoutParams(new LinearLayout.LayoutParams(
-                                    ViewGroup.LayoutParams.MATCH_PARENT,
-                                    ViewGroup.LayoutParams.WRAP_CONTENT,
-                                    (float) valueAnimator.getAnimatedValue()
+                                        ViewGroup.LayoutParams.MATCH_PARENT,
+                                        ViewGroup.LayoutParams.MATCH_PARENT,
+                                        (float) valueAnimator.getAnimatedValue()
                             ));
-                            // view.invalidate();
+                            view.invalidate();
                         }
                     });
                     animation.start();
@@ -277,7 +277,7 @@ public class MessengerActivity extends AppCompatActivity {
                                     ViewGroup.LayoutParams.MATCH_PARENT,
                                     (float) valueAnimator.getAnimatedValue()
                             ));
-                            //view.invalidate();
+                            view.invalidate();
                         }
                     });
                     if (((ToggleButton) findViewById(R.id.directMessagingBTN)).isChecked()) {
@@ -290,12 +290,12 @@ public class MessengerActivity extends AppCompatActivity {
                     animation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                         @Override
                         public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                            view.setLayoutParams(new LinearLayout.LayoutParams(
-                                    ViewGroup.LayoutParams.MATCH_PARENT,
-                                    ViewGroup.LayoutParams.MATCH_PARENT,
-                                    (float) valueAnimator.getAnimatedValue()
-                            ));
-                            //view.invalidate();
+                                view.setLayoutParams(new LinearLayout.LayoutParams(
+                                        ViewGroup.LayoutParams.MATCH_PARENT,
+                                        ViewGroup.LayoutParams.MATCH_PARENT,
+                                        (float) valueAnimator.getAnimatedValue()
+                                ));
+                            view.invalidate();
                         }
                     });
                     animation.start();

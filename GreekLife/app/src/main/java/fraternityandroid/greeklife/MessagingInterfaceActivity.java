@@ -158,7 +158,7 @@ public class MessagingInterfaceActivity extends AppCompatActivity {
                 scrollToBottom();
             }
         });
-
+        //((ScrollView)findViewById(R.id.messagesScrollView)).draw
 
         scrollToBottom();
     }
@@ -240,6 +240,7 @@ public class MessagingInterfaceActivity extends AppCompatActivity {
     }
 
     public void scrollToBottom(){
-        ((ScrollView)findViewById(R.id.messagesScrollView)).scrollTo(0, ((ScrollView)findViewById(R.id.messagesScrollView)).getBottom());
+        ((ScrollView)findViewById(R.id.messagesScrollView)).invalidate();
+        //((ScrollView)findViewById(R.id.messagesScrollView)).scrollTo(0, ((ScrollView)findViewById(R.id.messagesScrollView)).getBottom());
     }
 }

@@ -197,8 +197,7 @@ public class HomePage extends AppCompatActivity {
                     String position = (String) userSnapshot.child("Position").getValue();
                     String school = (String) userSnapshot.child("School").getValue();
                     String userId = (String) userSnapshot.child("UserID").getValue();
-                    Boolean validated = (Boolean) userSnapshot.child("Validated").getValue();
-                    User user = new User(username, userId, birthday, brother, degree, email, first, last, grad, imageURL, school, position, validated);
+                    User user = new User(username, userId, birthday, brother, degree, email, first, last, grad, imageURL, school, position);
                     users.add(user);
                     usersByID.put(userId,user);
                 }

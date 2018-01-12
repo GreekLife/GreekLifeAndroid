@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">fratBase</string>
+    <string name="app_name">FratBase</string>
+
+    <string-array name="DatabaseNode_Array">
+        <item>Generic</item>
+        <item>GammaLambda</item>
+    </string-array>
 </resources>

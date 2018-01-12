@@ -48,7 +48,7 @@ public class ManageUserActivity extends AppCompatActivity {
         }
         if(type.equals("VERIFY")) {
             for (User user : mUsers) {
-                if(user.Validated == false) {
+                if(globals.EboardContains(user.Position)) {
                     names.add(user.First_Name + " " + user.Last_Name);
                     ids.add(user.UserID);
                 }

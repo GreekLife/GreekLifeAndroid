@@ -117,7 +117,7 @@ public class CalendarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_calendar);
         Globals globals = Globals.getInstance();
         final LinearLayout masterControls = findViewById(R.id.calendarEBoardTools);
-        if (!globals.getLoggedIn().Position.equals("Master") && !globals.getLoggedIn().Position.equals("Pledge Master") && !globals.getLoggedIn().Position.equals("LT Master") && globals.getLoggedIn().Position.equals("Rush Chair")) {
+        if (!globals.EboardContains(globals.getLoggedIn().Position)) {
             masterControls.removeAllViews();
         }
         reloadUI();

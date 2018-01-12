@@ -225,9 +225,17 @@ public class ProfileDetailsActivity extends AppCompatActivity {
                 position.setEnabled(false);
             }
 
+            if(!globals.getLoggedIn().Position.equals("Master")) {
+                position.setEnabled(false);
+            }
+
             button.setText("Save");
 
             //set image
+        }
+        else {
+            position.setEnabled(false);
+            position.setText("Brother");
         }
     }
 
@@ -312,16 +320,14 @@ public class ProfileDetailsActivity extends AppCompatActivity {
                             FirebaseDatabase database = FirebaseDatabase.getInstance();
                             DatabaseReference myRef = database.getReference(globals.DatabaseNode()+"/Users/" + title);
                             Map<String, Object> newUser = new HashMap<>(); //using a hashmap becuase im stupid and the name keys need a space.
-                            User User = new User(brother.getText().toString(), id, birthday.getText().toString(), brother.getText().toString(), degree.getText().toString(), mail, first.getText().toString(), last.getText().toString(), grad.getText().toString(), downloadUrl.toString(), school.getText().toString(), position.getText().toString(), false);
+                            User User = new User(brother.getText().toString(), id, birthday.getText().toString(), brother.getText().toString(), degree.getText().toString(), mail, first.getText().toString(), last.getText().toString(), grad.getText().toString(), downloadUrl.toString(), school.getText().toString(), position.getText().toString());
 
                                 if (type.equals("UPDATE") && user.Position.equals("Master")) {
                                     newUser.put("Username", "Master");
                                     newUser.put("Position", "Master");
-                                    newUser.put("Validated", true);
                                 } else {
                                     newUser.put("Username", User.Username);
-                                    newUser.put("Position", User.Position);
-                                    newUser.put("Validated", User.Validated);
+                                    newUser.put("Position", "Brother");
 
                                 }
                             String refreshedToken = FirebaseInstanceId.getInstance().getToken();
@@ -379,16 +385,14 @@ public class ProfileDetailsActivity extends AppCompatActivity {
                                 final FirebaseDatabase database = FirebaseDatabase.getInstance();
                                 DatabaseReference myRef = database.getReference(globals.DatabaseNode()+"/Users/" + title);
                                 Map<String, Object> newUser = new HashMap<>(); //using a hashmap becuase im stupid and the name keys need a space.
-                                User User = new User(brother.getText().toString(), id, birthday.getText().toString(), brother.getText().toString(), degree.getText().toString(), email.getText().toString(), first.getText().toString(), last.getText().toString(), grad.getText().toString(), user.Image, school.getText().toString(), position.getText().toString(), false);
+                                User User = new User(brother.getText().toString(), id, birthday.getText().toString(), brother.getText().toString(), degree.getText().toString(), email.getText().toString(), first.getText().toString(), last.getText().toString(), grad.getText().toString(), user.Image, school.getText().toString(), position.getText().toString());
                                 if(user.Position.equals("Master")) {
                                     newUser.put("Username", "Master");
                                     newUser.put("Position", "Master");
-                                    newUser.put("Validated", true);
                                 }
                                 else {
                                     newUser.put("Username", User.Username);
                                     newUser.put("Position", User.Position);
-                                    newUser.put("Validated", User.Validated);
 
                                 }
                                 newUser.put("Birthday", User.Birthday);

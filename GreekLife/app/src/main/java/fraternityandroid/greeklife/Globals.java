@@ -36,7 +36,7 @@ public class Globals {
         NEWEST, OLDEST, WEEK, MONTH
     }
 
-    private String DatabaseNode = "Development";
+    private String DatabaseNode;
 
     private User LoggedIn;
     private List<User> Users;
@@ -56,8 +56,25 @@ public class Globals {
 
     private Context mContext;
 
+    private ArrayList<String> Eboard = new ArrayList<>();
 
     private Globals() {}
+
+    public void setEboard() {
+        Eboard.add("Brother at Large");
+        Eboard.add("LT Master");
+        Eboard.add("Scribe");
+        Eboard.add("Exchequer");
+        Eboard.add("Rush Chair");
+        Eboard.add("Pledge Master");
+        Eboard.add("Developer");
+        Eboard.add("Master");
+
+    }
+
+    public Boolean EboardContains(String position) {
+        return Eboard.contains(position);
+    }
 
     public String DatabaseNode() {return DatabaseNode;}
     public void setDatabaseNode(String node) {this.DatabaseNode = node;}
@@ -73,7 +90,7 @@ public class Globals {
     public HashMap<String,User> getUsersByID(){return UsersByID;}
     public User getUserByID(String id) {
         if (UsersByID.get(id) == null) {
-            return new User("deleted_user",id,"January 1st, 1970","Brother Deleted","Deletion & Removal", "deleted@gmail.com","Deleted","User","never","none","deletionU","none",false);
+            return new User("deleted_user",id,"January 1st, 1970","Brother Deleted","Deletion & Removal", "deleted@gmail.com","Deleted","User","never","none","deletionU","none", "none");
         }else {
             return UsersByID.get(id);
         }

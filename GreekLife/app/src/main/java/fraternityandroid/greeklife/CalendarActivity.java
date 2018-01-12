@@ -117,7 +117,7 @@ public class CalendarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_calendar);
         Globals globals = Globals.getInstance();
         final LinearLayout masterControls = findViewById(R.id.calendarEBoardTools);
-        if (!globals.getLoggedIn().Position.equals("Master") && !globals.getLoggedIn().Position.equals("Pledge Master") && !globals.getLoggedIn().Position.equals("LT Master") && globals.getLoggedIn().Position.equals("Rush Chair")) {
+        if (!globals.EboardContains(globals.getLoggedIn().Position)) {
             masterControls.removeAllViews();
         }
         reloadUI();
@@ -237,7 +237,7 @@ public class CalendarActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean going) {
                 if (going){
                     FirebaseDatabase.getInstance().getReference()
-                            .child(globals.DatabaseNode()+"/Calendar/"+idValue+"/attendees/"+globals.getLoggedIn().UserID).setValue(globals.getLoggedIn().UserID);
+                            .child(globals.DatabaseNode()+"/Calendar/"+idValue+"/attendees/"+globals.getLoggedIn().UserID).setValue(globals.getLoggedIn().First_Name + " " + globals.getLoggedIn().Last_Name);
                 } else {
                     FirebaseDatabase.getInstance().getReference()
                             .child(globals.DatabaseNode()+"/Calendar/"+idValue+"/attendees/"+globals.getLoggedIn().UserID).removeValue();
@@ -245,17 +245,22 @@ public class CalendarActivity extends AppCompatActivity {
                 reloadUI();
             }
         });
-        String attendanceList = "";
+
+
+        ArrayList<String> attendanceList = new ArrayList<>();
         for (String userID:(calEvent.attendees.keySet())){
-            attendanceList +=
-                    " - "+globals.getUserByID(userID).First_Name+" "+globals.getUserByID(userID).Last_Name+"\n";
+            attendanceList.add(globals.getUserByID(userID).First_Name+" "+globals.getUserByID(userID).Last_Name);
         }
-        final String finalAttendanceList = attendanceList;
+         final String[] finalAttendanceList = attendanceList.toArray(new String[attendanceList.size()]);
         ((Button)eventLayout.findViewById(R.id.whosGoing)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(CalendarActivity.this);
-                builder.setTitle("Attendance:").setMessage(finalAttendanceList);
+                builder.setTitle("Attendance:").setItems(finalAttendanceList, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
                 AlertDialog dialog = builder.create();
                 dialog.show();
             }

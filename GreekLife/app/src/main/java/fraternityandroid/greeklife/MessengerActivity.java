@@ -446,7 +446,7 @@ public class MessengerActivity extends AppCompatActivity {
             channelCell.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    if ((globals.getLoggedIn().Position.equals("Master") && globals.getLoggedIn().Validated) || (globals.getLoggedIn().Position.equals("LT Master") && globals.getLoggedIn().Validated)) {
+                    if ((globals.getLoggedIn().Position.equals("Master")) || (globals.getLoggedIn().Position.equals("LT Master"))) {
                         final AlertDialog.Builder builder = new AlertDialog.Builder(MessengerActivity.this);
                         builder.setTitle("Delete Channel?");
                         builder.setMessage("Are you sure you would like to delete this channel?");

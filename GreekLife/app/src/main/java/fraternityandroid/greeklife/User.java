@@ -18,7 +18,7 @@ public class User {
     String Image;
     String Position;
     String School;
-    Boolean Validated;
+    String Contribution;
 
     public User() {
         this.Username = "";
@@ -33,10 +33,10 @@ public class User {
         this.Image = "";
         this.Position = "";
         this.School = "";
-        this.Validated = false;
+        this.Contribution = "none";
     }
     public User(String Username, String userID, String Birthday, String BrotherName, String Degree, String Email, String First_Name, String Last_Name, String GraduationDate
-    , String Image, String School, String Position, Boolean Validated) {
+    , String Image, String School, String Position, String contribution) {
         this.Username = Username;
         this.UserID = userID;
         this.Birthday = Birthday;
@@ -49,7 +49,7 @@ public class User {
         this.Image = Image;
         this.Position = Position;
         this.School = School;
-        this.Validated = Validated;
+        this.Contribution = contribution;
     }
 
 

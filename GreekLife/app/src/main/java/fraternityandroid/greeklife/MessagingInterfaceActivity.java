@@ -229,7 +229,7 @@ public class MessagingInterfaceActivity extends AppCompatActivity {
             messageCell.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    if ((globals.getLoggedIn().Position.equals("Master") && globals.getLoggedIn().Validated) || message.senderID.equals(globals.getLoggedIn().UserID)) {
+                    if ((globals.getLoggedIn().Position.equals("Master")) || message.senderID.equals(globals.getLoggedIn().UserID)) {
                         final AlertDialog.Builder builder = new AlertDialog.Builder(MessagingInterfaceActivity.this);
                         builder.setTitle("Delete Message?");
                         builder.setMessage("Are you sure you would like to delete this Message?");

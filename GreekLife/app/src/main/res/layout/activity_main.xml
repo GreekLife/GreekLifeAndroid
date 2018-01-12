@@ -29,6 +29,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:textAlignment="center"
+            android:background="#0d0d0d"
+            android:alpha="0.5"
+            android:textColor="#c1ffdf00"
+            android:entries="@array/DatabaseNode_Array" />
+
         <ImageView
             android:id="@+id/Logo"
             android:layout_width="170dp"

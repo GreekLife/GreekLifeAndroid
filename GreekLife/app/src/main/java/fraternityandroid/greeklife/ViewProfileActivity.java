@@ -60,7 +60,6 @@ public class ViewProfileActivity extends AppCompatActivity {
         email = findViewById(R.id.Email);
         email.setInputType(0);
 
-        verified = findViewById(R.id.Status);
         pic = findViewById(R.id.ProfilePicture);
 
         pic.setBackgroundResource(R.drawable.tags_rounded_corners);
@@ -77,7 +76,6 @@ public class ViewProfileActivity extends AppCompatActivity {
                 Glide.with(this)
                         .load(member.Image)
                         .into(pic);
-                verified.setText(member.Validated.toString());
                 name.setText(member.First_Name + " " + member.Last_Name);
                 brotherName.setText(member.BrotherName);
                 position.setText(member.Position);
@@ -88,10 +86,9 @@ public class ViewProfileActivity extends AppCompatActivity {
                 email.setText(member.Email);
                 verify.setVisibility(View.GONE);
 
-                if(!member.Validated && globals.getLoggedIn().Position.equals("Master")) {
+                if(globals.getLoggedIn().Position.equals("Master")) {
                     verify.setVisibility(View.VISIBLE);
                     position.setEnabled(true);
-                    brotherName.setEnabled(true);
                     DisableCopyPaste(position);
 
                     position.setOnClickListener(new View.OnClickListener() {

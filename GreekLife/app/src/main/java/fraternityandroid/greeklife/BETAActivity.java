@@ -25,7 +25,7 @@ public class BETAActivity extends AppCompatActivity {
     public void SendEmail(View view) {
 
         String[] to = {"Fraternity.ios.dev@gmail.com"};
-        String[] cc = {"Jonah-elbaz@hotmail.com", "Jonzlotnik@live.ca"};
+        String[] cc = {"Jonah-elbaz@hotmail.com", "J.zlotnik@live.ca"};
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
 
         emailIntent.setData(Uri.parse("mailto:"));

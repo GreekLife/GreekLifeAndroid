@@ -13,8 +13,11 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,8 +32,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 
+import java.util.ArrayList;
+import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     private static final String Tag = "MainActivity";
@@ -40,11 +46,15 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private static final String TAG = "MainActivity";
     Globals globals = Globals.getInstance();
+    private Spinner spinner;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        spinner = (Spinner) findViewById(R.id.spinner1);
 
         mEmail = findViewById(R.id.Email);
         mPassword = findViewById(R.id.Password);
@@ -55,9 +65,26 @@ public class MainActivity extends AppCompatActivity {
         code4 = findViewById(R.id.code4);
         login = findViewById(R.id.Login);
 
+        globals.setEboard();
+
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         String username = prefs.getString("Username", null);
         String password = prefs.getString("Password", null);
+        String node = prefs.getString("DatabaseNode", null);
+        spinner.setOnItemSelectedListener(this);
+        if(node != null) {
+
+            if (node.equals("Development")) {
+                spinner.setSelection(getIndex(spinner, "Generic"));
+            } else {
+                spinner.setSelection(getIndex(spinner, node));
+            }
+            globals.setDatabaseNode(node);
+        }
+        else {
+            globals.setDatabaseNode("Generic");
+        }
+
 
         if(username != null && password != null) {
             mEmail.setText(username);
@@ -110,6 +137,43 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private int getIndex(Spinner spinner, String myString){
+
+        int index = 0;
+
+        for (int i=0;i<spinner.getCount();i++){
+            if (spinner.getItemAtPosition(i).equals(myString)){
+                index = i;
+            }
+        }
+        return index;
+    }
+
+    @Override
+    public void onItemSelected(final AdapterView<?> aParent, final View aView,
+                               final int aPosition, final long aRowId) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        Adapter adapter = spinner.getAdapter();
+        int n = adapter.getCount();
+        List<String> nodes = new ArrayList<String>(n);
+        for (int i = 0; i < n; i++) {
+            nodes.add((String) adapter.getItem(i));
+        }
+        globals.setDatabaseNode(nodes.get((int) aRowId));
+
+        if(nodes.get((int) aRowId).equals("Generic")) {
+            globals.setDatabaseNode("Development");
+        }
+    }
+
+    @Override
+    public void onNothingSelected(final AdapterView<?> aParent) {
+        final AlertDialog.Builder dialog = new AlertDialog.Builder(this)
+                .setTitle("Empty").setMessage(
+                        "Must select option").setCancelable(false);
+        final AlertDialog alert = dialog.create();
+        alert.show();    }
+
     public void Login(View view) {
         findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
         Boolean valid = ValidateEntry();
@@ -149,18 +213,18 @@ public class MainActivity extends AppCompatActivity {
                     String position = (String) userSnapshot.child("Position").getValue();
                     String school = (String) userSnapshot.child("School").getValue();
                     String userId = (String) userSnapshot.child("UserID").getValue();
-                    Boolean validated = (Boolean) userSnapshot.child("Validated").getValue();
+                    String contribution = (String) userSnapshot.child("Contribution").getValue();
                     Globals globals = Globals.getInstance();
                     if (mEmail.getText().toString().equals(email)) {
                             Log.d(TAG, "User found!");
-                            User user = new User(username, userId, birthday, brother, degree, email, first, last, grad, imageURL, school, position, validated);
+                            User user = new User(username, userId, birthday, brother, degree, email, first, last, grad, imageURL, school, position, contribution);
                             globals.setLoggedIn(user);
                             authenticate();
                             return;
                         }
                     else if(mEmail.getText().toString().equals(username)) {
                         mEmail.setText(email);
-                        User user = new User(username, userId, birthday, brother, degree, email, first, last, grad, imageURL, school, position, validated);
+                        User user = new User(username, userId, birthday, brother, degree, email, first, last, grad, imageURL, school, position, contribution);
                         globals.setLoggedIn(user);
                         authenticate();
                         return;
@@ -198,6 +262,7 @@ public class MainActivity extends AppCompatActivity {
                             SharedPreferences.Editor editor = prefs.edit();
                             editor.putString("Username", mEmail.getText().toString());
                             editor.putString("Password", mPassword.getText().toString());
+                            editor.putString("DatabaseNode", globals.DatabaseNode());
                             editor.commit();
                             findViewById(R.id.loadingPanel).setVisibility(View.GONE);
 

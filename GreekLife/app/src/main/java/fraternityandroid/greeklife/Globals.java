@@ -90,7 +90,7 @@ public class Globals {
     public HashMap<String,User> getUsersByID(){return UsersByID;}
     public User getUserByID(String id) {
         if (UsersByID.get(id) == null) {
-            return new User("deleted_user",id,"January 1st, 1970","Brother Deleted","Deletion & Removal", "deleted@gmail.com","Deleted","User","never","none","deletionU","none");
+            return new User("deleted_user",id,"January 1st, 1970","Brother Deleted","Deletion & Removal", "deleted@gmail.com","Deleted","User","never","none","deletionU","none", "none");
         }else {
             return UsersByID.get(id);
         }

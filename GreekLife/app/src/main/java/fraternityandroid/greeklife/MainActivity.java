@@ -213,17 +213,18 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     String position = (String) userSnapshot.child("Position").getValue();
                     String school = (String) userSnapshot.child("School").getValue();
                     String userId = (String) userSnapshot.child("UserID").getValue();
+                    String contribution = (String) userSnapshot.child("Contribution").getValue();
                     Globals globals = Globals.getInstance();
                     if (mEmail.getText().toString().equals(email)) {
                             Log.d(TAG, "User found!");
-                            User user = new User(username, userId, birthday, brother, degree, email, first, last, grad, imageURL, school, position);
+                            User user = new User(username, userId, birthday, brother, degree, email, first, last, grad, imageURL, school, position, contribution);
                             globals.setLoggedIn(user);
                             authenticate();
                             return;
                         }
                     else if(mEmail.getText().toString().equals(username)) {
                         mEmail.setText(email);
-                        User user = new User(username, userId, birthday, brother, degree, email, first, last, grad, imageURL, school, position);
+                        User user = new User(username, userId, birthday, brother, degree, email, first, last, grad, imageURL, school, position, contribution);
                         globals.setLoggedIn(user);
                         authenticate();
                         return;

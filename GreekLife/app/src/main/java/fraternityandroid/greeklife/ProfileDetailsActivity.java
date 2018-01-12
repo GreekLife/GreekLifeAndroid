@@ -320,7 +320,7 @@ public class ProfileDetailsActivity extends AppCompatActivity {
                             FirebaseDatabase database = FirebaseDatabase.getInstance();
                             DatabaseReference myRef = database.getReference(globals.DatabaseNode()+"/Users/" + title);
                             Map<String, Object> newUser = new HashMap<>(); //using a hashmap becuase im stupid and the name keys need a space.
-                            User User = new User(brother.getText().toString(), id, birthday.getText().toString(), brother.getText().toString(), degree.getText().toString(), mail, first.getText().toString(), last.getText().toString(), grad.getText().toString(), downloadUrl.toString(), school.getText().toString(), position.getText().toString());
+                            User User = new User(brother.getText().toString(), id, birthday.getText().toString(), brother.getText().toString(), degree.getText().toString(), mail, first.getText().toString(), last.getText().toString(), grad.getText().toString(), downloadUrl.toString(), school.getText().toString(), position.getText().toString(), "none");
 
                                 if (type.equals("UPDATE") && user.Position.equals("Master")) {
                                     newUser.put("Username", "Master");
@@ -342,6 +342,7 @@ public class ProfileDetailsActivity extends AppCompatActivity {
                             newUser.put("Image", User.Image);
                             newUser.put("School", User.School);
                             newUser.put("UserID", User.UserID);
+                            newUser.put("Contribution", "none");
                             myRef.setValue(newUser);
 
                             DatabaseReference BanRef = database.getReference(globals.DatabaseNode()+"/Blocked/" + id);
@@ -385,7 +386,7 @@ public class ProfileDetailsActivity extends AppCompatActivity {
                                 final FirebaseDatabase database = FirebaseDatabase.getInstance();
                                 DatabaseReference myRef = database.getReference(globals.DatabaseNode()+"/Users/" + title);
                                 Map<String, Object> newUser = new HashMap<>(); //using a hashmap becuase im stupid and the name keys need a space.
-                                User User = new User(brother.getText().toString(), id, birthday.getText().toString(), brother.getText().toString(), degree.getText().toString(), email.getText().toString(), first.getText().toString(), last.getText().toString(), grad.getText().toString(), user.Image, school.getText().toString(), position.getText().toString());
+                                User User = new User(brother.getText().toString(), id, birthday.getText().toString(), brother.getText().toString(), degree.getText().toString(), email.getText().toString(), first.getText().toString(), last.getText().toString(), grad.getText().toString(), user.Image, school.getText().toString(), position.getText().toString(), "none");
                                 if(user.Position.equals("Master")) {
                                     newUser.put("Username", "Master");
                                     newUser.put("Position", "Master");
@@ -405,6 +406,7 @@ public class ProfileDetailsActivity extends AppCompatActivity {
                                 newUser.put("Image", User.Image);
                                 newUser.put("School", User.School);
                                 newUser.put("UserID", User.UserID);
+                                newUser.put("Contribution", "none");
                                 String refreshedToken = FirebaseInstanceId.getInstance().getToken();
                                 newUser.put("NotificationId",refreshedToken);
                                 if(!email.equals(User.Email)) {

@@ -18,6 +18,7 @@ public class User {
     String Image;
     String Position;
     String School;
+    String Contribution;
 
     public User() {
         this.Username = "";
@@ -32,9 +33,10 @@ public class User {
         this.Image = "";
         this.Position = "";
         this.School = "";
+        this.Contribution = "none";
     }
     public User(String Username, String userID, String Birthday, String BrotherName, String Degree, String Email, String First_Name, String Last_Name, String GraduationDate
-    , String Image, String School, String Position) {
+    , String Image, String School, String Position, String contribution) {
         this.Username = Username;
         this.UserID = userID;
         this.Birthday = Birthday;
@@ -47,6 +49,7 @@ public class User {
         this.Image = Image;
         this.Position = Position;
         this.School = School;
+        this.Contribution = contribution;
     }
 
 

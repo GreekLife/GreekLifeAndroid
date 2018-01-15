@@ -196,7 +196,7 @@ public class MessagingInterfaceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messaging_interface);
         String path = getIntent().getStringExtra("dialogueType")+"/"+getIntent().getStringExtra("dialogueID");
-        String type = getIntent().getStringExtra("dialogueTyype");
+        String type = getIntent().getStringExtra("dialogueType");
         if(type.equals("ChannelDialogues") && globals.getChannelNotifications().contains(getIntent().getStringExtra("dialogueID"))) {
             globals.getChannelNotifications().remove(getIntent().getStringExtra("dialogueID"));
         }

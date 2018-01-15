@@ -181,19 +181,19 @@ public class MessengerActivity extends AppCompatActivity {
         public String messageID;
         public String messageContent;
         public String senderID;
-        public String timeSent;
+        public EpochTime timeSent;
 
         public Message(String messageID, Dialogue dialogue) {
             this.messageID = messageID;
 
             String[] idComponents = messageID.split(", ");
-            this.timeSent = idComponents[0];
+            this.timeSent = new EpochTime(Long.parseLong(idComponents[0]));
             this.senderID = idComponents[1];
 
             messageContent = dialogue.dialogueSnap.child("/Messages/" + messageID).getValue().toString();
         }
 
-        public Message(String senderID, String timeSent, String messageContent) {
+        public Message(String senderID, EpochTime timeSent, String messageContent) {
             this.senderID = senderID;
             this.timeSent = timeSent;
             this.messageContent = messageContent;
@@ -358,7 +358,7 @@ public class MessengerActivity extends AppCompatActivity {
                                             messengeeIDListString,
                                             new Message(
                                                     globals.getLoggedIn().UserID,
-                                                    String.valueOf(((Long) (Calendar.getInstance().getTimeInMillis() * 1000)).intValue()),
+                                                    new EpochTime(Calendar.getInstance().getTimeInMillis()),
                                                     ((EditText) newChannelView.findViewById(R.id.welcomeMessageField)).getText().toString())
                                     );
                                     reload();
@@ -403,7 +403,7 @@ public class MessengerActivity extends AppCompatActivity {
                         ids.add(user.UserID);
                         ids.add(globals.getLoggedIn().UserID);
                         Collections.sort(ids);
-                        Message welcomeMessage = new Message(globals.getLoggedIn().UserID, String.valueOf(Calendar.getInstance().getTimeInMillis()),"Welcome to FratBase Direct Messenger!");
+                        Message welcomeMessage = new Message(globals.getLoggedIn().UserID, new EpochTime(Calendar.getInstance().getTimeInMillis()),"Welcome to FratBase Direct Messenger!");
                         FirebaseDatabase.getInstance().getReference().child(globals.DatabaseNode()+"/DirectDialogues/"+ids.get(0)+", "+ids.get(1)+"/Messages/"+welcomeMessage.messageID).setValue(welcomeMessage.messageContent);
                         reload();
                     }
@@ -424,8 +424,13 @@ public class MessengerActivity extends AppCompatActivity {
             }
         }
     }
-
+    class SortDialogueByLastMessage implements Comparator<Dialogue> {
+        public int compare(Dialogue a, Dialogue b){
+            return ((Long)(b.lastMessage.timeSent.getSeconds() - a.lastMessage.timeSent.getSeconds())).intValue();
+        }
+    }
     public void writeDialoguesToScreen() {
+        Collections.sort(channelDialogues, new SortDialogueByLastMessage());
         LinearLayout channelContainer = findViewById(R.id.channelsContainer);
         channelContainer.removeAllViews();
         for (final Dialogue dialogue : channelDialogues) {
@@ -471,6 +476,7 @@ public class MessengerActivity extends AppCompatActivity {
             });
 
         }
+        Collections.sort(directDialogues, new SortDialogueByLastMessage());
         LinearLayout directContainer = findViewById(R.id.directsContainer);
         directContainer.removeAllViews();
         for (final Dialogue dialogue : directDialogues) {
@@ -495,13 +501,14 @@ public class MessengerActivity extends AppCompatActivity {
     private void putInfoInCell(View dialogueCell, Dialogue dialogue, LinearLayout dialoguesContainer) {
         ((TextView) dialogueCell.findViewById(R.id.dialogueName)).setText(dialogue.dialogueName);
         Calendar lastMessageTimeSent = Calendar.getInstance();
-        lastMessageTimeSent.setTimeInMillis(Long.parseLong(dialogue.lastMessage.timeSent));
+        lastMessageTimeSent.setTimeInMillis(dialogue.lastMessage.timeSent.getMillis());
         String lastMessageTimeSentString;
-        if ((Long.parseLong(dialogue.lastMessage.timeSent) - Calendar.getInstance().getTimeInMillis()) < 64800000) {
+        lastMessageTimeSentString = CalendarTools.formatTime(lastMessageTimeSent);
+        /*if ((Long.parseLong(dialogue.lastMessage.timeSent) - Calendar.getInstance().getTimeInMillis()) < 64800000) {
             lastMessageTimeSentString = CalendarTools.formatTime(lastMessageTimeSent);
         } else {
             lastMessageTimeSentString = lastMessageTimeSent.get(Calendar.YEAR) + "-" + lastMessageTimeSent.get(Calendar.MONTH) + "-" + lastMessageTimeSent.get(Calendar.DAY_OF_MONTH);
-        }
+        }*/
         ((TextView) dialogueCell.findViewById(R.id.lastMessageTimeSent)).setText(lastMessageTimeSentString);
         if (globals.getUserByID(dialogue.lastMessage.senderID) == null){
             ((TextView) dialogueCell.findViewById(R.id.lastSenderAndMessage)).setText("Deleted User: " + dialogue.lastMessage.messageContent);
@@ -509,5 +516,10 @@ public class MessengerActivity extends AppCompatActivity {
             ((TextView) dialogueCell.findViewById(R.id.lastSenderAndMessage)).setText(
                     globals.getUserByID(dialogue.lastMessage.senderID).First_Name + " " + globals.getUserByID(dialogue.lastMessage.senderID).Last_Name + ": " + dialogue.lastMessage.messageContent);
         }
+    }
+
+    public void channelHasBeenDeletedAlert()
+    {
+
     }
 }

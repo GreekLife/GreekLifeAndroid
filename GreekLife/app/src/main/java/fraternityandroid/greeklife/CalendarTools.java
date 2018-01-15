@@ -41,29 +41,29 @@ public class CalendarTools {
     public static String monthToString(int month) {
         switch (month) {
             case 0:
-                return "January";
+                return "Jan";
             case 1:
-                return "February";
+                return "Feb";
             case 2:
-                return "March";
+                return "Mar";
             case 3:
-                return "April";
+                return "Apr";
             case 4:
                 return "May";
             case 5:
-                return "June";
+                return "Jun";
             case 6:
-                return "July";
+                return "Jul";
             case 7:
-                return "August";
+                return "Aug";
             case 8:
-                return "Septembre";
+                return "Sep";
             case 9:
-                return "Octobre";
+                return "Oct";
             case 10:
-                return "Novembre";
+                return "Nov";
             case 11:
-                return "December";
+                return "Dec";
             default:
                 return "Not a Month";
         }
@@ -71,25 +71,28 @@ public class CalendarTools {
     public static String formatTime(Calendar cal) {
 
         String formattedTime = "";
+        if ((Calendar.getInstance().getTimeInMillis()-cal.getTimeInMillis())<64800000){
+            formattedTime += "Today ";
+            int hour = cal.get(Calendar.HOUR);
+            int minute = cal.get(Calendar.MINUTE);
+            if (hour == 0) {
+                hour = 12;
+            }
+            formattedTime += hour + ":";
+            if (minute < 10) {
+                formattedTime += "0" + minute;
+            } else {
+                formattedTime += minute;
+            }
 
-        int hour = cal.get(Calendar.HOUR);
-        int minute = cal.get(Calendar.MINUTE);
-        if (hour == 0) {
-            hour = 12;
-        }
-        formattedTime = hour + ":";
-        if (minute < 10) {
-            formattedTime += "0" + minute;
+            if (cal.get(Calendar.AM_PM) == 1) {
+                formattedTime += "pm";
+            } else {
+                formattedTime += "am";
+            }
         } else {
-            formattedTime += minute;
+            formattedTime = monthToString(cal.get(Calendar.MONTH))+" "+ cal.get(Calendar.DAY_OF_MONTH)+", "+cal.get(Calendar.YEAR);
         }
-
-        if (cal.get(Calendar.AM_PM) == 1) {
-            formattedTime += "pm";
-        } else {
-            formattedTime += "am";
-        }
-
         return formattedTime;
     }
 

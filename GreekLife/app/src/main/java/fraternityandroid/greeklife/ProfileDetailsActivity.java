@@ -49,7 +49,6 @@ public class ProfileDetailsActivity extends AppCompatActivity {
     EditText first, last, brother, position, school, grad, birthday, degree, email;
     ImageButton image;
     Button button;
-    private StorageReference mStorage;
     Uri uri;
     Globals globals = Globals.getInstance();
 

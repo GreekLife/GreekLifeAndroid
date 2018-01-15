@@ -5,10 +5,10 @@ android {
     buildToolsVersion '27.0.2'
     defaultConfig {
         applicationId "fraternityandroid.greeklife"
-        minSdkVersion 23
+        minSdkVersion 21
         targetSdkVersion 27
-        versionCode 3
-        versionName "1.1.1"
+        versionCode 5
+        versionName "1.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -48,30 +48,6 @@ dependencies {
 
     compile "com.android.support:support-core-utils:27.0.2"
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 apply plugin: 'com.google.gms.google-services'

@@ -96,6 +96,10 @@ public class Globals {
         return Eboard.contains(position);
     }
 
+    public Boolean LoggedInIsEBoard(){
+        return Eboard.contains(LoggedIn.Position);
+    }
+
     public String DatabaseNode() {return DatabaseNode;}
     public void setDatabaseNode(String node) {this.DatabaseNode = node;}
 

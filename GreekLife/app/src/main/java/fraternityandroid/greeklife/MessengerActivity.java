@@ -199,7 +199,7 @@ public class MessengerActivity extends AppCompatActivity {
             this.senderID = senderID;
             this.timeSent = timeSent;
             this.messageContent = messageContent;
-            this.messageID = timeSent + ", " + senderID;
+            this.messageID = ((Long)timeSent.getSeconds()).intValue() + ", " + senderID;
         }
     }
 
@@ -390,6 +390,7 @@ public class MessengerActivity extends AppCompatActivity {
     }
 
     public void updateDialogueList(DataSnapshot dialoguesSnap) {
+        boolean needsToReload = false;
         if (dialoguesSnap.getKey().equals("DirectDialogues")) {
             directDialogues.clear();
             for (User user:globals.getUsers()){
@@ -407,7 +408,7 @@ public class MessengerActivity extends AppCompatActivity {
                         Collections.sort(ids);
                         Message welcomeMessage = new Message(globals.getLoggedIn().UserID, new EpochTime(Calendar.getInstance().getTimeInMillis()),"Welcome to FratBase Direct Messenger!");
                         FirebaseDatabase.getInstance().getReference().child(globals.DatabaseNode()+"/DirectDialogues/"+ids.get(0)+", "+ids.get(1)+"/Messages/"+welcomeMessage.messageID).setValue(welcomeMessage.messageContent);
-                        reload();
+                        needsToReload = true;
                     }
                 }
             }
@@ -415,6 +416,9 @@ public class MessengerActivity extends AppCompatActivity {
                 if (dialogueSnap.getKey().contains(globals.getLoggedIn().UserID)) {
                     directDialogues.add(new Dialogue(dialogueSnap.getKey()));
                 }
+            }
+            if (needsToReload){
+                reload();
             }
             //Collections.sort(directDialogues, Comparator.comparing((Dialogue dialogue) -> dialogue.lastMessage.timeSent)); !!!!!!!!!!!!!!!!!!******************!!!!!!!!!!!!!!!!!!!!!!!!
         } else if (dialoguesSnap.getKey().equals("ChannelDialogues")) {
@@ -440,7 +444,9 @@ public class MessengerActivity extends AppCompatActivity {
             putInfoInCell(channelCell, dialogue, channelContainer);
             channelContainer.addView(channelCell);
             channelCell.setLongClickable(true);
-
+            if(globals.getChannelNotifications().contains(dialogue.dialogueID)){
+                channelCell.setBackgroundColor(Color.argb(1,1,1,1));
+            }
             channelCell.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -454,18 +460,25 @@ public class MessengerActivity extends AppCompatActivity {
             channelCell.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    if ((globals.getLoggedIn().Position.equals("Master")) || (globals.getLoggedIn().Position.equals("LT Master"))) {
+                    if (globals.LoggedInIsEBoard()) {
                         final AlertDialog.Builder builder = new AlertDialog.Builder(MessengerActivity.this);
-                        builder.setTitle("Delete Channel?");
-                        builder.setMessage("Are you sure you would like to delete this channel?");
-                        builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogueDB.channelsRef.child(dialogue.dialogueID).removeValue();
-                                reload();
-                            }
-                        });
-                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        builder.setTitle("Channel Info");
+                        String infoContent = "Channel Members:\n\n";
+                        for (User messengee:dialogue.messengees){
+                            infoContent += " - "+messengee.First_Name+" "+messengee.Last_Name+"\n";
+                        }
+                        builder.setMessage(infoContent);
+                        if(globals.LoggedInIsEBoard()){
+                            builder.setNeutralButton("Delete Channel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogueDB.channelsRef.child(dialogue.dialogueID).removeValue();
+                                    reload();
+                                }
+                            });
+                        }
+
+                        builder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                             }
@@ -496,6 +509,9 @@ public class MessengerActivity extends AppCompatActivity {
                         startActivity(messagingInterface);
                     }
                 });
+                if(globals.getDirectNotifications().contains(dialogue.lastMessage.senderID)){
+                    directCell.setBackgroundColor(Color.argb(1,1,1,1));
+                }
                 directContainer.addView(directCell);
             }
         }
@@ -519,10 +535,5 @@ public class MessengerActivity extends AppCompatActivity {
             ((TextView) dialogueCell.findViewById(R.id.lastSenderAndMessage)).setText(
                     globals.getUserByID(dialogue.lastMessage.senderID).First_Name + " " + globals.getUserByID(dialogue.lastMessage.senderID).Last_Name + ": " + dialogue.lastMessage.messageContent);
         }
-    }
-
-    public void channelHasBeenDeletedAlert()
-    {
-
     }
 }

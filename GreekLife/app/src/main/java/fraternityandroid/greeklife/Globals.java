@@ -10,6 +10,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -58,7 +59,12 @@ public class Globals {
 
     private ArrayList<String> Eboard = new ArrayList<>();
 
+    private ArrayList<String> ChannelNotifications = new ArrayList<>();
+    private ArrayList<String> DirectNotifications = new ArrayList<>();
+
+
     private Globals() {}
+
 
     public void setEboard() {
         Eboard.add("Brother at Large");
@@ -70,6 +76,20 @@ public class Globals {
         Eboard.add("Developer");
         Eboard.add("Master");
 
+    }
+
+    public void addChannelNotification(String channelId) {
+        ChannelNotifications.add(channelId);
+    }
+    public ArrayList<String> getChannelNotifications() {
+        return ChannelNotifications;
+    }
+
+    public void addDirectNotification(String senderId) {
+        DirectNotifications.add(senderId);
+    }
+    public ArrayList<String> getDirectNotifications() {
+        return  DirectNotifications;
     }
 
     public Boolean EboardContains(String position) {

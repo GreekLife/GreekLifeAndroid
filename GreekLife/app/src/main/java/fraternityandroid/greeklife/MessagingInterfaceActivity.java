@@ -1,33 +1,61 @@
 package fraternityandroid.greeklife;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.UUID;
 
 public class MessagingInterfaceActivity extends AppCompatActivity {
 
     Globals globals = Globals.getInstance();
     public DataSnapshot dialogueSnapshot;
     public Dialogue dialogue;
+    public static final int PICK_IMAGE = 1;
+    private StorageReference mStorageRef;
+    Uri uri;
+    boolean isImageFitToScreen;
 
 
     public class Dialogue {
@@ -126,17 +154,69 @@ public class MessagingInterfaceActivity extends AppCompatActivity {
         }
     };
 
+
+    @Override
+    public void onActivityResult ( int requestCode, int resultCode, Intent data) {
+        if(data != null) {
+            if (requestCode == PICK_IMAGE) {
+                try {
+                    uri = data.getData();
+                    final InputStream imageStream = getContentResolver().openInputStream(uri);
+                    final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                    String random = UUID.randomUUID().toString();
+                    String yourID = globals.getLoggedIn().UserID;
+                    String picId = random+","+yourID;
+                    mStorageRef = FirebaseStorage.getInstance().getReference();
+                    StorageReference filepath = mStorageRef.child(globals.DatabaseNode()+"/ConvoPictures/" + picId + ".jpg");
+                    if(uri != null) {
+                        filepath.putFile(uri)
+                                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                        dialogue.sendMessage(new Message(globals.getLoggedIn().UserID, String.valueOf(((Long)(Calendar.getInstance().getTimeInMillis()/1000)).intValue()), taskSnapshot.getDownloadUrl().toString()));
+                                    }
+                                })
+                                 .addOnFailureListener(new OnFailureListener() {
+                                     @Override
+                                     public void onFailure(@NonNull Exception exception){
+
+                                     }
+                                });
+                    }
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                    Toast.makeText(MessagingInterfaceActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messaging_interface);
         String path = getIntent().getStringExtra("dialogueType")+"/"+getIntent().getStringExtra("dialogueID");
+        String type = getIntent().getStringExtra("dialogueTyype");
+        if(type.equals("ChannelDialogues") && globals.getChannelNotifications().contains(getIntent().getStringExtra("dialogueID"))) {
+            globals.getChannelNotifications().remove(getIntent().getStringExtra("dialogueID"));
+        }
+        else if(type.equals("DirectDialogues") && globals.getDirectNotifications().contains(getIntent().getStringExtra("dialogueID"))) {
+            globals.getDirectNotifications().remove(getIntent().getStringExtra("dialogueID"));
+        }
         Toolbar toolbar = (Toolbar) findViewById(R.id.MessengerInterfaceToolbar);
         TextView header = new TextView(this);
         header.setTextColor(Color.parseColor("#c1ffdf00"));
         header.setGravity(Gravity.CENTER);
         toolbar.addView(header);
         header.setText(getIntent().getStringExtra("dialogueName"));
+
+
+        ((ImageButton)findViewById(R.id.SelectImage)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pickImage(v);
+            }
+        });
 
         FirebaseDatabase.getInstance().getReference()
                 .child(globals.DatabaseNode()+"/"+path).addValueEventListener(dialogueListener);
@@ -150,14 +230,6 @@ public class MessagingInterfaceActivity extends AppCompatActivity {
                     dialogue.sendMessage(new Message(globals.getLoggedIn().UserID, String.valueOf(((Long)(Calendar.getInstance().getTimeInMillis()/1000)).intValue()), ((EditText)findViewById(R.id.messageField)).getText().toString()));
                     ((EditText)findViewById(R.id.messageField)).setText("");
                 }
-            }
-        });
-
-        ((TextView) findViewById(R.id.messageField)).setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-
-                  scrollToBottom();
             }
         });
 
@@ -178,6 +250,21 @@ public class MessagingInterfaceActivity extends AppCompatActivity {
         scrollToBottom();
     }
 
+    public void pickImage(View view) {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        intent.putExtra("crop", "true");
+        intent.putExtra("aspectX", 0);
+        intent.putExtra("aspectY", 0);
+        try {
+            intent.putExtra("return-data", true);
+            startActivityForResult(
+                    Intent.createChooser(intent,"Complete action using"),
+                    PICK_IMAGE);
+        } catch (ActivityNotFoundException e) {}
+    }
+
 
     public void updateMessages () {
         scrollToBottom();
@@ -193,7 +280,7 @@ public class MessagingInterfaceActivity extends AppCompatActivity {
             int hours = (int) (secondsSince / 3600);
             int min = (int) (hours / 60);
             int days = hours / 24;
-            String display;
+            final String display;
             if (days < 1) {
                 display = Integer.toString(hours) + "h";
             } else if (hours < 0) {
@@ -202,12 +289,53 @@ public class MessagingInterfaceActivity extends AppCompatActivity {
                 display = Integer.toString(days) + "d";
             }
             timeSent = display;
-
+            String subMessage = "";
+            if(message.messageContent.length() > 38) {
+                subMessage = message.messageContent.substring(0, 38);
+            }
+            ((ImageView)messageCell.findViewById(R.id.SentImage)).setVisibility(View.GONE);
+            ((TextView)messageCell.findViewById(R.id.messageContent)).setVisibility(View.VISIBLE);
             ((TextView)messageCell.findViewById(R.id.timeSent)).setText(timeSent);
             if(message.messageContent.equals("Deleted Message*")) {
                 message.messageContent = "This message has been removed";
                 ((TextView) messageCell.findViewById(R.id.messageContent)).setText(message.messageContent);
                 ((TextView) messageCell.findViewById(R.id.messageContent)).setTextColor(Color.RED);
+            }
+            else if(subMessage.equals("https://firebasestorage.googleapis.com")) {
+                System.out.println("Found a picture");
+                ((ImageView) messageCell.findViewById(R.id.SentImage)).setVisibility(View.VISIBLE);
+                ((TextView) messageCell.findViewById(R.id.messageContent)).setVisibility(View.GONE);
+                Glide.with(this)
+                        .load(message.messageContent)
+                        .into(((ImageView) messageCell.findViewById(R.id.SentImage)));
+
+                ((LinearLayout) messageCell.findViewById(R.id.messageContainer)).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final Dialog nagDialog = new Dialog(MessagingInterfaceActivity.this,android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
+                        nagDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                        nagDialog.setCancelable(false);
+
+                        ImageView image = new ImageView(MessagingInterfaceActivity.this);
+                        Glide.with(MessagingInterfaceActivity.this)
+                                .load(message.messageContent)
+                                .into(image);
+                        nagDialog.setContentView(image);
+                        Button btnClose = (Button)nagDialog.findViewById(R.id.btnIvClose);
+                       // ImageView ivPreview = displayImage;
+
+                        image.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View arg0) {
+
+                                nagDialog.dismiss();
+                            }
+                        });
+                        nagDialog.show();
+
+
+                    }
+                });
             }
             else {
                 ((TextView) messageCell.findViewById(R.id.messageContent)).setText(message.messageContent);
@@ -258,9 +386,14 @@ public class MessagingInterfaceActivity extends AppCompatActivity {
     }
 
     public void scrollToBottom(){
+        ((ScrollView)findViewById(R.id.messagesScrollView)).post(new Runnable() {
 
+            @Override
+            public void run() {
+                ((ScrollView)findViewById(R.id.messagesScrollView)).fullScroll(ScrollView.FOCUS_DOWN);
+            }
+        });
         ((ScrollView)findViewById(R.id.messagesScrollView)).invalidate();
-        //((ScrollView)findViewById(R.id.messagesScrollView)).scrollTo(0, ((ScrollView)findViewById(R.id.messagesScrollView)).getBottom());
         ((ScrollView)findViewById(R.id.messagesScrollView)).fullScroll(View.FOCUS_DOWN);
     }
 }

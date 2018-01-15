@@ -7,6 +7,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Messenger;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -160,6 +161,7 @@ public class MessengerActivity extends AppCompatActivity {
             this.lastMessage = this.messages.get(this.messages.size() - 1);
             if (this.type.equals("ChannelDialogues")) {
                 this.dialogueName = this.dialogueSnap.child("Name").getValue().toString();
+
             }
 
         }
@@ -433,6 +435,7 @@ public class MessengerActivity extends AppCompatActivity {
             putInfoInCell(channelCell, dialogue, channelContainer);
             channelContainer.addView(channelCell);
             channelCell.setLongClickable(true);
+
             channelCell.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

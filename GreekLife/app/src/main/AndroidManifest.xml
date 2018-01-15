@@ -21,6 +21,7 @@
 
     <application
         android:allowBackup="true"
+        android:windowSoftInputMode="adjustResize"
         android:icon="@drawable/logoblack"
         android:label="FratBase"
         android:largeHeap="true"
@@ -129,7 +130,9 @@
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/logoblack" />
+            android:resource="@mipmap/logoblack" />
+        <meta-data android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/wallet_bright_foreground_holo_light" />
 
         <service android:name=".MyFirebaseMessagingService">
             <intent-filter>

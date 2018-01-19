@@ -1,2 +1,2 @@
 # GreekLifeAndroid
-Android iteration of the aepi greek life app
+Android iteration of fratbase

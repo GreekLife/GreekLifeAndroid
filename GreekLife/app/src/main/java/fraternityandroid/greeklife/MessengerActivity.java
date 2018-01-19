@@ -445,6 +445,7 @@ public class MessengerActivity extends AppCompatActivity {
             channelContainer.addView(channelCell);
             channelCell.setLongClickable(true);
             if(globals.getChannelNotifications().contains(dialogue.dialogueID)){
+                ((EditText)channelCell.findViewById(R.id.lastSenderAndMessage)).setTextColor(Color.parseColor("#FFDF00"));
                 channelCell.setBackgroundColor(Color.argb(1,1,1,1));
             }
             channelCell.setOnClickListener(new View.OnClickListener() {

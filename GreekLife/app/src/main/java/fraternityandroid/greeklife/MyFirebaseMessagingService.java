@@ -6,7 +6,6 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 import static android.content.ContentValues.TAG;
-import static fraternityandroid.greeklife.MessengerActivity.globals;
 
 /**
  * Created by jonahelbaz on 2017-12-26.

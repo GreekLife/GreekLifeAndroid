@@ -58,6 +58,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
+                android:paddingStart="30px"
+                android:paddingEnd="30px"
                 android:text="TextView" />
 
             <LinearLayout
@@ -74,6 +76,16 @@
                     android:background="#0000"
                     android:textSize="14sp"
                     android:text="Comments" />
+
+                <Button
+                    android:id="@+id/GotIt"
+                    android:layout_width="80dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="0.2"
+                    android:textColor="#268cc5"
+                    android:background="#0000"
+                    android:textSize="11sp"
+                    android:text="Got It!"  />
 
                 <TextView
                     android:id="@+id/Date"

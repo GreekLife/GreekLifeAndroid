@@ -4,11 +4,13 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,7 +20,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static java.util.Collections.swap;
 
@@ -151,6 +155,68 @@ public class ForumAdapter extends BaseAdapter {
                     delete.setVisibility(View.VISIBLE);
                 }
             }
+            final Button gotit = (Button) convertView.findViewById(R.id.GotIt);
+
+            if(mPosts.get(position).getGotIt().contains(globals.getLoggedIn().UserID)) {
+                gotit.setTextColor(Color.parseColor("#FFDF00"));
+            }
+            else {
+                gotit.setTextColor(Color.parseColor("#7b1e7ce6"));
+            }
+
+                ((Button) convertView.findViewById(R.id.GotIt)).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(mPosts.get(position).getGotIt().contains(globals.getLoggedIn().UserID)) {
+                            String[] array;
+                            if(mPosts.get(position).getGotIt().size() > 0) {
+                                array = new String[(mPosts.get(position).getGotIt().size())];
+
+                                List<String> names = new ArrayList<>();
+                                for(String id : mPosts.get(position).getGotIt()) {
+                                    names.add(globals.userFirstLastNameByID(id));
+                                }
+
+                                array = (names.toArray(array));
+                            }
+                            else {
+                                array = new String[1];
+                                array[0] = "No one has seen this post yet";
+                            }
+
+                            gotit.setTextColor(Color.parseColor("#FFDF00"));
+                            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                            final AlertDialog alert = builder.create();
+                            builder.setTitle("Got It!")
+                                    .setItems(array, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+
+                                        }
+                                    })
+                                    .setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            alert.dismiss();
+                                        }
+                                    })
+                                    .setIcon(android.R.drawable.btn_star)
+                                    .show();
+                        }
+                        else {
+                            FirebaseDatabase database = FirebaseDatabase.getInstance();
+                            DatabaseReference myRef = database.getReference(globals.DatabaseNode() + "/Forum/" + mPosts.get(position).getPostId() + "/GotIt");
+                            final Object userNameObj = globals.getLoggedIn().Username;
+                            Map<String, Object> map = new HashMap<String, Object>() {{
+                                put(globals.getLoggedIn().UserID, userNameObj);
+                            }};
+                            myRef.updateChildren(map);
+
+                            mPosts.get(position).getGotIt().add(globals.getLoggedIn().UserID);
+
+                            gotit.setTextColor(Color.parseColor("#FFDF00"));
+                        }
+                    }
+                });
 
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override

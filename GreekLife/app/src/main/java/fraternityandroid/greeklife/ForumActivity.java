@@ -149,14 +149,22 @@ public class ForumActivity extends AppCompatActivity {
                         String poster = (String) userSnapshot.child("Poster").getValue();
                         String posterId = (String) userSnapshot.child("PosterId").getValue();
                         Map<String, Object> comments = (HashMap<String, Object>) userSnapshot.child("Comments").getValue();
+                        Map<String, Object> gotit = (HashMap<String, Object>) userSnapshot.child("GotIt").getValue();
+
 
                         List<Comment> comment = new ArrayList<>();
+                        List<String> gotItIds = new ArrayList<>();
 
                         if(comments != null) {
                             for (String key : comments.keySet()) {
                                 Map<String, Object> val = (Map<String, Object>) comments.get(key);
                                 Comment countedComment = new Comment(((String) val.get("Poster")), ((double) val.get("Epoch")), ((String) val.get("Post")), ((String) val.get("CommentId")), ((String) val.get("PosterId")));
                                 comment.add(countedComment);
+                            }
+                        }
+                        if(gotItIds != null) {
+                            for(String key : gotit.keySet()) {
+                                gotItIds.add(key);
                             }
                         }
                         Collections.reverse(comment);
@@ -168,7 +176,7 @@ public class ForumActivity extends AppCompatActivity {
                         else {
                             numberOfComments = comments.size();
                         }
-                        Forum newPost = new Forum(numberOfComments, epoch, post, postId, postTitle, poster, posterId, comment);
+                        Forum newPost = new Forum(numberOfComments, epoch, post, postId, postTitle, poster, posterId, comment, gotItIds);
                         posts.add(newPost);
                     }
 

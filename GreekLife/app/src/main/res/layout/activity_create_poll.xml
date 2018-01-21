@@ -59,7 +59,7 @@
                 android:maxLines="5"
                 android:textSize="13sp"
                 android:hint="Ask Question here"
-                android:textColorHint="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color"
+                android:textColorHint="#7b1e7ce6"
                 android:inputType="textMultiLine" />
         </LinearLayout>
 

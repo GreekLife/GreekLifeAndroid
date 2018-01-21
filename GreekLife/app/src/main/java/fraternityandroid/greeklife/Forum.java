@@ -16,8 +16,9 @@ public class Forum implements Comparable<Forum>{
     private String poster;
     private String posterId;
     private List<Comment> comments;
+    private List<String> gotIt;
 
-    public Forum(long size, double epoch, String post, String postId, String postTitle, String poster, String posterId, List<Comment> comments) {
+    public Forum(long size, double epoch, String post, String postId, String postTitle, String poster, String posterId, List<Comment> comments, List<String> gotIt) {
         this.numberOfComments = size;
         this.epoch = epoch;
         this.post = post;
@@ -26,6 +27,7 @@ public class Forum implements Comparable<Forum>{
         this.poster = poster;
         this.posterId = posterId;
         this.comments = comments;
+        this.gotIt = gotIt;
     }
 
     public long getNumberOfComments(){return numberOfComments;}
@@ -36,6 +38,7 @@ public class Forum implements Comparable<Forum>{
     public String getPoster(){return poster;}
     public String getPosterId(){return posterId;}
     public List<Comment> getComments(){return comments;}
+    public List<String> getGotIt(){return this.gotIt;}
 
     public void setNumberOfComments(long numberOfComments){this.numberOfComments = numberOfComments;}
     public void setEpoch(double epoch){this.epoch = epoch;}
@@ -45,6 +48,7 @@ public class Forum implements Comparable<Forum>{
     public void setPoster(String poster){this.poster = poster;}
     public void setPosterId(String posterId){this.posterId = posterId;}
     public void setComments(List<Comment> comments){ this.comments = comments;}
+    public void setGotIt(List<String> gotit){this.gotIt = gotit;}
 
     @Override
     public int compareTo(Forum b){

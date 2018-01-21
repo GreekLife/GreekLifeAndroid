@@ -444,10 +444,7 @@ public class MessengerActivity extends AppCompatActivity {
             putInfoInCell(channelCell, dialogue, channelContainer);
             channelContainer.addView(channelCell);
             channelCell.setLongClickable(true);
-            if(globals.getChannelNotifications().contains(dialogue.dialogueID)){
-                ((EditText)channelCell.findViewById(R.id.lastSenderAndMessage)).setTextColor(Color.parseColor("#FFDF00"));
-                channelCell.setBackgroundColor(Color.argb(1,1,1,1));
-            }
+
             channelCell.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -510,9 +507,7 @@ public class MessengerActivity extends AppCompatActivity {
                         startActivity(messagingInterface);
                     }
                 });
-                if(globals.getDirectNotifications().contains(dialogue.lastMessage.senderID)){
-                    directCell.setBackgroundColor(Color.argb(1,1,1,1));
-                }
+
                 directContainer.addView(directCell);
             }
         }

@@ -415,7 +415,7 @@ public class CalendarActivity extends AppCompatActivity {
             DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
             mDatabase.child(globals.DatabaseNode() + "/Calendar/" + viewy.getId() + "/Cancelled").setValue(true);
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("The event has been cancelled").setTitle("cancelled");
+            builder.setMessage("The event has been cancelled").setTitle("Cancelled");
             builder.show();
 
         }

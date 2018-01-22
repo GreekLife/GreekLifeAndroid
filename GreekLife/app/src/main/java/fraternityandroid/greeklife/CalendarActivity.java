@@ -17,6 +17,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -35,6 +36,7 @@ public class CalendarActivity extends AppCompatActivity {
         public long eventDuration;
         public String eventLocation;
         public String eventTitle;
+        public Boolean cancelled;
 
         CalendarEvent(
                 HashMap<String, String> attendees,
@@ -42,7 +44,9 @@ public class CalendarActivity extends AppCompatActivity {
                 String eventDescription,
                 long eventDuration,
                 String eventLocation,
-                String eventTitle
+                String eventTitle,
+                Boolean cancelled
+
         ) {
             this.attendees = attendees;
             this.eventDate = eventDate;
@@ -50,6 +54,7 @@ public class CalendarActivity extends AppCompatActivity {
             this.eventDuration = eventDuration;
             this.eventLocation = eventLocation;
             this.eventTitle = eventTitle;
+            this.cancelled = cancelled;
         }
 
         public String formatTime(Calendar cal) {
@@ -95,7 +100,11 @@ public class CalendarActivity extends AppCompatActivity {
             long eventDuration = ((Number) snapshot.child("duration").getValue()).longValue();
             String eventLocation = (String) snapshot.child("location").getValue();
             String eventTitle = (String) snapshot.child("title").getValue();
-            CalendarEvent newEvent = new CalendarEvent(attendees, eventDate, eventDescription, eventDuration, eventLocation, eventTitle);
+            Boolean cancelled = (Boolean) snapshot.child("Cancelled").getValue();
+            if(cancelled == null) {
+                cancelled = false;
+            }
+            CalendarEvent newEvent = new CalendarEvent(attendees, eventDate, eventDescription, eventDuration, eventLocation, eventTitle, cancelled);
             calendarEvents.add(newEvent);
         }
 
@@ -204,10 +213,30 @@ public class CalendarActivity extends AppCompatActivity {
         LinearLayout eventsLayout = (dayLayout.findViewById(R.id.eventsLayout));
         eventsLayout.setId(date.get(Calendar.DAY_OF_MONTH));
         View eventLayout = getLayoutInflater().inflate(R.layout.calendar_event_cell, eventsLayout);
+
+        if(globals.EboardContains(globals.getLoggedIn().Position)) {
+            ((Button)eventLayout.findViewById(R.id.cancelBTN)).setVisibility(View.VISIBLE);
+        }
+        else {
+            ((Button)eventLayout.findViewById(R.id.cancelBTN)).setVisibility(View.GONE);
+        }
+
         if (editing) {
             eventLayout.findViewById(R.id.deleteBTN).setVisibility(View.VISIBLE);
-        } else {
-            eventLayout.findViewById(R.id.deleteBTN).setVisibility(View.GONE);
+            ((Button)eventLayout.findViewById(R.id.deleteBTN)).setText("Delete");
+        }
+        else {
+            if(calEvent.cancelled) {
+                eventLayout.findViewById(R.id.deleteBTN).setVisibility(View.VISIBLE);
+                ((Button)eventLayout.findViewById(R.id.deleteBTN)).setText("Cancelled");
+                Object bool = "true";
+                eventLayout.findViewById(R.id.cancelBTN).setTag(bool);
+            }
+            else {
+                eventLayout.findViewById(R.id.deleteBTN).setVisibility(View.GONE);
+                Object bool = "false";
+                eventLayout.findViewById(R.id.cancelBTN).setTag(bool);
+            }
         }
         final int idValue = ((Long) (calEvent.eventDate)).intValue();
         eventLayout.findViewById(R.id.deleteBTN).setId(idValue);
@@ -266,6 +295,9 @@ public class CalendarActivity extends AppCompatActivity {
             }
         });
 
+        eventLayout.findViewById(R.id.cancelBTN).setId(idValue);
+
+
         parent.addView(dayLayout);
     }
 
@@ -287,10 +319,28 @@ public class CalendarActivity extends AppCompatActivity {
         ((TextView) eventLayout.findViewById(R.id.eventDescription)).setText(
                 calEvent.eventDescription
         );
+        if(globals.EboardContains(globals.getLoggedIn().Position)) {
+            ((Button)eventLayout.findViewById(R.id.cancelBTN)).setVisibility(View.VISIBLE);
+        }
+        else {
+            ((Button)eventLayout.findViewById(R.id.cancelBTN)).setVisibility(View.GONE);
+        }
         if (editing) {
             eventLayout.findViewById(R.id.deleteBTN).setVisibility(View.VISIBLE);
-        } else {
-            eventLayout.findViewById(R.id.deleteBTN).setVisibility(View.GONE);
+            ((Button)eventLayout.findViewById(R.id.deleteBTN)).setText("Delete");
+        }
+        else {
+            if(calEvent.cancelled) {
+                eventLayout.findViewById(R.id.deleteBTN).setVisibility(View.VISIBLE);
+                ((Button)eventLayout.findViewById(R.id.deleteBTN)).setText("Cancelled");
+                Object bool = "true";
+                eventLayout.findViewById(R.id.cancelBTN).setTag(bool);
+            }
+            else {
+                eventLayout.findViewById(R.id.deleteBTN).setVisibility(View.GONE);
+                Object bool = "false";
+                eventLayout.findViewById(R.id.cancelBTN).setTag(bool);
+            }
         }
         final int idValue = ((Long) (calEvent.eventDate)).intValue();
 
@@ -329,9 +379,11 @@ public class CalendarActivity extends AppCompatActivity {
         });
 
         eventLayout.findViewById(R.id.deleteBTN).setId(idValue);
-        eventsLayout.addView(eventLayout);
-    }
+        eventLayout.findViewById(R.id.cancelBTN).setId(idValue);
 
+        eventsLayout.addView(eventLayout);
+
+    }
 
     //---------------------------------
     //  Editing/creating an event
@@ -353,28 +405,57 @@ public class CalendarActivity extends AppCompatActivity {
     }
 
     //------------------------------------
+    //  cancel an event
+    //
+
+    public void cancelEvent(View view) {
+
+        final View viewy = view;
+        if(viewy.getTag() == "false") {
+            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+            mDatabase.child(globals.DatabaseNode() + "/Calendar/" + viewy.getId() + "/Cancelled").setValue(true);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("The event has been cancelled").setTitle("cancelled");
+            builder.show();
+
+        }
+        else if(viewy.getTag() == "true") {
+            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+            mDatabase.child(globals.DatabaseNode() + "/Calendar/" + viewy.getId() + "/Cancelled").setValue(false);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("The event has been uncancelled").setTitle("Uncancelled");
+            builder.show();
+        }
+
+        reloadUI();
+    }
+
+    //------------------------------------
     //  Deleting an event
     //
     public void deleteEvent(View view) {
-        final View viewy = view;
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("You sure you wanna delete that, bro?").setTitle("Confirm Delete");
-        builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-                mDatabase.child(globals.DatabaseNode() + "/Calendar/" + viewy.getId()).removeValue();
-                reloadUI();
-            }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        });
-        AlertDialog dialog = builder.create();
-        dialog.show();
+
+        if(editing) {
+            final View viewy = view;
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("You sure you wanna delete that, bro?").setTitle("Confirm Delete");
+            builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+                    mDatabase.child(globals.DatabaseNode() + "/Calendar/" + viewy.getId()).removeValue();
+                    reloadUI();
+                }
+            });
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
     }
 
 }

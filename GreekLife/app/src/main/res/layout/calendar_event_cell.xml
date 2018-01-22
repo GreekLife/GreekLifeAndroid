@@ -86,6 +86,18 @@
                             android:textSize="10dp"
                             android:textStyle="bold" />
                     </LinearLayout>
+
+                    <Button
+                        android:id="@+id/cancelBTN"
+                        android:layout_width="wrap_content"
+                        android:layout_height="25sp"
+                        android:layout_weight="1"
+                        android:background="#222"
+                        android:onClick="cancelEvent"
+                        android:text="Cancel this event?"
+                        android:textAllCaps="false"
+                        android:textColor="#268cc5"
+                        android:textSize="12sp" />
                 </LinearLayout>
 
 
@@ -113,7 +125,9 @@
                 android:onClick="deleteEvent"
                 android:text="Delete"
                 android:textColor="#F00"
+                android:textSize="12sp"
                 android:visibility="gone"
+                android:background="#222"
                 android:layout_weight="1"/>
             <Button
                 android:id="@+id/whosGoing"

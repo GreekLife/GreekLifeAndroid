@@ -162,9 +162,14 @@ public class ForumActivity extends AppCompatActivity {
                                 comment.add(countedComment);
                             }
                         }
-                        if(gotItIds != null) {
+                        if(gotit != null) {
                             for(String key : gotit.keySet()) {
-                                gotItIds.add(key);
+                                try {
+                                    gotItIds.add(key);
+                                }
+                                catch(NullPointerException e) {
+
+                                }
                             }
                         }
                         Collections.reverse(comment);
